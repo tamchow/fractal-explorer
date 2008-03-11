@@ -108,4 +108,8 @@ private final String componentInfo = "ComplexTopLevelPanel";
 			return null;
 		}
 	}
+
+	public boolean isFractalSet() {
+		return complexFractalDrawer.isFractalSet();
+	}
 }

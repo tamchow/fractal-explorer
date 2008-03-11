@@ -123,7 +123,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 				Point2D end = ct.screenToUser(rect.x + rect.width, rect.y + rect.height);
 				ct.setUserDimensionX(start.getX(), end.getX());
 				ct.setUserDimensionY(end.getY(), start.getY());
-				drawFractal(complexFractal, false);
+				repaintFractal(false);
 			}
 		});
 		this.addMouseMotionListener(new MouseMotionAdapter() {
@@ -181,18 +181,32 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	 * @param clear
 	 *            DOCUMENT ME!
 	 */
-	public void drawFractal(ComplexFractal complexFractal, boolean clear) {
-		this.complexFractal = complexFractal;
+	public void drawFractal(ComplexFractal complexFractal) {
+		setFractal(complexFractal, true);
+		
 		stopDrawing();
-
-		if (clear) {
-			discardZoom();
-		}
 
 		thread = new Thread(this);
 		running = true;
 		thread.start();
 	}
+	
+	public void repaintFractal(boolean discardZoom){
+		if(discardZoom){
+			discardZoom();
+		}
+		thread = new Thread(this);
+		running = true;
+		thread.start();
+	}
+	
+	public void setFractal(ComplexFractal complexFractal, boolean originalZoom) {
+		this.complexFractal = complexFractal;
+		if(originalZoom){
+			discardZoom();
+		}
+	}
+
 
 	// ******************************************************************************
 	/**
@@ -375,5 +389,12 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 			double c = (ySpan - xSpan) / 2.0;
 			ct.setUserDimensionX(ct.getMinX() - c, ct.getMaxX() + c);
 		}
+	}
+
+	/**
+	 * @return the complexFractal
+	 */
+	public boolean isFractalSet() {
+		return complexFractal != null;
 	}
 }

@@ -45,7 +45,7 @@ public class ExecutionControl {
 		progressBar.setMaximum(drawer.getWidth() * drawer.getHeight());
 		
 		fractal.setPalette(complexTopLevelPanel.getPalette());
-		drawer.drawFractal(fractal, discardZoom);
+		drawer.drawFractal(fractal);
 	}
 
 	public void drawIterated() {
@@ -122,14 +122,30 @@ public class ExecutionControl {
 		this.statusLabel = statusLabel;
 	}
 
-	public void fixAspectRatio() {
+	public void complexFixAspectRatio() {
 		ComplexFractalDrawer drawer = complexTopLevelPanel.getComplexFractalDrawer();
 		if (drawer.isRunning()) {
 			return;
 		} else {
 			drawer.fixAspectRatio();
-			drawComplex(false);
+			repaintComplex();
 		}
+		
+	}
+
+	public void repaintComplex() {
+		ComplexFractalDrawer drawer = complexTopLevelPanel.getComplexFractalDrawer();
+		ComplexFractal fractal = complexTopLevelPanel.getComplexFractal();
+		progressBar.setValue(0);
+		progressBar.setMaximum(drawer.getWidth() * drawer.getHeight());
+		
+		if(complexTopLevelPanel.isFractalSet() == false){
+			drawer.setFractal(fractal, true);
+		}
+		
+		fractal.setPalette(complexTopLevelPanel.getPalette());
+		
+		drawer.repaintFractal(false);
 		
 	}
 }

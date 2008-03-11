@@ -217,11 +217,11 @@ public class ComplexOptionsPanel extends JPanel {
      * @param b DOCUMENT ME!
      */
     private void repaint_actionPerformed(boolean b) {
-        // TODO Auto-generated method stub
+        executionControl.repaintComplex();
     }
     
     private void aspectRatioButton_actionPerformed(ActionEvent e) {
-    	executionControl.fixAspectRatio();		
+    	executionControl.complexFixAspectRatio();		
 	}
 
 	/**
