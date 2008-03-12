@@ -60,8 +60,6 @@ public class ConvergentOptionsPanel extends ComplexOptionsPanel {
     //~ Instance fields ----------------------------------------------------------------------------------------------
 
     private JComboBox convergentFractalComboBox = new JComboBox(Fraktale.convergentFractals);
-//    private JComboBox complexFormulaComboBox = new JComboBox(
-//            ((ConvergentFractal)convergentFractalComboBox.getSelectedItem()).getFormulas().toArray());
 
     /** DOCUMENT ME! */
     protected JList rootsList = new JList(pointsListModel);
@@ -121,6 +119,8 @@ public class ConvergentOptionsPanel extends ComplexOptionsPanel {
             new GridBagConstraints(
                 1, 0, 1, 1, 0.25, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 0,
                 0));
+        
+        palette = (FractalPalette) paletteComboBox.getSelectedItem();
     }
     
     public ConvergentFractal getFractal(){

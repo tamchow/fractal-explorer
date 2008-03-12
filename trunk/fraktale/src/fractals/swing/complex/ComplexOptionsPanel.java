@@ -33,6 +33,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -102,6 +103,9 @@ public class ComplexOptionsPanel extends JPanel {
     
     protected ExecutionControl executionControl;
 
+    protected JCheckBox previewCheckBox = new JCheckBox();
+    
+    protected JButton drawButton = new JButton();
     //~ Constructors -------------------------------------------------------------------------------------------------
 
 /**
@@ -121,7 +125,7 @@ public class ComplexOptionsPanel extends JPanel {
         this.add(
             fractalLabel,
             new GridBagConstraints(
-                0, 0, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2, 5, 3, 5), 0, 0));
+                0, 0, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2, 5, 3, 5), 0, 0));
 
         repaintButton.setText("Repaint");
         repaintButton.addActionListener(
@@ -130,6 +134,7 @@ public class ComplexOptionsPanel extends JPanel {
                     repaint_actionPerformed(false);
                 }
             });
+        repaintButton.setEnabled(false);
         this.add(
             repaintButton,
             new GridBagConstraints(
@@ -141,7 +146,7 @@ public class ComplexOptionsPanel extends JPanel {
         this.add(
             formulaLabel,
             new GridBagConstraints(
-                0, 2, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+                0, 2, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
         formulaComboBox.addActionListener(
         		new ActionListener() {
@@ -169,7 +174,7 @@ public class ComplexOptionsPanel extends JPanel {
         this.add(
                 formulaComboBox,
                 new GridBagConstraints(
-                    0, 3, 2, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
+                    0, 3, 3, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
                         0, 3, 0, 3), 0, 0));
         
         pointListScrollPane.setEnabled(false);
@@ -182,7 +187,7 @@ public class ComplexOptionsPanel extends JPanel {
         this.add(
             pointListScrollPane,
             new GridBagConstraints(
-                0, 4, 2, 1, 1.0, 0.4, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 3, 0, 3), 0, 0));
+                0, 4, 3, 1, 1.0, 0.4, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 3, 0, 3), 0, 0));
         
         aspectRatioButton.setPreferredSize(new Dimension(100, 25));
         aspectRatioButton.setMinimumSize(new Dimension(80, 25));
@@ -194,7 +199,9 @@ public class ComplexOptionsPanel extends JPanel {
         			aspectRatioButton_actionPerformed(e);
         		}
         	});
-
+        
+        aspectRatioButton.setEnabled(false);
+        
         this.add(
             aspectRatioButton,
             new GridBagConstraints(
@@ -205,8 +212,23 @@ public class ComplexOptionsPanel extends JPanel {
         this.add(
                 palettePanel,
                 new GridBagConstraints(
-                    0, 5, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
+                    0, 5, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
                         3, 3, 3, 3), 0, 0));
+        
+        previewCheckBox.setText("Preview");
+        this.add(previewCheckBox,
+        		new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(3, 5, 3, 5), 0, 0));
+        
+        drawButton.setText("Draw");
+        drawButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				drawButton_actionPerformed();
+			}
+        });
+        
+        this.add(drawButton,
+        		new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(3, 5, 3, 5), 0, 0));
+        
     }
 
     //~ Methods ------------------------------------------------------------------------------------------------------
@@ -230,5 +252,15 @@ public class ComplexOptionsPanel extends JPanel {
 	public FractalPalette getPalette() {
 		return palette;
 	}
+	
+	public boolean isPreviewEnabled(){
+		return previewCheckBox.isSelected();
+	}
     
+	private void drawButton_actionPerformed() {
+		executionControl.drawComplex(true);
+		repaintButton.setEnabled(true);
+		aspectRatioButton.setEnabled(true);
+		
+	}
 }

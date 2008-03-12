@@ -62,8 +62,7 @@ public class DivergentOptionsPanel extends ComplexOptionsPanel {
     //~ Instance fields ----------------------------------------------------------------------------------------------
 
     private JComboBox divergentFractalComboBox = new JComboBox(Fraktale.divergentFractals);
-//    private JComboBox complexFormulaComboBox = new JComboBox(
-//            ((DivergentFractal)divergentFractalComboBox.getSelectedItem()).getFormulas().toArray());
+
     private JList startingPointsList = new JList(pointsListModel);
     private JComboBox paletteComboBox = new JComboBox(Palettes.getPalettesDivergent());
 
@@ -131,6 +130,8 @@ public class DivergentOptionsPanel extends ComplexOptionsPanel {
             new GridBagConstraints(
                 1, 0, 1, 1, 0.25, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 0,
                 0));
+        
+        palette = (FractalPalette) paletteComboBox.getSelectedItem();
     }
 
     //~ Methods ------------------------------------------------------------------------------------------------------
