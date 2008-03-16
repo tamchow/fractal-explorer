@@ -157,7 +157,7 @@ public class ComplexOptionsPanel extends JPanel {
                             if (formula == null) {
                                 return;
                             }
-
+                            
                             pointsListModel.clear();
 
                             if (formula.getPoints() == null) {
@@ -262,5 +262,9 @@ public class ComplexOptionsPanel extends JPanel {
 		repaintButton.setEnabled(true);
 		aspectRatioButton.setEnabled(true);
 		
+	}
+	
+	public Formula getFormula(){
+		return (Formula) formulaComboBox.getSelectedItem();
 	}
 }

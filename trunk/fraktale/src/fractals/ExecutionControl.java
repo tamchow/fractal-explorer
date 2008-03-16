@@ -43,9 +43,12 @@ public class ExecutionControl {
 		ComplexFractal fractal = complexTopLevelPanel.getComplexFractal();
 		resetProgressBar();
 		
+		fractal.setPalette(complexTopLevelPanel.getPalette());
+		fractal.setFormula(complexTopLevelPanel.getFormula());
+		
 		drawer.setFractal(fractal, true);
 		
-		fractal.setPalette(complexTopLevelPanel.getPalette());
+		drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
 		drawer.drawFractal(fractal);
 	}
 
@@ -129,6 +132,8 @@ public class ExecutionControl {
 		} else {
 			drawer.fixAspectRatio();
 			resetProgressBar();
+			
+			drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
 			drawer.repaintFractal(false);
 		}
 		
@@ -141,7 +146,7 @@ public class ExecutionControl {
 		resetProgressBar();
 		
 		fractal.setPalette(complexTopLevelPanel.getPalette());
-		
+		drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
 		drawer.repaintFractal(false);	
 	}
 	

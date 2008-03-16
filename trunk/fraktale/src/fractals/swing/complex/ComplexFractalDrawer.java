@@ -81,6 +81,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 
 	private FontMetrics fontMetrics;
 
+	private boolean previewEnabled = false;
 	// ~ Constructors
 	// -------------------------------------------------------------------------------------------------
 
@@ -234,8 +235,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 			
 			executionControl.setProgress(value);
 			
-			boolean preview = true;
-			if (preview) {
+			if (previewEnabled) {
 				repaint(0, y, w-1, 1);
 			}
 		} // for y
@@ -396,5 +396,12 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	 */
 	public boolean isFractalSet() {
 		return complexFractal != null;
+	}
+
+	/**
+	 * @param previewEnabled the previewEnabled to set
+	 */
+	public void setPreviewEnabled(boolean previewEnabled) {
+		this.previewEnabled = previewEnabled;
 	}
 }

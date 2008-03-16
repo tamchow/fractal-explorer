@@ -18,6 +18,7 @@ package fractals.swing.complex;
 
 import fractals.ExecutionControl;
 import fractals.complex.ComplexFractal;
+import fractals.complex.Formula;
 import fractals.palette.FractalPalette;
 import fractals.swing.FraktalApplet;
 
@@ -111,5 +112,25 @@ private final String componentInfo = "ComplexTopLevelPanel";
 
 	public boolean isFractalSet() {
 		return complexFractalDrawer.isFractalSet();
+	}
+	
+	public boolean isPreviewEnabled(){
+		if(complexFractalTypeTabbedPane.getSelectedIndex()==0){// divergent
+			return divergentOptionsPanel.isPreviewEnabled();
+		}else if(complexFractalTypeTabbedPane.getSelectedIndex()==1){ // convergent
+			return convergentOptionsPanel.isPreviewEnabled();
+		}else{
+			return true;
+		}
+	}
+
+	public Formula getFormula() {
+		if(complexFractalTypeTabbedPane.getSelectedIndex()==0){// divergent
+			return divergentOptionsPanel.getFormula();
+		}else if(complexFractalTypeTabbedPane.getSelectedIndex()==1){ // convergent
+			return convergentOptionsPanel.getFormula();
+		}else{
+			return null;
+		}
 	}
 }
