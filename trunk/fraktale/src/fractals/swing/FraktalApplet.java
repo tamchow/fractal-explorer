@@ -125,7 +125,6 @@ public class FraktalApplet extends JApplet {
         statusLabel.setForeground(Color.black);
         statusLabel.setText("Location [0.0; 0.0]");
       
-
         this.getContentPane().add(topLevelPanel, BorderLayout.CENTER);
         
         topLevelPanel.add(

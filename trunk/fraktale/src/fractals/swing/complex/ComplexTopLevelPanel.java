@@ -20,8 +20,6 @@ import fractals.ExecutionControl;
 import fractals.complex.ComplexFractal;
 import fractals.complex.Formula;
 import fractals.palette.FractalPalette;
-import fractals.swing.FraktalApplet;
-
 import fractals.swing.complex.convergent.ConvergentOptionsPanel;
 import fractals.swing.complex.divergent.DivergentOptionsPanel;
 
