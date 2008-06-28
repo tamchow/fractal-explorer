@@ -53,12 +53,12 @@ public class Mandelbrot extends DivergentFractal {
 
         double magn = 0;
 
-        for (int i = 0; i < palette.getSize(); i++) {
+        for (int i = 1; i < palette.getSize(); i++) {
             z = formula.calculate(z);
             magn = z.magnitude();
 
             if (magn > radius) {
-                float position = i - (float)(Math.log10(Math.log10(magn)) / Math.log(2));
+                float position = i - (float)(Math.log10(Math.log10(magn)) / Math.log(formula.getPolynomialOrder()));
                 position /= (float)(palette.getSize() - 1);
 
                 return palette.getRGB(position);
@@ -91,6 +91,15 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^2 + C";
                 }
+
+
+				@Override
+				public int getPolynomialOrder() {
+					return 2;
+				}
+                
+                
+                
             });
         // ##############################################################################
         formulas.add(
@@ -108,6 +117,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^2 + Z + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 2;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -125,6 +139,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^3 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 3;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -143,6 +162,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^3 + Z^2 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 3;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -161,6 +185,12 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^3 + Z^2 + Z + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 3;
+				}
+                
             });
         // ##############################################################################
         formulas.add(
@@ -178,6 +208,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^4 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 4;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -196,6 +231,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^4 + Z^3 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 4;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -215,6 +255,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^4 + Z^3 + Z^2 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 4;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -234,6 +279,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^4 + Z^3 + Z^2 + Z + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 4;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -253,6 +303,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^5 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 5;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -272,6 +327,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^5 + Z^4 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 5;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -293,6 +353,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^5 + Z^4 + Z^3 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 5;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -315,6 +380,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^5 + Z^4 + Z^3 + Z^2 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 5;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -337,6 +407,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^5 + Z^4 + Z^3 + Z^2 + Z + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 5;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -356,6 +431,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^6 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 6;
+				}
             });
         // ##############################################################################
         formulas.add(
@@ -380,6 +460,11 @@ public class Mandelbrot extends DivergentFractal {
                 public String toString() {
                     return "Z^8 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 8;
+				}
             });
         formula = formulas.get(0);
     }

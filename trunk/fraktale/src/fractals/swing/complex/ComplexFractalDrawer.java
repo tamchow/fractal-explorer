@@ -101,8 +101,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		this.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
 				ct.setScreenDimensions(getWidth(), getHeight());
-				bi = new BufferedImage(getWidth(), getHeight(),
-						BufferedImage.TYPE_INT_RGB);
+				bi = new BufferedImage(getWidth(), getHeight(),	BufferedImage.TYPE_INT_RGB);
 			}
 		});
 		this.addMouseListener(new MouseAdapter() {
@@ -117,25 +116,20 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 					mouseDragged = false;
 					endPoint = e.getPoint();
 				}
+				
+				if(complexFractal != null){
+					setRectangle();
 
-				setRectangle();
-
-				Point2D start = ct.screenToUser(rect.x, rect.y);
-				Point2D end = ct.screenToUser(rect.x + rect.width, rect.y + rect.height);
-				ct.setUserDimensionX(start.getX(), end.getX());
-				ct.setUserDimensionY(end.getY(), start.getY());
-				repaintFractal(false);
+					Point2D start = ct.screenToUser(rect.x, rect.y);
+					Point2D end = ct.screenToUser(rect.x + rect.width, rect.y + rect.height);
+					ct.setUserDimensionX(start.getX(), end.getX());
+					ct.setUserDimensionY(end.getY(), start.getY());
+				
+					repaintFractal(false);
+				}
 			}
 		});
 		this.addMouseMotionListener(new MouseMotionAdapter() {
-			public void mouseMoved(MouseEvent e) {
-				Point2D p = ct.screenToUser(e.getX(), e.getY());
-				StringBuilder sb = new StringBuilder("[ ");
-				sb.append(numberFormat.format(p.getX()));
-				sb.append("; ").append(numberFormat.format(p.getY()));
-				sb.append(" ]");
-				executionControl.setStatusString(sb.toString());
-			}
 
 			/**
 			 * DOCUMENT ME!
@@ -151,13 +145,6 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 
 					return;
 				}
-
-				Point2D p = ct.screenToUser(e.getX(), e.getY());
-				StringBuilder sb = new StringBuilder("[ ");
-				sb.append(numberFormat.format(p.getX()));
-				sb.append("; ").append(numberFormat.format(p.getY()));
-				sb.append(" ]");
-				executionControl.setStatusString(sb.toString());
 
 				synchronized (this) {
 					mouseDragged = true;
@@ -196,9 +183,13 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		if(discardZoom){
 			discardZoom();
 		}
+		
+		previewEnabled = executionControl.isPreviewEnabled();
+		
 		thread = new Thread(this);
 		running = true;
 		thread.start();
+//		executionControl.getInstance().drawComplex(discardZoom);
 	}
 	
 	public void setFractal(ComplexFractal complexFractal, boolean originalZoom) {
@@ -226,6 +217,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		for (y = 0, v = ct.getMaxY(); y < h; y++, v -= dv) {
 			for (x = 0, u = ct.getMinX(); x < w; x++, u += du) {
 				if (running == false) {
+					repaint();
 					return;
 				}
 				bi.setRGB(x, y, complexFractal.rgbColor(u, v));
@@ -325,20 +317,28 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 			g2.setColor(Color.white);
 			g2.draw(rect);
 
-			StringBuilder sb = new StringBuilder("[ ");
-			Point2D userPoint = ct.screenToUser(startPoint.getX(), startPoint
-					.getY());
-			sb.append(numberFormat.format(userPoint.getX()));
-			sb.append("; ").append(numberFormat.format(userPoint.getY()))
-					.append(" ]");
+			drawStringInRectangle(startPoint, g2, true);
+			drawStringInRectangle(endPoint, g2, false);
+			
+		}
+	}
+	
+	// **********************************************************************************
+	
+	private void drawStringInRectangle(Point point, Graphics2D g2, boolean beforePointer){
+		StringBuilder sb = new StringBuilder("[ ");
+		Point2D userPoint = ct.screenToUser(point.getX(), point.getY());
+		sb.append(numberFormat.format(userPoint.getX()));
+		sb.append("; ").append(numberFormat.format(userPoint.getY())).append(" ]");
 
-			int rectWidth = fontMetrics.stringWidth(sb.toString()) + 4;
-			int rectHeight = fontMetrics.getHeight() + 3;
-			int x; // coordinates of the info rectangle
-			int y; // coordinates of the info rectangle
-			int pointX = (int) Math.round(startPoint.getX());
-			int pointY = (int) Math.round(startPoint.getY());
+		int rectWidth = fontMetrics.stringWidth(sb.toString()) + 4;
+		int rectHeight = fontMetrics.getHeight() + 3;
+		int x; // coordinates of the info rectangle
+		int y; // coordinates of the info rectangle
+		int pointX = (int) Math.round(point.getX());
+		int pointY = (int) Math.round(point.getY());
 
+		if(beforePointer){
 			if (pointX < MARGIN || (pointX - rectWidth) < MARGIN) {
 				x = MARGIN;
 			} else if ((pointX + rectWidth) > bi.getWidth()) {
@@ -354,12 +354,31 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 			} else {
 				y = pointY - rectHeight - MARGIN;
 			}
+		}else{
+			if (pointX < MARGIN || (pointX) < MARGIN) {
+				x = MARGIN;
+			} else if ((pointX + rectWidth + MARGIN) > bi.getWidth()) {
+				x = bi.getWidth() - rectWidth - MARGIN;
+			} else {
+				x = pointX + MARGIN;
+			}
 
-			g2.fillRect(x, y, rectWidth, rectHeight);
-			g2.setColor(Color.black);
-//			g2.drawRect(x+1, y+1, rectWidth-3, rectHeight-3);
-			g2.drawString(sb.toString(), x + 2, y + fontMetrics.getHeight() - 3);
+			if (pointY < MARGIN || (pointY) < MARGIN) {
+				y = MARGIN;
+			} else if ((pointY + rectHeight + MARGIN) > bi.getHeight()) {
+				y = bi.getHeight() - rectHeight - MARGIN;
+			} else {
+				y = pointY + MARGIN;
+			}
 		}
+		
+		
+
+		g2.setColor(Color.white);
+		
+		g2.fillRect(x, y, rectWidth, rectHeight);
+		g2.setColor(Color.black);
+		g2.drawString(sb.toString(), x + 2, y + fontMetrics.getHeight() - 3);
 	}
 
 	// ******************************************************************************

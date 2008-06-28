@@ -40,10 +40,24 @@ public class FractalPaletteRenderer extends JLabel implements ListCellRenderer {
     /**  */
     private static final long serialVersionUID = -8829957090955734869L;
 
-    private static final int WIDTH = 80;
+    private static final int WIDTH = 120;
     private static final int HEIGHT = 15;
+    
+    private static Color defaultBackground;
+    private static Color focusedBackground;
+    private static Color defaultForeground;
+    private static Color focusedForeground;
     //~ Methods ------------------------------------------------------------------------------------------------------
 
+    public FractalPaletteRenderer(){
+    	super();
+    	defaultBackground = this.getBackground();
+    	focusedBackground = defaultBackground.darker().darker();
+    	defaultForeground = this.getForeground();
+    	focusedForeground = defaultForeground.brighter().brighter();
+    	
+    }
+    
     /**
      * DOCUMENT ME!
      *
@@ -58,10 +72,10 @@ public class FractalPaletteRenderer extends JLabel implements ListCellRenderer {
     public Component getListCellRendererComponent(
         JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         
+    	
+    	
     	FractalPalette palette = (FractalPalette)value;
         this.setText(" [" + palette.getSize() + "]");
-
-        setBackground(Color.red);
 
         BufferedImage im = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = im.createGraphics();
@@ -78,7 +92,11 @@ public class FractalPaletteRenderer extends JLabel implements ListCellRenderer {
         setIcon(new ImageIcon(im));
 
         if (cellHasFocus || isSelected) {
-            setBackground(getBackground().darker().darker());
+            setBackground(focusedBackground);
+            setForeground(focusedForeground);
+        }else{
+        	setBackground(defaultBackground);
+            setForeground(defaultForeground);
         }
 
         return this;

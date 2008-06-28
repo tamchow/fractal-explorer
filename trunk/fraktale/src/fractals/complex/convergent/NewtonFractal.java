@@ -64,6 +64,11 @@ public class NewtonFractal extends ConvergentFractal {
                     public String toString() {
                         return function1.toString();
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return function1.getOrder(new Variable.Local<Complex>("z"));
+    				}
                 };
 
         Complex[] roots = {
@@ -89,6 +94,11 @@ public class NewtonFractal extends ConvergentFractal {
                     public String toString() {
                         return function2.toString();
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return function1.getOrder(new Variable.Local<Complex>("z"));
+    				}
                 };
 
         Complex[] roots2 = {

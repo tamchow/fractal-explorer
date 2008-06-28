@@ -62,7 +62,7 @@ private final String componentInfo = "ComplexTopLevelPanel";
         complexFractalDrawer = new ComplexFractalDrawer();
         this.setLayout(new GridBagLayout());
 
-        complexFractalTypeTabbedPane.addTab("Divrgent", divergentOptionsPanel);
+        complexFractalTypeTabbedPane.addTab("Divergent", divergentOptionsPanel);
         complexFractalTypeTabbedPane.addTab("Convergent", convergentOptionsPanel);
 
         this.add(
@@ -118,8 +118,12 @@ private final String componentInfo = "ComplexTopLevelPanel";
 		}else if(complexFractalTypeTabbedPane.getSelectedIndex()==1){ // convergent
 			return convergentOptionsPanel.isPreviewEnabled();
 		}else{
-			return true;
+			return false;
 		}
+	}
+	
+	public void setPreviewEnabled(boolean preview){
+		complexFractalDrawer.setPreviewEnabled(preview);
 	}
 
 	public Formula getFormula() {

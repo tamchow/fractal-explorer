@@ -49,6 +49,11 @@ public class FireShip extends DivergentFractal {
                 public String toString() {
                     return "|Z|^2 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 1;
+				}
             };
 
         formulas.add(form);

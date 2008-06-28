@@ -49,6 +49,11 @@ public class TrygonometricMandelbrot extends DivergentFractal {
                 public String toString() {
                     return "C * sin(Z)";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 1;
+				}
             };
 
         formulas.add(formula);
@@ -67,6 +72,11 @@ public class TrygonometricMandelbrot extends DivergentFractal {
                     public String toString() {
                         return "C * cos(Z)";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 1;
+    				}
                 };
         formulas.add(formula);
         formula = formulas.get(0);

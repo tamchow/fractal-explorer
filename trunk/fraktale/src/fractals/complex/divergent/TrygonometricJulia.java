@@ -49,6 +49,11 @@ public class TrygonometricJulia extends DivergentFractal {
                 public String toString() {
                     return "C * sin(Z)";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 1;
+				}
             };
 
         Complex[] points = new Complex[] {
@@ -76,6 +81,11 @@ public class TrygonometricJulia extends DivergentFractal {
                     public String toString() {
                         return "C * cos(Z)";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 1;
+    				}
                 };
         points = new Complex[] {
                 new Complex(1.0, 0.0), new Complex(1.0, 0.2), new Complex(1.0, 0.3), new Complex(1.0, 0.4),

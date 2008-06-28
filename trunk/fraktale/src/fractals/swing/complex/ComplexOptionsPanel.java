@@ -106,6 +106,8 @@ public class ComplexOptionsPanel extends JPanel {
     protected JCheckBox previewCheckBox = new JCheckBox();
     
     protected JButton drawButton = new JButton();
+    
+    protected JButton stopButton = new JButton();
     //~ Constructors -------------------------------------------------------------------------------------------------
 
 /**
@@ -151,23 +153,15 @@ public class ComplexOptionsPanel extends JPanel {
         formulaComboBox.addActionListener(
         		new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        if (e.getSource() == formulaComboBox) {
+                        //if (e.getSource() == formulaComboBox) {
                             Formula formula = (Formula)formulaComboBox.getSelectedItem();
 
                             if (formula == null) {
                                 return;
                             }
                             
-                            pointsListModel.clear();
-
-                            if (formula.getPoints() == null) {
-                                return;
-                            }
-
-                            for (int i = 0; i < formula.getPoints().length; i++) {
-                                pointsListModel.addElement(formula.getPoints()[i]);
-                            }
-                        }
+                            setupPointList(formula);
+                        //}
                     }
                 });
         
@@ -216,6 +210,7 @@ public class ComplexOptionsPanel extends JPanel {
                         3, 3, 3, 3), 0, 0));
         
         previewCheckBox.setText("Preview");
+        
         this.add(previewCheckBox,
         		new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(3, 5, 3, 5), 0, 0));
         
@@ -229,11 +224,26 @@ public class ComplexOptionsPanel extends JPanel {
         this.add(drawButton,
         		new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(3, 5, 3, 5), 0, 0));
         
+        stopButton.setText("Stop");
+        stopButton.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent arg0) {
+				stopButton_actionPerformed();
+			}
+        });
+        
+        this.add(stopButton,
+        		new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(3, 5, 3, 5), 0, 0));
     }
 
     //~ Methods ------------------------------------------------------------------------------------------------------
 
-    /**
+    protected void stopButton_actionPerformed() {
+    	ExecutionControl.getInstance().stopDrawing();
+	
+}
+
+	/**
      * DOCUMENT ME!
      *
      * @param b DOCUMENT ME!
@@ -266,5 +276,18 @@ public class ComplexOptionsPanel extends JPanel {
 	
 	public Formula getFormula(){
 		return (Formula) formulaComboBox.getSelectedItem();
+	}
+	
+	protected void setupPointList(Formula formula){
+		pointsListModel.clear();
+
+        if (formula.getPoints() == null) {
+            return;
+        }
+
+        for (int i = 0; i < formula.getPoints().length; i++) {
+            pointsListModel.addElement(formula.getPoints()[i]);
+        }
+        formula.setConstans(formula.getPoints()[0]);
 	}
 }

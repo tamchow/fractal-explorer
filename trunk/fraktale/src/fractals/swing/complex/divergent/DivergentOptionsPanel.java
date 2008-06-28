@@ -47,6 +47,8 @@ import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
+import org.jscience.mathematics.numbers.Complex;
+
 
 /**
  * DOCUMENT ME!
@@ -142,7 +144,12 @@ public class DivergentOptionsPanel extends ComplexOptionsPanel {
      * @param b DOCUMENT ME!
      */
     private void repaint_actionPerformed(boolean b) {
-        // TODO Auto-generated method stub
+    	DivergentFractal fractal = getFractal();
+    	fractal.setFormula(getFormula());
+    	Formula formula = fractal.getFormula();
+    	Complex point = (Complex)(startingPointsList.getSelectedValue());
+    	formula.setConstans(point);
+    	ExecutionControl.getInstance().drawComplex(b);
     }
     
     public DivergentFractal getFractal(){
@@ -157,6 +164,7 @@ public class DivergentOptionsPanel extends ComplexOptionsPanel {
         for (int i = 0; i < formulas.size(); i++) {
             formulaComboBox.addItem(formulas.get(i));
         }
-        formulaComboBox.repaint();
+        
+        repaint();
     }
 }

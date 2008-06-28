@@ -101,23 +101,26 @@ public class ConvergentFractal extends ComplexFractal {
     public int rgbColor(double u, double v) {
         int i = 0;
         z = Complex.valueOf(u, v);
+        final int paletteSize = palette.getSize();
+        while (i < (paletteSize >> 2)) {
+        	// zn+1 = zn - fn[zn]/f'[zn]
+        	z = z.minus(formula.calculate(z));
+        	i++;
 
-        while (i < palette.getSize()) {
-            // zn+1 = zn - fn[zn]/f'[zn]
-            z = z.minus(formula.calculate(z));
-            i++;
+        	Complex[] roots = formula.getPoints();
 
-            try {
-                Complex[] roots = formula.getPoints();
+        	for (int k = 0; k < roots.length; k++) {
+        		int idx = 0;
+        		try {
+        			if (z.minus(roots[k]).magnitude() < accuracy) {
+        				idx = ((paletteSize * k) / roots.length) + i-1;
+        				return palette.getRGB(idx);
+        			}
+        		} catch (ArrayIndexOutOfBoundsException a) {
+        			System.out.println("palette.length = "+palette.getSize()+", idx="+idx);
+        		}
+        	}
 
-                for (int k = 0; k < roots.length; k++) {
-                    if (z.minus(roots[k]).magnitude() < accuracy) {
-                        return palette.getRGB(((palette.getSize() * k) / roots.length) + i);
-                    }
-                }
-            } catch (ArrayIndexOutOfBoundsException a) {
-                //return 0x000000;
-            }
         }
 
         return 0x000000;

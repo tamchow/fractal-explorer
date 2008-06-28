@@ -155,4 +155,16 @@ public class ExecutionControl {
 		progressBar.setValue(0);
 		progressBar.setMaximum(drawer.getWidth() * drawer.getHeight());
 	}
+	
+	public void setPreviewEnabled(boolean preview){
+		complexTopLevelPanel.setPreviewEnabled(preview);
+	}
+	
+	public boolean isPreviewEnabled(){
+		return complexTopLevelPanel.isPreviewEnabled();
+	}
+
+	public void stopDrawing() {
+		complexTopLevelPanel.getComplexFractalDrawer().stopDrawing();
+	}
 }

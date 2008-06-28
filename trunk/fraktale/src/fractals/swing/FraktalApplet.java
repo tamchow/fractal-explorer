@@ -23,6 +23,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JApplet;
@@ -30,6 +31,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
+
+import org.apache.log4j.PropertyConfigurator;
+
 import fractals.ExecutionControl;
 import fractals.swing.complex.ComplexTopLevelPanel;
 import fractals.swing.ifs.IFSTopLevelPanel;
@@ -71,6 +75,8 @@ public class FraktalApplet extends JApplet {
      * DOCUMENT ME!
      */
     public void init() {
+    	//System.out.println(new File(".").getAbsolutePath());
+    	PropertyConfigurator.configure("../log4j.properties");
         //        palette = Palettes.getPaletteDivergent(0);
         try {
             componentsInit();
@@ -123,7 +129,7 @@ public class FraktalApplet extends JApplet {
         statusPanel.setBorder(BorderFactory.createEtchedBorder());
         statusPanel.setLayout(borderLayout1);
         statusLabel.setForeground(Color.black);
-        statusLabel.setText("Location [0.0; 0.0]");
+        statusLabel.setText(" ");
       
         this.getContentPane().add(topLevelPanel, BorderLayout.CENTER);
         

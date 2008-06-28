@@ -212,4 +212,6 @@ public abstract class Formula {
     public void setMinY(double minY) {
         this.minY = minY;
     }
+
+	public abstract int getPolynomialOrder();
 }

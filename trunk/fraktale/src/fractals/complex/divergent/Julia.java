@@ -83,6 +83,11 @@ public class Julia extends DivergentFractal {
                 public String toString() {
                     return "Z^2 + C";
                 }
+                
+                @Override
+				public int getPolynomialOrder() {
+					return 2;
+				}
             };
 
         Complex[] points = new Complex[] {
@@ -113,6 +118,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^2 + Z + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 2;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-0.3, 0.75), Complex.valueOf(-0.35, 0.84), Complex.valueOf(-0.4, 0.84),
@@ -141,6 +151,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^3 + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 3;
+    				}
                 };
         formula.setPoints(points);
         formula.setConstans(points[0]);
@@ -161,6 +176,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^3 + Z^2 + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 3;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(0.14, 0.36), Complex.valueOf(-1.039, 0.024), Complex.valueOf(-1.066, 0.416),
@@ -192,6 +212,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^3 + Z^2 + Z + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 3;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-0.14, 0.0), Complex.valueOf(-0.195, 0.01), Complex.valueOf(-0.383, 0.13),
@@ -225,6 +250,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^4 + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 4;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.235, 0.0), Complex.valueOf(-1.129, 0.07), Complex.valueOf(-1.058, 0.066),
@@ -252,6 +282,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^4 + Z^3 + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 4;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.52, 0.0), Complex.valueOf(-1.503, 0.031), Complex.valueOf(-1.43, 0.064),
@@ -287,6 +322,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^4 + Z^3 + Z^2 + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 4;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.236, 0.0), Complex.valueOf(-1.103, -0.015), Complex.valueOf(-1.054, 0.081),
@@ -321,6 +361,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^4 + Z^3 + Z^2 + Z + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 4;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-0.965, -6.6e-4), Complex.valueOf(-0.878, 0.013), Complex.valueOf(-0.834, 0.009),
@@ -354,6 +399,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^5 + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 5;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(0.001, 0.678), Complex.valueOf(0.062, 0.634), Complex.valueOf(0.115, 0.662),
@@ -384,6 +434,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^6 + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 6;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.139, 9.85e-4), Complex.valueOf(-1.058, 0.031), Complex.valueOf(-1.079, 0.017),
@@ -420,6 +475,11 @@ public class Julia extends DivergentFractal {
                     public String toString() {
                         return "Z^8 + C";
                     }
+                    
+                    @Override
+    				public int getPolynomialOrder() {
+    					return 8;
+    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.1, 4.28e-4), Complex.valueOf(-1.062, 0.015), Complex.valueOf(-1.055, 0.04),
@@ -451,7 +511,7 @@ public class Julia extends DivergentFractal {
     public final int rgbColor(final double u, final double v) {
         z = Complex.valueOf(u, v);
 
-        for (int i = 0; i < palette.getSize(); i++) {
+        for (int i = 1; i < palette.getSize(); i++) {
             z = formula.calculate(z);
 
             double magn = z.magnitude();
@@ -460,8 +520,9 @@ public class Julia extends DivergentFractal {
             //                return palette[i];
             //            }
             if (magn > radius) {
-                float position = i - (float)(Math.log10(Math.log10(magn)) / Math.log(2));
-
+                float position = i - (float)(Math.log10(Math.log10(magn)) / Math.log(formula.getPolynomialOrder()));
+                position /= (float)(palette.getSize() -1);
+                
                 return palette.getRGB(position);
             }
         }
