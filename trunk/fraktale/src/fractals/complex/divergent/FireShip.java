@@ -27,15 +27,16 @@ import org.jscience.mathematics.numbers.Complex;
  * @version $Revision: 000 $
 */
 public class FireShip extends DivergentFractal {
+	private static final int RGB_BLACK = 0x000000;
     //~ Constructors -------------------------------------------------------------------------------------------------
 
 /**
      * Creates a new FireShip object.
      */
     public FireShip() {
-        super("Fire ship", 2.0);
+        super("Fire ship", 5.0);
 
-        Formula form = new Formula(-2.5, 2.5, -2.5, 2.5) {
+        Formula form = new Formula(-2.5, 2.0, -3.0, 2.5) {
                 public final Complex calculate(Complex z) {
                     re2 = z.getReal() * z.getReal();
                     im2 = z.getImaginary() * z.getImaginary();
@@ -52,7 +53,7 @@ public class FireShip extends DivergentFractal {
                 
                 @Override
 				public int getPolynomialOrder() {
-					return 1;
+					return 0;
 				}
             };
 
@@ -83,6 +84,6 @@ public class FireShip extends DivergentFractal {
             }
         }
 
-        return 0x000000;
+        return RGB_BLACK;
     }
 }

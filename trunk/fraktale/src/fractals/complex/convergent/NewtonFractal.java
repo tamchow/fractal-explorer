@@ -46,28 +46,32 @@ public class NewtonFractal extends ConvergentFractal {
      * DOCUMENT ME!
      */
     private void createFormulas() {
-        Variable.Local<Complex> varZ = new Variable.Local<Complex>("z");
+        formulas.add(createFormula1());
+        formulas.add(createFormula2());
+    }
 
-        final Polynomial<Complex> function1 = Polynomial.valueOf(Complex.ONE, varZ).pow(3).plus(
+	private Formula createFormula1() {
+		Variable.Local<Complex> varZ = new Variable.Local<Complex>("z");
+		final Polynomial<Complex> function = Polynomial.valueOf(Complex.ONE, varZ).pow(3).plus(
                 Complex.valueOf(-1, 0));
-        final Polynomial<Complex> derivative1 = function1.differentiate(function1.getVariables().get(0));
+        final Polynomial<Complex> derivative = function.differentiate(function.getVariables().get(0));
 
-        formula = new Formula(-2, 2, -2, 2) {
+        Formula formula = new Formula(-2, 2, -2, 2) {
                     public Complex calculate(Complex value) {
-                        Complex funcValue = function1.evaluate(value);
-                        Complex derivValue = derivative1.evaluate(value);
+                        Complex funcValue = function.evaluate(value);
+                        Complex derivValue = derivative.evaluate(value);
 
                         return funcValue.divide(derivValue);
                     }
 
 
                     public String toString() {
-                        return function1.toString();
+                        return function.toString();
                     }
                     
                     @Override
     				public int getPolynomialOrder() {
-    					return function1.getOrder(new Variable.Local<Complex>("z"));
+    					return 3;
     				}
                 };
 
@@ -76,35 +80,38 @@ public class NewtonFractal extends ConvergentFractal {
                 Complex.valueOf(-0.5, -Math.sqrt(3) / 2)
             };
         formula.setPoints(roots);
-        formulas.add(formula);
+        return formula;
+	}
 
-        final Polynomial<Complex> function2 = Polynomial.valueOf(Complex.ONE, varZ).pow(4).plus(
+	private Formula createFormula2() {
+		Variable.Local<Complex> varZ = new Variable.Local<Complex>("z");
+		final Polynomial<Complex> function = Polynomial.valueOf(Complex.ONE, varZ).pow(4).plus(
                 Complex.valueOf(-1, 0));
-        final Polynomial<Complex> derivative2 = function2.differentiate(function2.getVariables().get(0));
+        final Polynomial<Complex> derivative = function.differentiate(function.getVariables().get(0));
 
-        formula = new Formula(-2, 2, -2, 2) {
+        Formula formula = new Formula(-2, 2, -2, 2) {
                     public Complex calculate(Complex value) {
-                        Complex funcValue = function2.evaluate(value);
-                        Complex derivValue = derivative2.evaluate(value);
+                        Complex funcValue = function.evaluate(value);
+                        Complex derivValue = derivative.evaluate(value);
 
                         return funcValue.divide(derivValue);
                     }
 
 
                     public String toString() {
-                        return function2.toString();
+                        return function.toString();
                     }
                     
                     @Override
     				public int getPolynomialOrder() {
-    					return function1.getOrder(new Variable.Local<Complex>("z"));
+    					return 4;
     				}
                 };
 
-        Complex[] roots2 = {
+        Complex[] roots = {
                 Complex.valueOf(1, 0), Complex.valueOf(-1, 0), Complex.valueOf(0, 1), Complex.valueOf(0, -1),
             };
-        formula.setPoints(roots2);
-        formulas.add(formula);
-    }
+        formula.setPoints(roots);
+        return formula;
+	}
 }

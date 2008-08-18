@@ -16,33 +16,26 @@
  */
 package fractals.swing.ifs;
 
-import fractals.Fraktale;
-
-import fractals.ifs.IFSFractal;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import fractals.ifs.IFSFractal;
 
-public class IFSAnimationOptionsPanel extends JPanel {
+
+public class IFSAnimationOptionsPanel extends IFSCommonOptionsPanel {
     //~ Instance fields ----------------------------------------------------------------------------------------------
 
     /**
@@ -51,27 +44,6 @@ public class IFSAnimationOptionsPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/** DOCUMENT ME! */
-    JRadioButton iteratedMethodRadioButton = new JRadioButton();
-
-    /** DOCUMENT ME! */
-    JRadioButton recurentMethodRadioButton = new JRadioButton();
-
-    /** DOCUMENT ME! */
-    JPanel jPanel4 = new JPanel();
-
-    /** DOCUMENT ME! */
-    TitledBorder titledBorder3;
-
-    /** DOCUMENT ME! */
-    ButtonGroup drawingMethodButtonGroup = new ButtonGroup();
-
-    /** DOCUMENT ME! */
-    JComboBox ifsFractalComboBox = new JComboBox(Fraktale.ifsFractals);
-
-    /** DOCUMENT ME! */
-    GridBagLayout gridBagLayout4 = new GridBagLayout();
-
-    /** DOCUMENT ME! */
     JScrollPane jScrollPane2 = new JScrollPane();
 
     /** DOCUMENT ME! */
@@ -89,43 +61,11 @@ public class IFSAnimationOptionsPanel extends JPanel {
     /** DOCUMENT ME! */
     TitledBorder titledBorder5;
 
-    /** DOCUMENT ME! */
-    JLabel liczPunktL1 = new JLabel();
-
-    /** DOCUMENT ME! */
-    JComboBox numberOfPointsComboBox = new JComboBox(
-            new String[] { "1", "2", "5", "10", "15", "20", "30", "40", "50", "100", "200" });
-
-    /** DOCUMENT ME! */
-    JLabel exponentLabel = new JLabel();
-
-    //~ Constructors -------------------------------------------------------------------------------------------------
-
-/**
+    /**
      * Creates a new IFSAnimationOptionsPanel object.
      */
     public IFSAnimationOptionsPanel() {
         super();
-
-        iteratedMethodRadioButton.setSelected(true);
-        iteratedMethodRadioButton.setText("Iterated");
-        recurentMethodRadioButton.setText("Recurent");
-
-        titledBorder3 = new TitledBorder(BorderFactory.createEtchedBorder(), "Drawing Method");
-        titledBorder3.setTitleJustification(TitledBorder.CENTER);
-        titledBorder3.setTitleColor(new Color(0, 0, 128));
-
-        jPanel4.setBorder(titledBorder3);
-        jPanel4.setMinimumSize(new Dimension(120, 100));
-        jPanel4.setPreferredSize(new Dimension(120, 100));
-
-        jPanel4.add(iteratedMethodRadioButton, null);
-        jPanel4.add(recurentMethodRadioButton, null);
-
-        drawingMethodButtonGroup.add(iteratedMethodRadioButton);
-        drawingMethodButtonGroup.add(recurentMethodRadioButton);
-
-        this.setLayout(gridBagLayout4);
 
         addFractalButton.setEnabled(false);
         addFractalButton.setText("Add");
@@ -143,17 +83,7 @@ public class IFSAnimationOptionsPanel extends JPanel {
                     removeFractal_actionPerformed(e);
                 }
             });
-
-        this.add(
-            jPanel4,
-            new GridBagConstraints(
-                0, 0, 1, 1, 0.5, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL,
-                new Insets(0, 5, 5, 5), 0, 0));
-        this.add(
-            ifsFractalComboBox,
-            new GridBagConstraints(
-                0, 1, 1, 1, 0.8, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
-                    0, 5, 0, 5), 0, 0));
+        
         this.add(
             jScrollPane2,
             new GridBagConstraints(
@@ -165,7 +95,7 @@ public class IFSAnimationOptionsPanel extends JPanel {
         this.add(
             removeFractalButton,
             new GridBagConstraints(
-                0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(3, 0, 3, 20), 0, 0));
+                1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(3, 0, 3, 20), 0, 0));
         jScrollPane2.getViewport().add(animationList, null);
 
         titledBorder5 = new TitledBorder(BorderFactory.createEtchedBorder(), "Number of points");

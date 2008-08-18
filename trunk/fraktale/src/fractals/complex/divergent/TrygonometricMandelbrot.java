@@ -52,7 +52,7 @@ public class TrygonometricMandelbrot extends DivergentFractal {
                 
                 @Override
 				public int getPolynomialOrder() {
-					return 1;
+					return 0;
 				}
             };
 

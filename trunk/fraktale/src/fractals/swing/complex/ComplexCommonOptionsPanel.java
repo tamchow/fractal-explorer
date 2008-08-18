@@ -47,7 +47,7 @@ import javax.swing.border.TitledBorder;
  *
  * @version $Revision: 000 $
 */
-public class ComplexOptionsPanel extends JPanel {
+public class ComplexCommonOptionsPanel extends JPanel {
     //~ Static fields/initializers -----------------------------------------------------------------------------------
 
 	private final String componentInfo = "ComplexOptionsPanel";
@@ -96,11 +96,7 @@ public class ComplexOptionsPanel extends JPanel {
     protected DefaultComboBoxModel formulaComboBoxModel = new DefaultComboBoxModel();
     
     protected JComboBox formulaComboBox = new JComboBox(formulaComboBoxModel);
-    
-    protected DefaultComboBoxModel fractalComboBoxModel = new DefaultComboBoxModel();
-    
-    protected JComboBox complexFractalComboBox = new JComboBox(fractalComboBoxModel);
-    
+      
     protected ExecutionControl executionControl;
 
     protected JCheckBox previewCheckBox = new JCheckBox();
@@ -113,7 +109,7 @@ public class ComplexOptionsPanel extends JPanel {
 /**
      * Creates a new ComplexOptionsPanel object.
      */
-    public ComplexOptionsPanel(ExecutionControl executionControl) {
+    public ComplexCommonOptionsPanel(ExecutionControl executionControl) {
         super();
         this.executionControl = executionControl;
         this.setToolTipText(componentInfo);
@@ -160,7 +156,7 @@ public class ComplexOptionsPanel extends JPanel {
                                 return;
                             }
                             
-                            setupPointList(formula);
+                            setupPointListAndPalettes(formula);
                         //}
                     }
                 });
@@ -278,7 +274,7 @@ public class ComplexOptionsPanel extends JPanel {
 		return (Formula) formulaComboBox.getSelectedItem();
 	}
 	
-	protected void setupPointList(Formula formula){
+	protected void setupPointListAndPalettes(Formula formula){
 		pointsListModel.clear();
 
         if (formula.getPoints() == null) {
@@ -289,5 +285,10 @@ public class ComplexOptionsPanel extends JPanel {
             pointsListModel.addElement(formula.getPoints()[i]);
         }
         formula.setConstans(formula.getPoints()[0]);
+        setupPalettes(formula);
+	}
+
+	protected void setupPalettes(Formula formula) {
+		
 	}
 }

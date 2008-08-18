@@ -288,9 +288,9 @@ public class Palettes {
      * @todo DOCUMENT ME!
      */
     private static FractalPalette getPaletteConvergent3() {
-        Color[] colors = new Color[36];
+        Color[] colors = new Color[144];
 
-        final int segmentSize = 18;
+        final int segmentSize = 48;
         int[] offset = new int[colors.length / segmentSize];
 
         for (int i = 0; i < offset.length; i++) {
@@ -300,11 +300,12 @@ public class Palettes {
         GradientGenerator gr = new GradientGenerator(segmentSize);
 
         Color[][] rgb = new Color[][] {
-                gr.generateColors(new Color(255, 0, 0), new Color(0, 255, 0)),
-                gr.generateColors(new Color(0, 255, 0), new Color(0, 0, 255)),
+                gr.generateColors(new Color(255, 0, 0), new Color(0, 0, 0)),
+                gr.generateColors(new Color(0, 255, 0), new Color(0, 0, 0)),
+                gr.generateColors(new Color(0, 0, 255), new Color(0, 0, 0)),
             };
 
-        for (int j = 0; j < rgb.length; j++) {
+        for (int j = 0; j < offset.length; j++) {
             for (int i = 0; i < segmentSize; i++) {
                 colors[offset[j] + i] = rgb[j][i];
             }

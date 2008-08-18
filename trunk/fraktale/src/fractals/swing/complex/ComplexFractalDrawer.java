@@ -20,6 +20,7 @@ import fractals.ExecutionControl;
 import fractals.complex.ComplexFractal;
 
 import woj.image.CoordinateTransform;
+import woj.image.CoordinateTransform3D;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
@@ -58,7 +59,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 
 	private Rectangle rect = new Rectangle();
 
-	private CoordinateTransform ct = new CoordinateTransform(getWidth(),
+	private CoordinateTransform ct = new CoordinateTransform3D(getWidth(),
 			getHeight());
 
 	private Thread thread;

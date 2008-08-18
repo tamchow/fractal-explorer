@@ -26,6 +26,7 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 import woj.image.CoordinateTransform;
+import woj.image.CoordinateTransform3D;
 import woj.image.ImageUtil;
 import woj.image.ScreenPoint;
 import fractals.ExecutionControl;
@@ -57,7 +58,7 @@ public class IFSFractalDrawer extends JPanel {
     private float x;
     private float y;
     private float xp;
-    private CoordinateTransform ct = new CoordinateTransform(getWidth() - 1, getHeight() - 1, -1.0, 1.0, -1.0, 1.0);
+    private CoordinateTransform ct = new CoordinateTransform3D(getWidth() - 1, getHeight() - 1, -1.0, 1.0, -1.0, 1.0);
     private ExecutionControl executionControl = ExecutionControl.getInstance();
     
     //~ Constructors -------------------------------------------------------------------------------------------------

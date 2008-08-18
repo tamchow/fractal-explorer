@@ -25,7 +25,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import fractals.ExecutionControl;
 import fractals.ifs.IFSFractal;
 
 
@@ -35,12 +34,10 @@ public class IFSTopLevelPanel extends JPanel {
     /**  */
     private static final long serialVersionUID = -2760787959913969690L;
 
-    //~ Instance fields ----------------------------------------------------------------------------------------------
-    private ExecutionControl executionControl = ExecutionControl.getInstance();
     private GridBagLayout topLayout = new GridBagLayout();
     private IFSFractalDrawer ifsFractalDrawer = new IFSFractalDrawer();
     private IFSDrawingOptionsPanel ifsDrawingOptionsPanel = new IFSDrawingOptionsPanel();
-    private IFSAnimationOptionsPanel ifsAnimationOptionsPanel = new IFSAnimationOptionsPanel();
+    private IFSCommonOptionsPanel ifsAnimationOptionsPanel = new IFSAnimationOptionsPanel();
     private JTabbedPane ifsActionTabbedPane = new JTabbedPane();
 
     //~ Constructors -------------------------------------------------------------------------------------------------

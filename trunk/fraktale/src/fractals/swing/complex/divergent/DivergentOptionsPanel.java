@@ -27,7 +27,7 @@ import fractals.complex.divergent.Julia;
 import fractals.palette.FractalPalette;
 import fractals.palette.Palettes;
 
-import fractals.swing.complex.ComplexOptionsPanel;
+import fractals.swing.complex.ComplexCommonOptionsPanel;
 import fractals.swing.complex.FractalPaletteRenderer;
 
 import java.awt.Color;
@@ -55,7 +55,7 @@ import org.jscience.mathematics.numbers.Complex;
  *
  * @version $Revision: 000 $
  */
-public class DivergentOptionsPanel extends ComplexOptionsPanel {
+public class DivergentOptionsPanel extends ComplexCommonOptionsPanel {
     //~ Static fields/initializers -----------------------------------------------------------------------------------
 
     /**  */
@@ -100,9 +100,9 @@ public class DivergentOptionsPanel extends ComplexOptionsPanel {
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     DivergentFractal f = (DivergentFractal)divergentFractalComboBox.getSelectedItem();
-                    setupFormulasForSelectedFractal(f);
                     pointsListModel.clear();
-
+                    setupFormulasForSelectedFractal(f);
+                    
                     if (f instanceof Julia) {
                         pointListScrollPane.setEnabled(true);
                     } else {
@@ -164,7 +164,7 @@ public class DivergentOptionsPanel extends ComplexOptionsPanel {
         for (int i = 0; i < formulas.size(); i++) {
             formulaComboBox.addItem(formulas.get(i));
         }
-        
+        setupPointListAndPalettes(formulas.get(0));
         repaint();
     }
 }

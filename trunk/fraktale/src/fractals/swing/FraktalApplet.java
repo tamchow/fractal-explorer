@@ -21,18 +21,17 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.io.File;
-
 import javax.swing.BorderFactory;
 import javax.swing.JApplet;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
-
-import org.apache.log4j.PropertyConfigurator;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import fractals.ExecutionControl;
 import fractals.swing.complex.ComplexTopLevelPanel;
@@ -76,7 +75,7 @@ public class FraktalApplet extends JApplet {
      */
     public void init() {
     	//System.out.println(new File(".").getAbsolutePath());
-    	PropertyConfigurator.configure("../log4j.properties");
+    	//PropertyConfigurator.configure("../log4j.properties");
         //        palette = Palettes.getPaletteDivergent(0);
         try {
             componentsInit();
@@ -149,59 +148,6 @@ public class FraktalApplet extends JApplet {
         repaint();
     }
 
-
-    //******************************************************************************
-    /**
-     * DOCUMENT ME!
-     */
-   //private void reconfigureFractalTypeInterface() {
-        //        if (fractalType == ComplexFractal.Type.Undefined) {
-        //            throw new IllegalStateException("ComplexFractal is set to Undefined value");
-        //        } else if (fractalType == ComplexFractal.Type.Convergent) {
-        //            jToggleButton1.setText(String.valueOf(Palettes.getPaletteConvergentSize(0)));
-        //            jToggleButton2.setText(String.valueOf(Palettes.getPaletteConvergentSize(1)));
-        //            jToggleButton3.setText(String.valueOf(Palettes.getPaletteConvergentSize(2)));
-
-        //            if (jToggleButton1.isSelected()) {
-        //                palette = Palettes.getPaletteConvergent(0);
-        //            } else if (jToggleButton2.isSelected()) {
-        //                palette = Palettes.getPaletteConvergent(1);
-        //            } else if (jToggleButton3.isSelected()) {
-        //                palette = Palettes.getPaletteConvergent(2);
-        //            }
-
-        //        	paletteComboBox.removeAllItems();
-        //        	FractalPalette[] palettes = Palettes.getPalettesConvergent();
-        //        	for(int i=0; i<palettes.length; i++){
-        //        		paletteComboBox.addItem(palettes[i]);
-        //        	}
-        //titledBorderPointsList.setTitle("Roots");
-        //startingPointsList.setEnabled(false);
-        //       } else {
-        //            jToggleButton1.setText(String.valueOf(Palettes.getPaletteDivergentSize(0)));
-        //            jToggleButton2.setText(String.valueOf(Palettes.getPaletteDivergentSize(1)));
-        //            jToggleButton3.setText(String.valueOf(Palettes.getPaletteDivergentSize(2)));
-        //
-        //            if (jToggleButton1.isSelected()) {
-        //                palette = Palettes.getPaletteDivergent(0);
-        //            } else if (jToggleButton2.isSelected()) {
-        //                palette = Palettes.getPaletteDivergent(1);
-        //            } else if (jToggleButton3.isSelected()) {
-        //                palette = Palettes.getPaletteDivergent(2);
-        //            }
-        //        	paletteComboBox.removeAllItems();
-        //        	FractalPalette[] palettes = Palettes.getPalettesDivergent();
-        //        	for(int i=0; i<palettes.length; i++){
-        //        		paletteComboBox.addItem(palettes[i]);
-        //        	}
-        //            titledBorderPointsList.setTitle("Starting point");
-        //            startingPointsList.setEnabled(true);
-        //        }
-        //        palette = (FractalPalette)paletteComboBox.getSelectedItem();
-        //gradientPanel.repaint();
-   // }
-
-
     //******************************************************************************
     /**
      * DOCUMENT ME!
@@ -244,5 +190,4 @@ public class FraktalApplet extends JApplet {
         this.validate();
         repaint();
     }
-
 }

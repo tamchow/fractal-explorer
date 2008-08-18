@@ -59,11 +59,16 @@ public class ExecutionControl {
 		int numberOfPoints;
 		try {
 			numberOfPoints = ifsTopLevelPanel.getNumberOfPoints();
-			resetProgressBar();
+			resetProgressBar(numberOfPoints);
 		} catch (NumberFormatException nfe) {
 			return;
 		}
 		drawer.drawFractal(fractal, iteratedMethod, numberOfPoints);
+	}
+
+	private void resetProgressBar(int numberOfPoints) {
+		progressBar.setValue(0);
+		progressBar.setMaximum(numberOfPoints);
 	}
 
 	public void setProgress(final int value) {
@@ -166,5 +171,9 @@ public class ExecutionControl {
 
 	public void stopDrawing() {
 		complexTopLevelPanel.getComplexFractalDrawer().stopDrawing();
+	}
+
+	public void stopIterated() {
+		ifsTopLevelPanel.getIFSFractalDrawer().stopDrawing();
 	}
 }

@@ -25,7 +25,7 @@ import fractals.complex.convergent.ConvergentFractal;
 import fractals.palette.FractalPalette;
 import fractals.palette.Palettes;
 
-import fractals.swing.complex.ComplexOptionsPanel;
+import fractals.swing.complex.ComplexCommonOptionsPanel;
 import fractals.swing.complex.FractalPaletteRenderer;
 
 import org.jscience.mathematics.numbers.Complex;
@@ -38,7 +38,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
-
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -51,7 +50,7 @@ import javax.swing.border.TitledBorder;
  *
  * @version $Revision: 000 $
  */
-public class ConvergentOptionsPanel extends ComplexOptionsPanel {
+public class ConvergentOptionsPanel extends ComplexCommonOptionsPanel {
     //~ Static fields/initializers -----------------------------------------------------------------------------------
 
     /**  */
@@ -137,4 +136,29 @@ public class ConvergentOptionsPanel extends ComplexOptionsPanel {
         }
         formulaComboBox.repaint();
     }
+
+	/* (non-Javadoc)
+	 * @see fractals.swing.complex.ComplexOptionsPanel#setupPalettes(fractals.complex.Formula)
+	 */
+	@Override
+	protected void setupPalettes(Formula formula) {
+		// TODO Auto-generated method stub
+		super.setupPalettes(formula);
+		//System.out.println("Setting palettes for formula : "+formula);
+		paletteComboBox.removeAllItems();
+		FractalPalette[] convergentPalettes = Palettes.getPalettesConvergent();
+		//System.out.println("Available palettes: "+Arrays.toString(convergentPalettes));
+		//System.out.println("Formula order = "+formula.getPolynomialOrder());
+		for(int i = 0; i < convergentPalettes.length; i++){
+			FractalPalette palette = convergentPalettes[i];
+			int paletteOrder = palette.getSize()/palette.getSegmentSize();
+			//System.out.println("PaletteOrder = "+paletteOrder);
+			if(paletteOrder == formula.getPolynomialOrder()){
+				//System.out.println("Palette and formulas order have matched, adding to paletteComboBox");
+				paletteComboBox.addItem(palette);
+			}else{
+				//System.out.println("Palette not matched");
+			}
+		}
+	}
 }
