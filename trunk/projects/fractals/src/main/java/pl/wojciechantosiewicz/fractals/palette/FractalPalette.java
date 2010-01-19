@@ -19,48 +19,47 @@ import java.awt.Color;
 
 import pl.wojciechantosiewicz.image.Gradient;
 
-
-
 /**
  * DOCUMENT ME!
- *
+ * 
  * @version $Revision: 000 $
-*/
+ */
 public class FractalPalette extends Gradient {
-    //~ Static fields/initializers -----------------------------------------------------------------------------------
+	// ~ Static fields/initializers -----------------------------------------------------------------------------------
 
-    public enum PaletteType{
-    	CONVERGENT,
-    	DIVERGENT
-    }
-    
-    //~ Instance fields ----------------------------------------------------------------------------------------------
+	public enum PaletteType {
+		CONVERGENT, DIVERGENT
+	}
 
-    private PaletteType type;
+	// ~ Instance fields ----------------------------------------------------------------------------------------------
 
-    //~ Constructors -------------------------------------------------------------------------------------------------
+	private PaletteType type;
 
-/**
-     * Creates a new FractalPalette object.
-     *
-     * @param colors DOCUMENT ME!
-     * @param segmentSize 
-     * @param type DOCUMENT ME!
-     */
-    public FractalPalette(Color[] colors, int segmentSize, PaletteType type) {
-        super(colors, segmentSize);
-        this.type = type;
-        
-    }
+	// ~ Constructors -------------------------------------------------------------------------------------------------
 
-    //~ Methods ------------------------------------------------------------------------------------------------------
+	/**
+	 * Creates a new FractalPalette object.
+	 * 
+	 * @param colors
+	 *        DOCUMENT ME!
+	 * @param segmentSize
+	 * @param type
+	 *        DOCUMENT ME!
+	 */
+	public FractalPalette(Color[] colors, int segmentSize, PaletteType type) {
+		super(colors, segmentSize);
+		this.type = type;
 
-    /**
-     * DOCUMENT ME!
-     *
-     * @return the type
-     */
-    public PaletteType getType() {
-        return type;
-    }
+	}
+
+	// ~ Methods ------------------------------------------------------------------------------------------------------
+
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @return the type
+	 */
+	public PaletteType getType(){
+		return type;
+	}
 }

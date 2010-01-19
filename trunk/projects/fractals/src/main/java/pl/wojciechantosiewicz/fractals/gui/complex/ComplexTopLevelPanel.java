@@ -12,7 +12,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id$
  */
 package pl.wojciechantosiewicz.fractals.gui.complex;
 
@@ -30,106 +29,99 @@ import pl.wojciechantosiewicz.fractals.gui.complex.convergent.ConvergentOptionsP
 import pl.wojciechantosiewicz.fractals.gui.complex.divergent.DivergentOptionsPanel;
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
 
-
 /**
  * DOCUMENT ME!
- *
+ * 
  * @version $Revision: 000 $
  */
 public class ComplexTopLevelPanel extends JPanel {
-    //~ Static fields/initializers -----------------------------------------------------------------------------------
-private final String componentInfo = "ComplexTopLevelPanel";
-    /**  */
-    private static final long serialVersionUID = -5994742954662939120L;
+	// ~ Static fields/initializers -----------------------------------------------------------------------------------
+	private final String componentInfo = "ComplexTopLevelPanel";
+	/**  */
+	private static final long serialVersionUID = -5994742954662939120L;
 
-    //~ Instance fields ----------------------------------------------------------------------------------------------
-    private ExecutionControl executionControl = ExecutionControl.getInstance();
-    private ComplexFractalDrawer complexFractalDrawer;
-    private JTabbedPane complexFractalTypeTabbedPane = new JTabbedPane();
-    private DivergentOptionsPanel divergentOptionsPanel = new DivergentOptionsPanel(executionControl);
-    private ConvergentOptionsPanel convergentOptionsPanel = new ConvergentOptionsPanel(executionControl);
-    //~ Constructors -------------------------------------------------------------------------------------------------
+	// ~ Instance fields ----------------------------------------------------------------------------------------------
+	private ExecutionControl executionControl = ExecutionControl.getInstance();
+	private ComplexFractalDrawer complexFractalDrawer;
+	private JTabbedPane complexFractalTypeTabbedPane = new JTabbedPane();
+	private DivergentOptionsPanel divergentOptionsPanel = new DivergentOptionsPanel(executionControl);
+	private ConvergentOptionsPanel convergentOptionsPanel = new ConvergentOptionsPanel(executionControl);
 
-    /**
-     * Creates a new ComplexTopLevelPanel object.
-     *
-     * @param applet DOCUMENT ME!
-     */
-    public ComplexTopLevelPanel() {
-        super();
-        
-        this.setToolTipText(componentInfo);
-        complexFractalDrawer = new ComplexFractalDrawer();
-        this.setLayout(new GridBagLayout());
+	// ~ Constructors -------------------------------------------------------------------------------------------------
 
-        complexFractalTypeTabbedPane.addTab("Divergent", divergentOptionsPanel);
-        complexFractalTypeTabbedPane.addTab("Convergent", convergentOptionsPanel);
+	/**
+	 * Creates a new ComplexTopLevelPanel object.
+	 * 
+	 * @param applet
+	 *        DOCUMENT ME!
+	 */
+	public ComplexTopLevelPanel() {
+		super();
 
-        this.add(
-            complexFractalDrawer,
-            new GridBagConstraints(
-                0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0,
-                0));
-        this.add(
-            complexFractalTypeTabbedPane,
-            new GridBagConstraints(
-                1, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.VERTICAL,
-                new Insets(0, 3, 0, 3), 0, 0));
-    }
+		this.setToolTipText(componentInfo);
+		complexFractalDrawer = new ComplexFractalDrawer();
+		this.setLayout(new GridBagLayout());
 
-    //~ Methods ------------------------------------------------------------------------------------------------------
+		complexFractalTypeTabbedPane.addTab("Divergent", divergentOptionsPanel);
+		complexFractalTypeTabbedPane.addTab("Convergent", convergentOptionsPanel);
+
+		this.add(complexFractalDrawer, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH,
+				new Insets(0, 0, 0, 0), 0, 0));
+		this.add(complexFractalTypeTabbedPane, new GridBagConstraints(1, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.VERTICAL, new Insets(0, 3, 0, 3), 0, 0));
+	}
+
+	// ~ Methods ------------------------------------------------------------------------------------------------------
 
 	/**
 	 * @return the complexFractalDrawer
 	 */
-	public ComplexFractalDrawer getComplexFractalDrawer() {
+	public ComplexFractalDrawer getComplexFractalDrawer(){
 		return complexFractalDrawer;
 	}
-	
+
 	public ComplexFractal getComplexFractal(){
-		if(complexFractalTypeTabbedPane.getSelectedIndex()==0){// divergent
+		if(complexFractalTypeTabbedPane.getSelectedIndex() == 0){// divergent
 			return divergentOptionsPanel.getFractal();
-		}else if(complexFractalTypeTabbedPane.getSelectedIndex()==1){ // convergent
+		}else if(complexFractalTypeTabbedPane.getSelectedIndex() == 1){ // convergent
 			return convergentOptionsPanel.getFractal();
-		}
-		else{
-			return null;
-		}
-	}
-	
-	public FractalPalette getPalette(){
-		if(complexFractalTypeTabbedPane.getSelectedIndex()==0){// divergent
-			return divergentOptionsPanel.getPalette();
-		}else if(complexFractalTypeTabbedPane.getSelectedIndex()==1){ // convergent
-			return convergentOptionsPanel.getPalette();
-		}
-		else{
+		}else{
 			return null;
 		}
 	}
 
-	public boolean isFractalSet() {
+	public FractalPalette getPalette(){
+		if(complexFractalTypeTabbedPane.getSelectedIndex() == 0){// divergent
+			return divergentOptionsPanel.getPalette();
+		}else if(complexFractalTypeTabbedPane.getSelectedIndex() == 1){ // convergent
+			return convergentOptionsPanel.getPalette();
+		}else{
+			return null;
+		}
+	}
+
+	public boolean isFractalSet(){
 		return complexFractalDrawer.isFractalSet();
 	}
-	
+
 	public boolean isPreviewEnabled(){
-		if(complexFractalTypeTabbedPane.getSelectedIndex()==0){// divergent
+		if(complexFractalTypeTabbedPane.getSelectedIndex() == 0){// divergent
 			return divergentOptionsPanel.isPreviewEnabled();
-		}else if(complexFractalTypeTabbedPane.getSelectedIndex()==1){ // convergent
+		}else if(complexFractalTypeTabbedPane.getSelectedIndex() == 1){ // convergent
 			return convergentOptionsPanel.isPreviewEnabled();
 		}else{
 			return false;
 		}
 	}
-	
+
 	public void setPreviewEnabled(boolean preview){
 		complexFractalDrawer.setPreviewEnabled(preview);
 	}
 
-	public IComplexFormula getFormula() {
-		if(complexFractalTypeTabbedPane.getSelectedIndex()==0){// divergent
+	public IComplexFormula getFormula(){
+		if(complexFractalTypeTabbedPane.getSelectedIndex() == 0){// divergent
 			return divergentOptionsPanel.getFormula();
-		}else if(complexFractalTypeTabbedPane.getSelectedIndex()==1){ // convergent
+		}else if(complexFractalTypeTabbedPane.getSelectedIndex() == 1){ // convergent
 			return convergentOptionsPanel.getFormula();
 		}else{
 			return null;

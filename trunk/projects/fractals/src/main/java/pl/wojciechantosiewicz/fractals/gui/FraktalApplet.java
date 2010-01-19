@@ -12,7 +12,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id$
  */
 package pl.wojciechantosiewicz.fractals.gui;
 
@@ -39,166 +38,153 @@ import pl.wojciechantosiewicz.fractals.gui.ifs.IFSTopLevelPanel;
 
 /**
  * DOCUMENT ME!
- *
+ * 
  * @version $Revision: 000 $
-*/
+ */
 public class FraktalApplet extends JApplet {
-    //~ Static fields/initializers -----------------------------------------------------------------------------------
+	// ~ Static fields/initializers -----------------------------------------------------------------------------------
 
-    private static final long serialVersionUID = 7617147846823557416L;
-    static{
-    	UIManager.put("swing.boldMetal", Boolean.FALSE);
-    }
-    //~ Instance fields ----------------------------------------------------------------------------------------------
+	private static final long serialVersionUID = 7617147846823557416L;
+	static{
+		UIManager.put("swing.boldMetal", Boolean.FALSE);
+	}
+	// ~ Instance fields ----------------------------------------------------------------------------------------------
 
-    /** DOCUMENT ME! */
-    private JPanel topLevelPanel = new JPanel();
-    /** DOCUMENT ME! */
-    private ExecutionControl executionControl = ExecutionControl.getInstance();
-    /** DOCUMENT ME! */
-    private JTabbedPane mainTabbedPane = new JTabbedPane();
-    /** DOCUMENT ME! */
-    private ComplexTopLevelPanel complexTopLevelPanel = new ComplexTopLevelPanel();
-    /** DOCUMENT ME! */
-    private IFSTopLevelPanel iteratedTopLevelPanel = new IFSTopLevelPanel();
-    /** DOCUMENT ME! */
-    private JProgressBar progressBar = new JProgressBar();
-    /** DOCUMENT ME! */
-    private GridBagLayout gridBagLayout1 = new GridBagLayout();
-    /** DOCUMENT ME! */
-    private JPanel statusPanel = new JPanel();
-    /** DOCUMENT ME! */
-    private JLabel statusLabel = new JLabel();
-    /** DOCUMENT ME! */
-    private BorderLayout borderLayout1 = new BorderLayout();
-    
-    /**
-     * DOCUMENT ME!
-     */
-    public void init() {
-    	//System.out.println(new File(".").getAbsolutePath());
-    	//PropertyConfigurator.configure("../log4j.properties");
-        //        palette = Palettes.getPaletteDivergent(0);
-    	
-        try {
-            componentsInit();
-            executionControl.setComplexTopLevelPanel(complexTopLevelPanel);
-            executionControl.setIfsTopLevelPanel(iteratedTopLevelPanel);
-            executionControl.setProgressBar(progressBar);
-            executionControl.setStatusLabel(statusLabel);
-        } catch (Exception e) {
-            e.printStackTrace();
-            
-        }
-    }
+	/** DOCUMENT ME! */
+	private JPanel topLevelPanel = new JPanel();
+	/** DOCUMENT ME! */
+	private ExecutionControl executionControl = ExecutionControl.getInstance();
+	/** DOCUMENT ME! */
+	private JTabbedPane mainTabbedPane = new JTabbedPane();
+	/** DOCUMENT ME! */
+	private ComplexTopLevelPanel complexTopLevelPanel = new ComplexTopLevelPanel();
+	/** DOCUMENT ME! */
+	private IFSTopLevelPanel iteratedTopLevelPanel = new IFSTopLevelPanel();
+	/** DOCUMENT ME! */
+	private JProgressBar progressBar = new JProgressBar();
+	/** DOCUMENT ME! */
+	private GridBagLayout gridBagLayout1 = new GridBagLayout();
+	/** DOCUMENT ME! */
+	private JPanel statusPanel = new JPanel();
+	/** DOCUMENT ME! */
+	private JLabel statusLabel = new JLabel();
+	/** DOCUMENT ME! */
+	private BorderLayout borderLayout1 = new BorderLayout();
 
+	/**
+	 * DOCUMENT ME!
+	 */
+	public void init(){
+		// System.out.println(new File(".").getAbsolutePath());
+		// PropertyConfigurator.configure("../log4j.properties");
+		// palette = Palettes.getPaletteDivergent(0);
 
-    //******************************************************************************
-    /**
-     * DOCUMENT ME!
-     *
-     * @throws Exception DOCUMENT ME!
-     */
-    private void componentsInit() throws Exception {
-        mainTabbedPane.addTab("Complex", complexTopLevelPanel);
-        mainTabbedPane.addTab("Iterated", iteratedTopLevelPanel);
-        
-        topLevelPanel.setLayout(gridBagLayout1);
-        topLevelPanel.add(
-            mainTabbedPane,
-            new GridBagConstraints(
-                0, 0, 2, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0,
-                0));
- 
-        this.getContentPane().addComponentListener(
-            new ComponentAdapter() {
-                @Override
-				public void componentResized(ComponentEvent e) {
-                    FraktalApplet.this.topLevelPanelComponentResized();
-                }
-            });
-        topLevelPanel.addComponentListener(
-            new ComponentAdapter() {
-                @Override
-				public void componentResized(ComponentEvent e) {
-                    FraktalApplet.this.topLevelPanelComponentResized();
-                }
-            });
+		try{
+			componentsInit();
+			executionControl.setComplexTopLevelPanel(complexTopLevelPanel);
+			executionControl.setIfsTopLevelPanel(iteratedTopLevelPanel);
+			executionControl.setProgressBar(progressBar);
+			executionControl.setStatusLabel(statusLabel);
+		}catch(Exception e){
+			e.printStackTrace();
 
-        progressBar.setForeground(new Color(51, 51, 153));
-        progressBar.setMinimum(0);
-        progressBar.setStringPainted(true);
-        
-     
-        statusPanel.setBorder(BorderFactory.createEtchedBorder());
-        statusPanel.setLayout(borderLayout1);
-        statusLabel.setForeground(Color.black);
-        statusLabel.setText(" ");
-      
-        this.getContentPane().add(topLevelPanel, BorderLayout.CENTER);
-        
-        topLevelPanel.add(
-            statusPanel,
-            new GridBagConstraints(
-                0, 1, 1, 1, 0.8, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(3, 5, 3, 5),
-                0, 0));
-        
-        topLevelPanel.add(
-            progressBar,
-            new GridBagConstraints(
-                1, 1, 1, 1, 0.2, 1.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
-                    3, 5, 3, 5), 0, 0));
-        statusPanel.add(statusLabel, BorderLayout.CENTER);
+		}
+	}
 
-        repaint();
-    }
+	// ******************************************************************************
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @throws Exception
+	 *         DOCUMENT ME!
+	 */
+	private void componentsInit() throws Exception{
+		mainTabbedPane.addTab("Complex", complexTopLevelPanel);
+		mainTabbedPane.addTab("Iterated", iteratedTopLevelPanel);
 
-    //******************************************************************************
-    /**
-     * DOCUMENT ME!
-     */
-    @Override
-	public void start() {
-        //topLevelPanelComponentResized();
-    }
+		topLevelPanel.setLayout(gridBagLayout1);
+		topLevelPanel.add(mainTabbedPane, new GridBagConstraints(0, 0, 2, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
+		this.getContentPane().addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e){
+				FraktalApplet.this.topLevelPanelComponentResized();
+			}
+		});
+		topLevelPanel.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e){
+				FraktalApplet.this.topLevelPanelComponentResized();
+			}
+		});
 
-    //******************************************************************************
-    /**
-     * DOCUMENT ME!
-     *
-     * @param key DOCUMENT ME!
-     * @param def DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
-     */
-    public String getParameter(String key, String def) {
-        return ((getParameter(key) != null) ? getParameter(key) : def);
-    }
+		progressBar.setForeground(new Color(51, 51, 153));
+		progressBar.setMinimum(0);
+		progressBar.setStringPainted(true);
 
+		statusPanel.setBorder(BorderFactory.createEtchedBorder());
+		statusPanel.setLayout(borderLayout1);
+		statusLabel.setForeground(Color.black);
+		statusLabel.setText(" ");
 
-    //******************************************************************************
-    /**
-     * DOCUMENT ME!
-     */
-    private final void topLevelPanelComponentResized() {
-        int w = 0;
-        int h = 0;
+		this.getContentPane().add(topLevelPanel, BorderLayout.CENTER);
 
-        try {
-            w = Integer.parseInt(getParameter("WIDTH"));
-            h = Integer.parseInt(getParameter("HEIGHT"));
-        } catch (NumberFormatException nfe) {
-        	// @TODO
-        }
+		topLevelPanel.add(statusPanel, new GridBagConstraints(0, 1, 1, 1, 0.8, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+				new Insets(3, 5, 3, 5), 0, 0));
 
-        resize(w, h);
-        topLevelPanel.setSize(w, h);
-        this.validate();
-        repaint();
-    }
-    
-    public static void main(String[] args) {
+		topLevelPanel.add(progressBar, new GridBagConstraints(1, 1, 1, 1, 0.2, 1.0, GridBagConstraints.CENTER,
+				GridBagConstraints.HORIZONTAL, new Insets(3, 5, 3, 5), 0, 0));
+		statusPanel.add(statusLabel, BorderLayout.CENTER);
+
+		repaint();
+	}
+
+	// ******************************************************************************
+	/**
+	 * DOCUMENT ME!
+	 */
+	@Override
+	public void start(){
+		// topLevelPanelComponentResized();
+	}
+
+	// ******************************************************************************
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @param key
+	 *        DOCUMENT ME!
+	 * @param def
+	 *        DOCUMENT ME!
+	 * @return DOCUMENT ME!
+	 */
+	public String getParameter(String key, String def){
+		return ((getParameter(key) != null) ? getParameter(key) : def);
+	}
+
+	// ******************************************************************************
+	/**
+	 * DOCUMENT ME!
+	 */
+	private final void topLevelPanelComponentResized(){
+		int w = 0;
+		int h = 0;
+
+		try{
+			w = Integer.parseInt(getParameter("WIDTH"));
+			h = Integer.parseInt(getParameter("HEIGHT"));
+		}catch(NumberFormatException nfe){
+			// @TODO
+		}
+
+		resize(w, h);
+		topLevelPanel.setSize(w, h);
+		this.validate();
+		repaint();
+	}
+
+	public static void main(String[] args){
 		FraktalApplet applet = new FraktalApplet();
 		JFrame frame = new JFrame("Fractals");
 		frame.add(applet);

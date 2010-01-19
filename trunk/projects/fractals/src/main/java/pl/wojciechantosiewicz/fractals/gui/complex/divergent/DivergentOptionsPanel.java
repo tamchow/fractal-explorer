@@ -12,7 +12,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id$
  */
 package pl.wojciechantosiewicz.fractals.gui.complex.divergent;
 
@@ -44,123 +43,113 @@ import pl.wojciechantosiewicz.fractals.gui.complex.FractalPaletteRenderer;
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
 import pl.wojciechantosiewicz.fractals.palette.Palettes;
 
-
 /**
  * DOCUMENT ME!
- *
+ * 
  * @version $Revision: 000 $
  */
 public class DivergentOptionsPanel extends ComplexCommonOptionsPanel {
-    //~ Static fields/initializers -----------------------------------------------------------------------------------
+	// ~ Static fields/initializers -----------------------------------------------------------------------------------
 
-    /**  */
-    private static final long serialVersionUID = -3801498416393507812L;
+	/**  */
+	private static final long serialVersionUID = -3801498416393507812L;
 
-    //~ Instance fields ----------------------------------------------------------------------------------------------
+	// ~ Instance fields ----------------------------------------------------------------------------------------------
 
-    private JComboBox divergentFractalComboBox = new JComboBox(Fraktale.divergentFractals);
+	private JComboBox divergentFractalComboBox = new JComboBox(Fraktale.divergentFractals);
 
-    private JList startingPointsList = new JList(pointsListModel);
-    private JComboBox paletteComboBox = new JComboBox(Palettes.getPalettesDivergent());
+	private JList startingPointsList = new JList(pointsListModel);
+	private JComboBox paletteComboBox = new JComboBox(Palettes.getPalettesDivergent());
 
-    //~ Constructors -------------------------------------------------------------------------------------------------
+	// ~ Constructors -------------------------------------------------------------------------------------------------
 
-    /**
-     * Creates a new DivergentOptionsPanel object.
-     * @param executionControl 
-     */
-    public DivergentOptionsPanel(ExecutionControl executionControl) {
-        super(executionControl);
-        
-        startingPointsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        startingPointsList.addMouseListener(
-            new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    if (e.getClickCount() == 2) {
-                        repaint_actionPerformed(true);
-                    }
-                }
-            });
+	/**
+	 * Creates a new DivergentOptionsPanel object.
+	 * 
+	 * @param executionControl
+	 */
+	public DivergentOptionsPanel(ExecutionControl executionControl) {
+		super(executionControl);
 
-        titledBorderPointsList = new TitledBorder(BorderFactory.createEtchedBorder(), "Starting point");
-        titledBorderPointsList.setTitleJustification(TitledBorder.CENTER);
-        titledBorderPointsList.setTitleColor(new Color(0, 0, 128));
-        pointListScrollPane.setBorder(titledBorderPointsList);
-        pointListScrollPane.getViewport().add(startingPointsList, null);
+		startingPointsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		startingPointsList.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e){
+				if(e.getClickCount() == 2){
+					repaint_actionPerformed(true);
+				}
+			}
+		});
 
-        setupFormulasForSelectedFractal((DivergentFractal) divergentFractalComboBox.getSelectedItem());
-        
-        divergentFractalComboBox.setMinimumSize(new Dimension(150, 24));
-        divergentFractalComboBox.setPreferredSize(new Dimension(160, 24));
-        divergentFractalComboBox.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    DivergentFractal f = (DivergentFractal)divergentFractalComboBox.getSelectedItem();
-                    pointsListModel.clear();
-                    setupFormulasForSelectedFractal(f);
-                    
-                    if (f instanceof Julia) {
-                        pointListScrollPane.setEnabled(true);
-                    } else {
-                        pointListScrollPane.setEnabled(false);
-                    }
-                }
-            });
+		titledBorderPointsList = new TitledBorder(BorderFactory.createEtchedBorder(), "Starting point");
+		titledBorderPointsList.setTitleJustification(TitledBorder.CENTER);
+		titledBorderPointsList.setTitleColor(new Color(0, 0, 128));
+		pointListScrollPane.setBorder(titledBorderPointsList);
+		pointListScrollPane.getViewport().add(startingPointsList, null);
 
-        this.add(
-            divergentFractalComboBox,
-            new GridBagConstraints(
-                0, 1, 2, 1, 0.5, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(
-                    3, 3, 0, 3), 0, 0));
+		setupFormulasForSelectedFractal((DivergentFractal)divergentFractalComboBox.getSelectedItem());
 
-        
-        
-        paletteComboBox.setRenderer(new FractalPaletteRenderer());
-        paletteComboBox.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(ActionEvent arg0) {
-                    palette = (FractalPalette)paletteComboBox.getSelectedItem();
-                }
-            });
+		divergentFractalComboBox.setMinimumSize(new Dimension(150, 24));
+		divergentFractalComboBox.setPreferredSize(new Dimension(160, 24));
+		divergentFractalComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				DivergentFractal f = (DivergentFractal)divergentFractalComboBox.getSelectedItem();
+				pointsListModel.clear();
+				setupFormulasForSelectedFractal(f);
 
-        palettePanel.add(
-            paletteComboBox,
-            new GridBagConstraints(
-                1, 0, 1, 1, 0.25, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 0,
-                0));
-        
-        palette = (FractalPalette) paletteComboBox.getSelectedItem();
-    }
+				if(f instanceof Julia){
+					pointListScrollPane.setEnabled(true);
+				}else{
+					pointListScrollPane.setEnabled(false);
+				}
+			}
+		});
 
-    //~ Methods ------------------------------------------------------------------------------------------------------
+		this.add(divergentFractalComboBox, new GridBagConstraints(0, 1, 2, 1, 0.5, 0.0, GridBagConstraints.CENTER,
+				GridBagConstraints.HORIZONTAL, new Insets(3, 3, 0, 3), 0, 0));
 
-    /**
-     * DOCUMENT ME!
-     *
-     * @param b DOCUMENT ME!
-     */
-    private void repaint_actionPerformed(boolean b) {
-    	DivergentFractal fractal = getFractal();
-    	fractal.setFormula(getFormula());
-    	IComplexFormula formula = fractal.getFormula();
-    	Complex point = (Complex)(startingPointsList.getSelectedValue());
-    	formula.setConstant(point);
-    	ExecutionControl.getInstance().drawComplex(b);
-    }
-    
-    public DivergentFractal getFractal(){
-    	return (DivergentFractal) divergentFractalComboBox.getSelectedItem();
-    }
-    
-    private void setupFormulasForSelectedFractal(DivergentFractal f){
-    	formulaComboBox.removeAllItems();
+		paletteComboBox.setRenderer(new FractalPaletteRenderer());
+		paletteComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0){
+				palette = (FractalPalette)paletteComboBox.getSelectedItem();
+			}
+		});
 
-        ArrayList<IComplexFormula> formulas = f.getFormulas();
+		palettePanel.add(paletteComboBox, new GridBagConstraints(1, 0, 1, 1, 0.25, 0.0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+				new Insets(0, 5, 0, 5), 0, 0));
 
-        for (int i = 0; i < formulas.size(); i++) {
-            formulaComboBox.addItem(formulas.get(i));
-        }
-        setupPointListAndPalettes(formulas.get(0));
-        repaint();
-    }
+		palette = (FractalPalette)paletteComboBox.getSelectedItem();
+	}
+
+	// ~ Methods ------------------------------------------------------------------------------------------------------
+
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @param b
+	 *        DOCUMENT ME!
+	 */
+	private void repaint_actionPerformed(boolean b){
+		DivergentFractal fractal = getFractal();
+		fractal.setFormula(getFormula());
+		IComplexFormula formula = fractal.getFormula();
+		Complex point = (Complex)(startingPointsList.getSelectedValue());
+		formula.setConstant(point);
+		ExecutionControl.getInstance().drawComplex(b);
+	}
+
+	public DivergentFractal getFractal(){
+		return (DivergentFractal)divergentFractalComboBox.getSelectedItem();
+	}
+
+	private void setupFormulasForSelectedFractal(DivergentFractal f){
+		formulaComboBox.removeAllItems();
+
+		ArrayList<IComplexFormula> formulas = f.getFormulas();
+
+		for(int i = 0; i < formulas.size(); i++){
+			formulaComboBox.addItem(formulas.get(i));
+		}
+		setupPointListAndPalettes(formulas.get(0));
+		repaint();
+	}
 }

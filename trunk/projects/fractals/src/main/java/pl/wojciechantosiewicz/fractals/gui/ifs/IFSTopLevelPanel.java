@@ -12,7 +12,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id$
  */
 package pl.wojciechantosiewicz.fractals.gui.ifs;
 
@@ -27,60 +26,53 @@ import javax.swing.JTabbedPane;
 
 import pl.wojciechantosiewicz.fractals.ifs.IFSFractal;
 
-
 public class IFSTopLevelPanel extends JPanel {
-    //~ Static fields/initializers -----------------------------------------------------------------------------------
+	// ~ Static fields/initializers -----------------------------------------------------------------------------------
 
-    /**  */
-    private static final long serialVersionUID = -2760787959913969690L;
+	/**  */
+	private static final long serialVersionUID = -2760787959913969690L;
 
-    private GridBagLayout topLayout = new GridBagLayout();
-    private IFSFractalDrawer ifsFractalDrawer = new IFSFractalDrawer();
-    private IFSDrawingOptionsPanel ifsDrawingOptionsPanel = new IFSDrawingOptionsPanel();
-    private IFSCommonOptionsPanel ifsAnimationOptionsPanel = new IFSAnimationOptionsPanel();
-    private JTabbedPane ifsActionTabbedPane = new JTabbedPane();
+	private GridBagLayout topLayout = new GridBagLayout();
+	private IFSFractalDrawer ifsFractalDrawer = new IFSFractalDrawer();
+	private IFSDrawingOptionsPanel ifsDrawingOptionsPanel = new IFSDrawingOptionsPanel();
+	private IFSCommonOptionsPanel ifsAnimationOptionsPanel = new IFSAnimationOptionsPanel();
+	private JTabbedPane ifsActionTabbedPane = new JTabbedPane();
 
-    //~ Constructors -------------------------------------------------------------------------------------------------
+	// ~ Constructors -------------------------------------------------------------------------------------------------
 
-    /**
-     * Creates a new IFSTopLevelPanel object.
-     */
-    public IFSTopLevelPanel() {
-        super();
-        setLayout(topLayout);
+	/**
+	 * Creates a new IFSTopLevelPanel object.
+	 */
+	public IFSTopLevelPanel() {
+		super();
+		setLayout(topLayout);
 
-        ifsActionTabbedPane.add("Draw", ifsDrawingOptionsPanel);
-        ifsActionTabbedPane.add("Animate", ifsAnimationOptionsPanel);
+		ifsActionTabbedPane.add("Draw", ifsDrawingOptionsPanel);
+		ifsActionTabbedPane.add("Animate", ifsAnimationOptionsPanel);
 
-        ifsActionTabbedPane.setMinimumSize(new Dimension(200, 200));
+		ifsActionTabbedPane.setMinimumSize(new Dimension(200, 200));
 
-        ifsFractalDrawer.setBorder(BorderFactory.createEtchedBorder());
+		ifsFractalDrawer.setBorder(BorderFactory.createEtchedBorder());
 
-        this.add(
-            ifsFractalDrawer,
-            new GridBagConstraints(
-                0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(3, 3, 3, 3), 0,
-                0));
-        this.add(
-            ifsActionTabbedPane,
-            new GridBagConstraints(
-                1, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.VERTICAL,
-                new Insets(3, 3, 3, 3), 0, 0));
-    }
+		this.add(ifsFractalDrawer, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH,
+				new Insets(3, 3, 3, 3), 0, 0));
+		this.add(ifsActionTabbedPane, new GridBagConstraints(1, 0, 1, 1, 0.0, 1.0, GridBagConstraints.NORTHWEST,
+				GridBagConstraints.VERTICAL, new Insets(3, 3, 3, 3), 0, 0));
+	}
 
-	public IFSFractalDrawer getIFSFractalDrawer() {
+	public IFSFractalDrawer getIFSFractalDrawer(){
 		return ifsFractalDrawer;
 	}
 
-	public IFSFractal getIFSFractal() {
+	public IFSFractal getIFSFractal(){
 		return ifsDrawingOptionsPanel.getFractal();
 	}
-	
+
 	// returns true for iterated method, false for recurent
 	public boolean getMethod(){
 		return ifsDrawingOptionsPanel.getDrawingMethod();
 	}
-	
+
 	public int getNumberOfPoints() throws NumberFormatException{
 		return ifsDrawingOptionsPanel.getNumberOfPoints();
 	}

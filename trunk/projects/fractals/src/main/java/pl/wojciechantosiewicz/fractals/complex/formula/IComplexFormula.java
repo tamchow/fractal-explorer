@@ -19,12 +19,13 @@ import org.jscience.mathematics.numbers.Complex;
 
 /**
  * @author Wojciech Antosiewicz
- *
  */
 public interface IComplexFormula {
 	/**
 	 * Calculates value of this formula for the provided parameter.
-	 * @param param parameter for which value of this formula is calculated
+	 * 
+	 * @param param
+	 *        parameter for which value of this formula is calculated
 	 * @return calculated value of this formula for given parameter
 	 */
 	Complex calculate(Complex param);
@@ -33,12 +34,12 @@ public interface IComplexFormula {
 	 * @param point
 	 */
 	void setConstant(Complex point);
-	
+
 	/**
 	 * @param properties
 	 */
 	void setProperties(FormulaProperties properties);
-	
+
 	/**
 	 * @return
 	 */

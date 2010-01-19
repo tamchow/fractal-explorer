@@ -15,27 +15,26 @@
  */
 package pl.wojciechantosiewicz.fractals.complex.formula;
 
-
 /**
  * @author wa
- *
  */
 public abstract class PolynomialFormula extends ComplexFormula implements IPolynomialFormula {
 	private int order;
-	
+
 	/**
-	 * @param properties 
+	 * @param properties
 	 * @param order
 	 */
 	public PolynomialFormula(FormulaProperties properties, int order) {
 		super(properties);
 		this.order = order;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
 	 * @see pl.wojciechantosiewicz.fractals.complex.formula.PolynomialFormula#getOrder()
 	 */
-	public int getOrder() {
+	public int getOrder(){
 		return order;
 	}
 }

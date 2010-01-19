@@ -17,11 +17,11 @@ package pl.wojciechantosiewicz.fractals.complex.formula;
 
 /**
  * @author Wojciech Antosiewicz
- *
  */
 public interface IPolynomialFormula extends IComplexFormula {
 	/**
 	 * Returns order of the polynomial
+	 * 
 	 * @return an order of polynomial
 	 */
 	int getOrder();

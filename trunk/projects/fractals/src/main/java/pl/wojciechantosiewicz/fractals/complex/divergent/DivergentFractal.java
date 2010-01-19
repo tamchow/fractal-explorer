@@ -12,53 +12,48 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id$
- */
-/*
- * $Id: file.java 000 2006-09-01 00:00:00Z author $
  */
 package pl.wojciechantosiewicz.fractals.complex.divergent;
 
 import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
 
-
 /**
  * DOCUMENT ME!
- *
+ * 
  * @author $Author: author $
  * @version $Rev: 000 $
- *
  * @todo DOCUMENT ME!
-*/
+ */
 public abstract class DivergentFractal extends ComplexFractal {
-   
-    /** TODO: DOCUMENT ME! */
-    protected final double radius;
 
-    /** TODO: DOCUMENT ME! */
-    protected double epsilon;
+	/** TODO: DOCUMENT ME! */
+	protected final double radius;
 
-/**
-     *  Creates a new DivergentFractal object.
-    *
-     *  @param name TODO: DOCUMENT ME!
-     *  @param epsilon TODO: DOCUMENT ME!
-    */
-    public DivergentFractal(String name, double epsilon) {
-        super(name, ComplexFractal.Type.Divergent);
-        this.epsilon = epsilon;
-        radius = epsilon * epsilon;
-    }
+	/** TODO: DOCUMENT ME! */
+	protected double epsilon;
 
-    /**
-     * DOCUMENT ME!
-     *
-     * @return TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    public int getPaletteSize() {
-        return palette.getSize();
-    }
+	/**
+	 * Creates a new DivergentFractal object.
+	 * 
+	 * @param name
+	 *        TODO: DOCUMENT ME!
+	 * @param epsilon
+	 *        TODO: DOCUMENT ME!
+	 */
+	public DivergentFractal(String name, double epsilon) {
+		super(name, ComplexFractal.Type.Divergent);
+		this.epsilon = epsilon;
+		radius = epsilon * epsilon;
+	}
+
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @return TODO: DOCUMENT ME!
+	 * @todo DOCUMENT ME!
+	 */
+	public int getPaletteSize(){
+		return palette.getSize();
+	}
 
 }

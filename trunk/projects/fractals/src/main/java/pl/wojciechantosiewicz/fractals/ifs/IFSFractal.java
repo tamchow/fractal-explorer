@@ -12,78 +12,77 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id$
  */
 package pl.wojciechantosiewicz.fractals.ifs;
 
 /**
  * DOCUMENT ME!
- *
+ * 
  * @version $Revision: 000 $
-*/
+ */
 public class IFSFractal {
-    //~ Instance fields ----------------------------------------------------------------------------------------------
+	// ~ Instance fields ----------------------------------------------------------------------------------------------
 
-    private String name;
+	private String name;
 
-    /** DOCUMENT ME! */
-    private AffineTransform[] transformations;
+	/** DOCUMENT ME! */
+	private AffineTransform[] transformations;
 
-    //~ Constructors -------------------------------------------------------------------------------------------------
+	// ~ Constructors -------------------------------------------------------------------------------------------------
 
-/**
-     * Creates a new FractalIFS object.
-     *
-     * @param transformCount DOCUMENT ME!
-     */
-    public IFSFractal(int transformCount) {
-        name = new String("");
-        transformations = new AffineTransform[transformCount];
-    }
+	/**
+	 * Creates a new FractalIFS object.
+	 * 
+	 * @param transformCount
+	 *        DOCUMENT ME!
+	 */
+	public IFSFractal(int transformCount) {
+		name = new String("");
+		transformations = new AffineTransform[transformCount];
+	}
 
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	/**
+	 * Creates a new FractalIFS object.
+	 * 
+	 * @param name
+	 *        DOCUMENT ME!
+	 * @param transformations
+	 *        DOCUMENT ME!
+	 */
+	public IFSFractal(String name, AffineTransform[] transformations) {
+		this.transformations = transformations;
+		this.name = name;
+	}
 
-    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/**
-     * Creates a new FractalIFS object.
-     *
-     * @param name DOCUMENT ME!
-     * @param transformations DOCUMENT ME!
-     */
-    public IFSFractal(String name, AffineTransform[] transformations) {
-        this.transformations = transformations;
-        this.name = name;
-    }
+	// ~ Methods ------------------------------------------------------------------------------------------------------
 
-    //~ Methods ------------------------------------------------------------------------------------------------------
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @return DOCUMENT ME!
+	 */
+	public String toString(){
+		return name + " (" + transformations.length + ")";
+	}
 
-    /**
-     * DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
-     */
-    public String toString() {
-        return name + " (" + transformations.length + ")";
-    }
+	// ******************************************************************************
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @return DOCUMENT ME!
+	 */
+	public int getTransformCount(){
+		return transformations.length;
+	}
 
-
-    //******************************************************************************
-    /**
-     * DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
-     */
-    public int getTransformCount() {
-        return transformations.length;
-    }
-
-
-    /**
-     * 
-    DOCUMENT ME!
-     *
-     * @return the transformations
-     */
-    public AffineTransform[] getTransformations() {
-        return transformations;
-    }
+	/**
+	 * 
+	 DOCUMENT ME!
+	 * 
+	 * @return the transformations
+	 */
+	public AffineTransform[] getTransformations(){
+		return transformations;
+	}
 }

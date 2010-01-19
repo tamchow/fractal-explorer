@@ -12,7 +12,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id$
  */
 package pl.wojciechantosiewicz.fractals.gui.complex;
 
@@ -58,8 +57,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 
 	private Rectangle rect = new Rectangle();
 
-	private CoordinateTransform ct = new CoordinateTransform3D(getWidth(),
-			getHeight());
+	private CoordinateTransform ct = new CoordinateTransform3D(getWidth(), getHeight());
 
 	private Thread thread;
 
@@ -82,6 +80,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	private FontMetrics fontMetrics;
 
 	private boolean previewEnabled = false;
+
 	// ~ Constructors
 	// -------------------------------------------------------------------------------------------------
 
@@ -89,7 +88,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	 * Creates a new ComplexFractalDrawer object.
 	 * 
 	 * @param applet
-	 *            DOCUMENT ME!
+	 *        DOCUMENT ME!
 	 */
 	public ComplexFractalDrawer() {
 		super();
@@ -100,26 +99,26 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 
 		this.addComponentListener(new ComponentAdapter() {
 			@Override
-			public void componentResized(ComponentEvent e) {
+			public void componentResized(ComponentEvent e){
 				ct.setScreenDimensions(getWidth(), getHeight());
-				bi = new BufferedImage(getWidth(), getHeight(),	BufferedImage.TYPE_INT_RGB);
+				bi = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 			}
 		});
 		this.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
-				synchronized (this) {
+			public void mousePressed(MouseEvent e){
+				synchronized (this){
 					startPoint = e.getPoint();
 				}
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
-				synchronized (this) {
+			public void mouseReleased(MouseEvent e){
+				synchronized (this){
 					mouseDragged = false;
 					endPoint = e.getPoint();
 				}
-				
+
 				if(complexFractal != null){
 					setRectangle();
 
@@ -127,7 +126,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 					Point2D end = ct.screenToUser(rect.x + rect.width, rect.y + rect.height);
 					ct.setUserDimensionX(start.getX(), end.getX());
 					ct.setUserDimensionY(end.getY(), start.getY());
-				
+
 					repaintFractal(false);
 				}
 			}
@@ -138,19 +137,19 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 			 * DOCUMENT ME!
 			 * 
 			 * @param e
-			 *            DOCUMENT ME!
+			 *        DOCUMENT ME!
 			 */
 			@Override
-			public void mouseDragged(MouseEvent e) {
-				if (running) {
-					synchronized (this) {
+			public void mouseDragged(MouseEvent e){
+				if(running){
+					synchronized (this){
 						mouseDragged = false;
 					}
 
 					return;
 				}
 
-				synchronized (this) {
+				synchronized (this){
 					mouseDragged = true;
 					endPoint = e.getPoint();
 					setRectangle();
@@ -169,46 +168,45 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	 * DOCUMENT ME!
 	 * 
 	 * @param complexFractal
-	 *            DOCUMENT ME!
+	 *        DOCUMENT ME!
 	 * @param clear
-	 *            DOCUMENT ME!
+	 *        DOCUMENT ME!
 	 */
-	public void drawFractal(ComplexFractal complexFractal) {
+	public void drawFractal(ComplexFractal complexFractal){
 		setFractal(complexFractal, true);
-		
+
 		stopDrawing();
 
 		thread = new Thread(this);
 		running = true;
 		thread.start();
 	}
-	
+
 	public void repaintFractal(boolean discardZoom){
 		if(discardZoom){
 			discardZoom();
 		}
-		
+
 		previewEnabled = executionControl.isPreviewEnabled();
-		
+
 		thread = new Thread(this);
 		running = true;
 		thread.start();
-//		executionControl.getInstance().drawComplex(discardZoom);
+		// executionControl.getInstance().drawComplex(discardZoom);
 	}
-	
-	public void setFractal(ComplexFractal complexFractal, boolean originalZoom) {
+
+	public void setFractal(ComplexFractal complexFractal, boolean originalZoom){
 		this.complexFractal = complexFractal;
 		if(originalZoom){
 			discardZoom();
 		}
 	}
 
-
 	// ******************************************************************************
 	/**
 	 * DOCUMENT ME!
 	 */
-	public void run() {
+	public void run(){
 		int x = 0;
 		int y = 0;
 		double u;
@@ -218,9 +216,9 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		final double du = (ct.getMaxX() - ct.getMinX()) / w;
 		final double dv = (ct.getMaxY() - ct.getMinY()) / h;
 
-		for (y = 0, v = ct.getMaxY(); y < h; y++, v -= dv) {
-			for (x = 0, u = ct.getMinX(); x < w; x++, u += du) {
-				if (running == false) {
+		for(y = 0, v = ct.getMaxY(); y < h; y++, v -= dv){
+			for(x = 0, u = ct.getMinX(); x < w; x++, u += du){
+				if(running == false){
 					repaint();
 					return;
 				}
@@ -228,11 +226,11 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 			} // for x
 
 			final int value = x + y * w;
-			
+
 			executionControl.setProgress(value);
-			
-			if (previewEnabled) {
-				repaint(0, y, w-1, 1);
+
+			if(previewEnabled){
+				repaint(0, y, w - 1, 1);
 			}
 		} // for y
 
@@ -244,22 +242,22 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	/**
 	 * DOCUMENT ME!
 	 */
-	private final void setRectangle() {
+	private final void setRectangle(){
 		int width = endPoint.x - startPoint.x;
 		int height = endPoint.y - startPoint.y;
 		int x;
 		int y;
 
-		if (width > 0) {
+		if(width > 0){
 			x = startPoint.x;
-		} else {
+		}else{
 			x = endPoint.x;
 			width = -width;
 		}
 
-		if (height > 0) {
+		if(height > 0){
 			y = startPoint.y;
-		} else {
+		}else{
 			y = endPoint.y;
 			height = -height;
 		}
@@ -271,14 +269,14 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	/**
 	 * DOCUMENT ME!
 	 */
-	public void stopDrawing() {
+	public void stopDrawing(){
 		running = false;
 
-		try {
-			if (thread != null) {
+		try{
+			if(thread != null){
 				thread.join(50);
 			}
-		} catch (InterruptedException ie) {
+		}catch(InterruptedException ie){
 		}
 	}
 
@@ -286,21 +284,17 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	/**
 	 * DOCUMENT ME!
 	 */
-	public void discardZoom() {
+	public void discardZoom(){
 		FormulaProperties properties = complexFractal.getFormula().getProperties();
-		ct.setUserDimensions(
-				properties.getMinRe(),
-				properties.getMaxRe(), 
-				properties.getMinIm(),
-				properties.getMaxIm());
+		ct.setUserDimensions(properties.getMinRe(), properties.getMaxRe(), properties.getMinIm(), properties.getMaxIm());
 	}
 
 	// ******************************************************************************
 	/**
 	 * DOCUMENT ME!
 	 */
-	public void clearPanel() {
-		if (running) {
+	public void clearPanel(){
+		if(running){
 			stopDrawing();
 		}
 
@@ -314,24 +308,24 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	 * DOCUMENT ME!
 	 * 
 	 * @param g
-	 *            DOCUMENT ME!
+	 *        DOCUMENT ME!
 	 */
-	public void paintComponent(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
+	public void paintComponent(Graphics g){
+		Graphics2D g2 = (Graphics2D)g;
 		g2.drawImage(bi, 0, 0, this);
 
-		if (mouseDragged) {
+		if(mouseDragged){
 			g2.setColor(Color.white);
 			g2.draw(rect);
 
 			drawStringInRectangle(startPoint, g2, true);
 			drawStringInRectangle(endPoint, g2, false);
-			
+
 		}
 	}
-	
+
 	// **********************************************************************************
-	
+
 	private void drawStringInRectangle(Point point, Graphics2D g2, boolean beforePointer){
 		StringBuilder sb = new StringBuilder("[ ");
 		Point2D userPoint = ct.screenToUser(point.getX(), point.getY());
@@ -342,47 +336,45 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		int rectHeight = fontMetrics.getHeight() + 3;
 		int x; // coordinates of the info rectangle
 		int y; // coordinates of the info rectangle
-		int pointX = (int) Math.round(point.getX());
-		int pointY = (int) Math.round(point.getY());
+		int pointX = (int)Math.round(point.getX());
+		int pointY = (int)Math.round(point.getY());
 
 		if(beforePointer){
-			if (pointX < MARGIN || (pointX - rectWidth) < MARGIN) {
+			if(pointX < MARGIN || (pointX - rectWidth) < MARGIN){
 				x = MARGIN;
-			} else if ((pointX + rectWidth) > bi.getWidth()) {
+			}else if((pointX + rectWidth) > bi.getWidth()){
 				x = bi.getWidth() - rectWidth - MARGIN;
-			} else {
+			}else{
 				x = pointX - rectWidth - MARGIN;
 			}
 
-			if (pointY < MARGIN || (pointY - rectHeight) < MARGIN) {
+			if(pointY < MARGIN || (pointY - rectHeight) < MARGIN){
 				y = MARGIN;
-			} else if ((pointY + rectHeight) > bi.getHeight()) {
+			}else if((pointY + rectHeight) > bi.getHeight()){
 				y = bi.getHeight() - rectHeight - MARGIN;
-			} else {
+			}else{
 				y = pointY - rectHeight - MARGIN;
 			}
 		}else{
-			if (pointX < MARGIN || (pointX) < MARGIN) {
+			if(pointX < MARGIN || (pointX) < MARGIN){
 				x = MARGIN;
-			} else if ((pointX + rectWidth + MARGIN) > bi.getWidth()) {
+			}else if((pointX + rectWidth + MARGIN) > bi.getWidth()){
 				x = bi.getWidth() - rectWidth - MARGIN;
-			} else {
+			}else{
 				x = pointX + MARGIN;
 			}
 
-			if (pointY < MARGIN || (pointY) < MARGIN) {
+			if(pointY < MARGIN || (pointY) < MARGIN){
 				y = MARGIN;
-			} else if ((pointY + rectHeight + MARGIN) > bi.getHeight()) {
+			}else if((pointY + rectHeight + MARGIN) > bi.getHeight()){
 				y = bi.getHeight() - rectHeight - MARGIN;
-			} else {
+			}else{
 				y = pointY + MARGIN;
 			}
 		}
-		
-		
 
 		g2.setColor(Color.white);
-		
+
 		g2.fillRect(x, y, rectWidth, rectHeight);
 		g2.setColor(Color.black);
 		g2.drawString(sb.toString(), x + 2, y + fontMetrics.getHeight() - 3);
@@ -394,7 +386,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	 * 
 	 * @return DOCUMENT ME!
 	 */
-	public boolean isRunning() {
+	public boolean isRunning(){
 		return running;
 	}
 
@@ -402,15 +394,15 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	/**
 	 * DOCUMENT ME!
 	 */
-	public void fixAspectRatio() {
+	public void fixAspectRatio(){
 		double xSpan = ct.getMaxX() - ct.getMinX();
 		double ySpan = ct.getMaxY() - ct.getMinY();
 
-		if (xSpan > ySpan) { // wide
+		if(xSpan > ySpan){ // wide
 
 			double c = (xSpan - ySpan) / 2.0;
 			ct.setUserDimensionY(ct.getMinY() - c, ct.getMaxY() + c);
-		} else { // tall
+		}else{ // tall
 
 			double c = (ySpan - xSpan) / 2.0;
 			ct.setUserDimensionX(ct.getMinX() - c, ct.getMaxX() + c);
@@ -420,14 +412,15 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	/**
 	 * @return the complexFractal
 	 */
-	public boolean isFractalSet() {
+	public boolean isFractalSet(){
 		return complexFractal != null;
 	}
 
 	/**
-	 * @param previewEnabled the previewEnabled to set
+	 * @param previewEnabled
+	 *        the previewEnabled to set
 	 */
-	public void setPreviewEnabled(boolean previewEnabled) {
+	public void setPreviewEnabled(boolean previewEnabled){
 		this.previewEnabled = previewEnabled;
 	}
 }
