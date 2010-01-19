@@ -25,7 +25,7 @@ import javax.swing.JTabbedPane;
 
 import pl.wojciechantosiewicz.fractals.ExecutionControl;
 import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
-import pl.wojciechantosiewicz.fractals.complex.Formula;
+import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 import pl.wojciechantosiewicz.fractals.gui.complex.convergent.ConvergentOptionsPanel;
 import pl.wojciechantosiewicz.fractals.gui.complex.divergent.DivergentOptionsPanel;
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
@@ -126,7 +126,7 @@ private final String componentInfo = "ComplexTopLevelPanel";
 		complexFractalDrawer.setPreviewEnabled(preview);
 	}
 
-	public Formula getFormula() {
+	public IComplexFormula getFormula() {
 		if(complexFractalTypeTabbedPane.getSelectedIndex()==0){// divergent
 			return divergentOptionsPanel.getFormula();
 		}else if(complexFractalTypeTabbedPane.getSelectedIndex()==1){ // convergent

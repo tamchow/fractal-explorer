@@ -17,7 +17,8 @@ package pl.wojciechantosiewicz.fractals.palette;
 
 import java.awt.Color;
 
-import woj.image.Gradient;
+import pl.wojciechantosiewicz.image.Gradient;
+
 
 
 /**
@@ -28,15 +29,14 @@ import woj.image.Gradient;
 public class FractalPalette extends Gradient {
     //~ Static fields/initializers -----------------------------------------------------------------------------------
 
-    /** DOCUMENT ME! */
-    public static final int CONVERGENT_PALETTE = 0;
-
-    /** DOCUMENT ME! */
-    public static final int DIVERGENT_PALETTE = 1;
-
+    public enum PaletteType{
+    	CONVERGENT,
+    	DIVERGENT
+    }
+    
     //~ Instance fields ----------------------------------------------------------------------------------------------
 
-    private int type;
+    private PaletteType type;
 
     //~ Constructors -------------------------------------------------------------------------------------------------
 
@@ -47,24 +47,10 @@ public class FractalPalette extends Gradient {
      * @param segmentSize 
      * @param type DOCUMENT ME!
      */
-    public FractalPalette(Color[] colors, int segmentSize, int type) {
+    public FractalPalette(Color[] colors, int segmentSize, PaletteType type) {
         super(colors, segmentSize);
-
-        switch (type) {
-            case CONVERGENT_PALETTE:
-                this.type = CONVERGENT_PALETTE;
-
-                break;
-
-            case DIVERGENT_PALETTE:
-                this.type = DIVERGENT_PALETTE;
-
-                break;
-
-            default:
-                throw new IllegalArgumentException(
-                    "Type parameter is wrong. Use FractalPalette.CONVERGENT_PALETTE or FractalPalette.DIVERGENT_PALETTE values.");
-        }
+        this.type = type;
+        
     }
 
     //~ Methods ------------------------------------------------------------------------------------------------------
@@ -74,7 +60,7 @@ public class FractalPalette extends Gradient {
      *
      * @return the type
      */
-    public int getType() {
+    public PaletteType getType() {
         return type;
     }
 }

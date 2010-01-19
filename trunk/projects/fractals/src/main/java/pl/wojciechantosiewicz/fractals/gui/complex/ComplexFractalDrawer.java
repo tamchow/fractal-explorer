@@ -35,8 +35,9 @@ import javax.swing.JPanel;
 
 import pl.wojciechantosiewicz.fractals.ExecutionControl;
 import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
-import woj.image.CoordinateTransform;
-import woj.image.CoordinateTransform3D;
+import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
+import pl.wojciechantosiewicz.image.CoordinateTransform;
+import pl.wojciechantosiewicz.image.CoordinateTransform3D;
 
 /**
  * DOCUMENT ME!
@@ -98,18 +99,21 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		numberFormat.setMinimumIntegerDigits(1);
 
 		this.addComponentListener(new ComponentAdapter() {
+			@Override
 			public void componentResized(ComponentEvent e) {
 				ct.setScreenDimensions(getWidth(), getHeight());
 				bi = new BufferedImage(getWidth(), getHeight(),	BufferedImage.TYPE_INT_RGB);
 			}
 		});
 		this.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mousePressed(MouseEvent e) {
 				synchronized (this) {
 					startPoint = e.getPoint();
 				}
 			}
 
+			@Override
 			public void mouseReleased(MouseEvent e) {
 				synchronized (this) {
 					mouseDragged = false;
@@ -136,6 +140,7 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 			 * @param e
 			 *            DOCUMENT ME!
 			 */
+			@Override
 			public void mouseDragged(MouseEvent e) {
 				if (running) {
 					synchronized (this) {
@@ -210,8 +215,8 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		double v;
 		final int w = getWidth();
 		final int h = getHeight();
-		final double du = (ct.getMaxX() - ct.getMinX()) / (double) w;
-		final double dv = (ct.getMaxY() - ct.getMinY()) / (double) h;
+		final double du = (ct.getMaxX() - ct.getMinX()) / w;
+		final double dv = (ct.getMaxY() - ct.getMinY()) / h;
 
 		for (y = 0, v = ct.getMaxY(); y < h; y++, v -= dv) {
 			for (x = 0, u = ct.getMinX(); x < w; x++, u += du) {
@@ -282,9 +287,12 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 	 * DOCUMENT ME!
 	 */
 	public void discardZoom() {
-		ct.setUserDimensions(complexFractal.getMinX(),
-				complexFractal.getMaxX(), complexFractal.getMinY(),
-				complexFractal.getMaxY());
+		FormulaProperties properties = complexFractal.getFormula().getProperties();
+		ct.setUserDimensions(
+				properties.getMinRe(),
+				properties.getMaxRe(), 
+				properties.getMinIm(),
+				properties.getMaxIm());
 	}
 
 	// ******************************************************************************

@@ -18,7 +18,8 @@ package pl.wojciechantosiewicz.fractals.complex.divergent;
 
 import org.jscience.mathematics.numbers.Complex;
 
-import pl.wojciechantosiewicz.fractals.complex.Formula;
+import pl.wojciechantosiewicz.fractals.complex.formula.ComplexFormula;
+import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
 
 
 /**
@@ -35,25 +36,21 @@ public class TrygonometricJulia extends DivergentFractal {
     public TrygonometricJulia() {
         super(new String("Trigonometric Julia"), 20);
 
-        Formula formula = new Formula(-2 * Math.PI, 2 * Math.PI, -2 * Math.PI, 2 * Math.PI) {
+        ComplexFormula formula = new ComplexFormula(new FormulaProperties(-2 * Math.PI, 2 * Math.PI, -2 * Math.PI, 2 * Math.PI)) {
                 public final Complex calculate(Complex z) {
                     double eec = Math.sin(z.getReal()) * cosh(z.getImaginary());
                     double eed = Math.cos(z.getReal()) * sinh(z.getImaginary());
 
                     return Complex.valueOf(
-                        (cons.getReal() * eec) - (cons.getImaginary() * eed),
-                        (cons.getReal() * eed) + (cons.getImaginary() * eec));
+                        (constant.getReal() * eec) - (constant.getImaginary() * eed),
+                        (constant.getReal() * eed) + (constant.getImaginary() * eec));
                 }
 
 
-                public String toString() {
+                @Override
+				public String toString() {
                     return "C * sin(Z)";
                 }
-                
-                @Override
-				public int getPolynomialOrder() {
-					return 0;
-				}
             };
 
         Complex[] points = new Complex[] {
@@ -63,29 +60,26 @@ public class TrygonometricJulia extends DivergentFractal {
                 new Complex(0.0, 1.4), new Complex(1.49, 0.98), new Complex(0.0, 1.71), new Complex(0.0, 1.76),
                 new Complex(2.135, 1.31), new Complex(3.72, 0.22)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         //##############################################################################
-        formula = new Formula(-2 * Math.PI, 2 * Math.PI, -2 * Math.PI, 2 * Math.PI) {
+        formula = new ComplexFormula(new FormulaProperties(-2 * Math.PI, 2 * Math.PI, -2 * Math.PI, 2 * Math.PI)) {
                     public final Complex calculate(Complex z) {
                         double eec = Math.cos(z.getReal()) * cosh(z.getImaginary());
                         double eed = Math.sin(z.getReal()) * sinh(z.getImaginary());
 
                         return Complex.valueOf(
-                            (cons.getReal() * eec) - (cons.getImaginary() * eed),
-                            (cons.getReal() * eed) + (cons.getImaginary() * eec));
+                            (constant.getReal() * eec) - (constant.getImaginary() * eed),
+                            (constant.getReal() * eed) + (constant.getImaginary() * eec));
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "C * cos(Z)";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 1;
-    				}
+
                 };
         points = new Complex[] {
                 new Complex(1.0, 0.0), new Complex(1.0, 0.2), new Complex(1.0, 0.3), new Complex(1.0, 0.4),
@@ -94,11 +88,11 @@ public class TrygonometricJulia extends DivergentFractal {
                     -2.33, 0.009), new Complex(-2.22, -0.333), new Complex(-1.957, -0.029), new Complex(-1.71, -0.28),
                 new Complex(-1.84, 0.095), new Complex(1.53, 0.736), new Complex(1.297, 1.05)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
 
-        formula = formulas.get(0);
+        this.formula = formulas.get(0);
     }
 
     //~ Methods ------------------------------------------------------------------------------------------------------
@@ -136,8 +130,9 @@ public class TrygonometricJulia extends DivergentFractal {
      *
      * @return DOCUMENT ME!
      */
-    public final int rgbColor(final double u, final double v) {
-        z = Complex.valueOf(u, v);
+    @Override
+	public final int rgbColor(final double u, final double v) {
+        Complex z = Complex.valueOf(u, v);
 
         for (int i = 0; i < palette.getSize(); i++) {
             z = formula.calculate(z);
