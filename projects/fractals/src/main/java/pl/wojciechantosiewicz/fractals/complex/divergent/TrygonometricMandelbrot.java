@@ -18,7 +18,8 @@ package pl.wojciechantosiewicz.fractals.complex.divergent;
 
 import org.jscience.mathematics.numbers.Complex;
 
-import pl.wojciechantosiewicz.fractals.complex.Formula;
+import pl.wojciechantosiewicz.fractals.complex.formula.ComplexFormula;
+import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
 
 
 /**
@@ -35,51 +36,43 @@ public class TrygonometricMandelbrot extends DivergentFractal {
     public TrygonometricMandelbrot() {
         super(new String("Trigonometric Mandelbrot"), 10);
 
-        Formula formula = new Formula(-1.5 * Math.PI, 1.5 * Math.PI, -1.5 * Math.PI, 1.5 * Math.PI) {
+        ComplexFormula formula = new ComplexFormula(new FormulaProperties(-1.5 * Math.PI, 1.5 * Math.PI, -1.5 * Math.PI, 1.5 * Math.PI)) {
                 public final Complex calculate(Complex z) {
                     double eec = Math.sin(z.getReal()) * cosh(z.getImaginary());
                     double eed = Math.cos(z.getReal()) * sinh(z.getImaginary());
 
                     return Complex.valueOf(
-                        (cons.getReal() * eec) - (cons.getImaginary() * eed),
-                        (cons.getReal() * eed) + (cons.getImaginary() * eec));
+                        (constant.getReal() * eec) - (constant.getImaginary() * eed),
+                        (constant.getReal() * eed) + (constant.getImaginary() * eec));
                 }
 
 
-                public String toString() {
+                @Override
+				public String toString() {
                     return "C * sin(Z)";
                 }
-                
-                @Override
-				public int getPolynomialOrder() {
-					return 0;
-				}
             };
 
         formulas.add(formula);
         //##############################################################################
-        formula = new Formula(-2 * Math.PI, 2 * Math.PI, -2 * Math.PI, 2 * Math.PI) {
+        formula = new ComplexFormula(new FormulaProperties(-2 * Math.PI, 2 * Math.PI, -2 * Math.PI, 2 * Math.PI)) {
                     public final Complex calculate(Complex z) {
                         double eec = Math.cos(z.getReal()) * cosh(z.getImaginary());
                         double eed = Math.sin(z.getReal()) * sinh(z.getImaginary());
 
                         return Complex.valueOf(
-                            (cons.getReal() * eec) - (cons.getImaginary() * eed),
-                            (cons.getImaginary() * eed) + (cons.getImaginary() * eec));
+                            (constant.getReal() * eec) - (constant.getImaginary() * eed),
+                            (constant.getImaginary() * eed) + (constant.getImaginary() * eec));
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "C * cos(Z)";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 1;
-    				}
                 };
         formulas.add(formula);
-        formula = formulas.get(0);
+        this.formula = formulas.get(0);
     }
 
     //~ Methods ------------------------------------------------------------------------------------------------------
@@ -117,9 +110,10 @@ public class TrygonometricMandelbrot extends DivergentFractal {
      *
      * @return DOCUMENT ME!
      */
-    public final int rgbColor(final double u, final double v) {
-        z = Complex.valueOf(u, v);
-        formula.setConstant(u, v);
+    @Override
+	public final int rgbColor(final double u, final double v) {
+        Complex z = Complex.valueOf(u, v);
+        formula.setConstant(z);
 
         for (int i = 0; i < palette.getSize(); i++) {
             z = formula.calculate(z);

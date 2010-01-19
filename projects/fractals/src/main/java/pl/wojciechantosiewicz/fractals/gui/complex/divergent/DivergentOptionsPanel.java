@@ -36,9 +36,9 @@ import org.jscience.mathematics.numbers.Complex;
 
 import pl.wojciechantosiewicz.fractals.ExecutionControl;
 import pl.wojciechantosiewicz.fractals.Fraktale;
-import pl.wojciechantosiewicz.fractals.complex.Formula;
 import pl.wojciechantosiewicz.fractals.complex.divergent.DivergentFractal;
 import pl.wojciechantosiewicz.fractals.complex.divergent.Julia;
+import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 import pl.wojciechantosiewicz.fractals.gui.complex.ComplexCommonOptionsPanel;
 import pl.wojciechantosiewicz.fractals.gui.complex.FractalPaletteRenderer;
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
@@ -67,6 +67,7 @@ public class DivergentOptionsPanel extends ComplexCommonOptionsPanel {
 
     /**
      * Creates a new DivergentOptionsPanel object.
+     * @param executionControl 
      */
     public DivergentOptionsPanel(ExecutionControl executionControl) {
         super(executionControl);
@@ -141,9 +142,9 @@ public class DivergentOptionsPanel extends ComplexCommonOptionsPanel {
     private void repaint_actionPerformed(boolean b) {
     	DivergentFractal fractal = getFractal();
     	fractal.setFormula(getFormula());
-    	Formula formula = fractal.getFormula();
+    	IComplexFormula formula = fractal.getFormula();
     	Complex point = (Complex)(startingPointsList.getSelectedValue());
-    	formula.setConstans(point);
+    	formula.setConstant(point);
     	ExecutionControl.getInstance().drawComplex(b);
     }
     
@@ -154,7 +155,7 @@ public class DivergentOptionsPanel extends ComplexCommonOptionsPanel {
     private void setupFormulasForSelectedFractal(DivergentFractal f){
     	formulaComboBox.removeAllItems();
 
-        ArrayList<Formula> formulas = f.getFormulas();
+        ArrayList<IComplexFormula> formulas = f.getFormulas();
 
         for (int i = 0; i < formulas.size(); i++) {
             formulaComboBox.addItem(formulas.get(i));

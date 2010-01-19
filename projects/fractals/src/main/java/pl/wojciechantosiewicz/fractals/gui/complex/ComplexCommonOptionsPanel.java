@@ -37,7 +37,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import pl.wojciechantosiewicz.fractals.ExecutionControl;
-import pl.wojciechantosiewicz.fractals.complex.Formula;
+import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
 import pl.wojciechantosiewicz.fractals.palette.Palettes;
 
@@ -150,7 +150,7 @@ public class ComplexCommonOptionsPanel extends JPanel {
         		new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         //if (e.getSource() == formulaComboBox) {
-                            Formula formula = (Formula)formulaComboBox.getSelectedItem();
+                            IComplexFormula formula = (IComplexFormula)formulaComboBox.getSelectedItem();
 
                             if (formula == null) {
                                 return;
@@ -270,25 +270,28 @@ public class ComplexCommonOptionsPanel extends JPanel {
 		
 	}
 	
-	public Formula getFormula(){
-		return (Formula) formulaComboBox.getSelectedItem();
+	/**
+	 * @return
+	 */
+	public IComplexFormula getFormula(){
+		return (IComplexFormula) formulaComboBox.getSelectedItem();
 	}
 	
-	protected void setupPointListAndPalettes(Formula formula){
+	protected void setupPointListAndPalettes(IComplexFormula formula){
 		pointsListModel.clear();
 
-        if (formula.getPoints() == null) {
+        if (formula.getProperties().getPoints() == null) {
             return;
         }
 
-        for (int i = 0; i < formula.getPoints().length; i++) {
-            pointsListModel.addElement(formula.getPoints()[i]);
+        for (int i = 0; i < formula.getProperties().getPoints().length; i++) {
+            pointsListModel.addElement(formula.getProperties().getPoints()[i]);
         }
-        formula.setConstans(formula.getPoints()[0]);
+        formula.setConstant(formula.getProperties().getPoints()[0]);
         setupPalettes(formula);
 	}
 
-	protected void setupPalettes(Formula formula) {
+	protected void setupPalettes(IComplexFormula formula) {
 		
 	}
 }

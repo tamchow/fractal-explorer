@@ -28,10 +28,10 @@ import javax.swing.JPanel;
 import pl.wojciechantosiewicz.fractals.ExecutionControl;
 import pl.wojciechantosiewicz.fractals.ifs.AffineTransform;
 import pl.wojciechantosiewicz.fractals.ifs.IFSFractal;
-import woj.image.CoordinateTransform;
-import woj.image.CoordinateTransform3D;
-import woj.image.ImageUtil;
-import woj.image.ScreenPoint;
+import pl.wojciechantosiewicz.image.CoordinateTransform;
+import pl.wojciechantosiewicz.image.CoordinateTransform3D;
+import pl.wojciechantosiewicz.image.ImageUtil;
+import pl.wojciechantosiewicz.image.ScreenPoint;
 
 
 /**

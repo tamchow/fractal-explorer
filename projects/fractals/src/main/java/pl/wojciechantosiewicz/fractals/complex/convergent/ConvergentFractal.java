@@ -20,7 +20,7 @@ import org.jscience.mathematics.functions.Polynomial;
 import org.jscience.mathematics.numbers.Complex;
 
 import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
-import pl.wojciechantosiewicz.fractals.complex.Formula;
+import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 
 
 /**
@@ -32,22 +32,17 @@ import pl.wojciechantosiewicz.fractals.complex.Formula;
  * @todo DOCUMENT ME!
 */
 public class ConvergentFractal extends ComplexFractal {
-    //~ Instance fields ----------------------------------------------------------------------------------------------
-
-    /** TODO: DOCUMENT ME! */
-    protected Complex z = Complex.ZERO;
-
-    /** TODO: DOCUMENT ME! */
-    protected Polynomial<Complex> function;
-
-    /** TODO: DOCUMENT ME! */
-    protected Polynomial<Complex> derivative;
+//    /** TODO: DOCUMENT ME! */
+//    protected Polynomial<Complex> function;
+//
+//    /** TODO: DOCUMENT ME! */
+//    protected Polynomial<Complex> derivative;
 
     /** TODO: DOCUMENT ME! */
     private double accuracy = 0.001;
 
-    /** DOCUMENT ME! */
-    protected Complex[] roots;
+//    /** DOCUMENT ME! */
+//    protected Complex[] roots;
 
     //~ Constructors -------------------------------------------------------------------------------------------------
 
@@ -65,11 +60,11 @@ public class ConvergentFractal extends ComplexFractal {
      *  Creates a new ConvergentFractal object.
     *
      *  @param name TODO: DOCUMENT ME!
-     *  @param function TODO: DOCUMENT ME!
+ * @param func 
     */
     public ConvergentFractal(String name, final Polynomial<Complex> func) {
         super(name, ComplexFractal.Type.Convergent);
-        this.function = func;
+//        this.function = func;
     }
 
 
@@ -82,8 +77,8 @@ public class ConvergentFractal extends ComplexFractal {
      */
     public ConvergentFractal(String name, final Polynomial<Complex> func, Complex[] roots) {
         super(name, ComplexFractal.Type.Convergent);
-        this.function = func;
-        this.roots = roots;
+//        this.function = func;
+//        this.roots = roots;
     }
 
     //~ Methods ------------------------------------------------------------------------------------------------------
@@ -98,16 +93,20 @@ public class ConvergentFractal extends ComplexFractal {
      *
      * @todo DOCUMENT ME!
      */
-    public int rgbColor(double u, double v) {
+    @Override
+	public int rgbColor(double u, double v) {
         int i = 0;
-        z = Complex.valueOf(u, v);
+        Complex z = Complex.valueOf(u, v);
         final int paletteSize = palette.getSize();
+        
+        Complex[] roots = formula.getProperties().getPoints();
+        
         while (i < (paletteSize >> 2)) {
         	// zn+1 = zn - fn[zn]/f'[zn]
         	z = z.minus(formula.calculate(z));
         	i++;
 
-        	Complex[] roots = formula.getPoints();
+        	
 
         	for (int k = 0; k < roots.length; k++) {
         		int idx = 0;
@@ -135,27 +134,27 @@ public class ConvergentFractal extends ComplexFractal {
      * @todo DOCUMENT ME!
      */
     @Override
-    public void setFormula(Formula f) {
+    public void setFormula(IComplexFormula f) {
         this.formula = f;
     }
 
 
-    /**
-     * DOCUMENT ME!
-     *
-     * @param roots DOCUMENT ME!
-     */
-    public void setRoots(Complex[] roots) {
-        this.roots = roots;
-    }
-
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
-     */
-    public Complex[] gerRoots() {
-        return roots;
-    }
+//    /**
+//     * DOCUMENT ME!
+//     *
+//     * @param roots DOCUMENT ME!
+//     */
+//    public void setRoots(Complex[] roots) {
+//        this.roots = roots;
+//    }
+//
+//
+//    /**
+//     * DOCUMENT ME!
+//     *
+//     * @return DOCUMENT ME!
+//     */
+//    public Complex[] gerRoots() {
+//        return roots;
+//    }
 }

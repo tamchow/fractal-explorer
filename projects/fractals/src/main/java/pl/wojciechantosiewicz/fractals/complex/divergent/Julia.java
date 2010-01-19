@@ -23,7 +23,9 @@ import javolution.text.TypeFormat;
 
 import org.jscience.mathematics.numbers.Complex;
 
-import pl.wojciechantosiewicz.fractals.complex.Formula;
+import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
+import pl.wojciechantosiewicz.fractals.complex.formula.IPolynomialFormula;
+import pl.wojciechantosiewicz.fractals.complex.formula.PolynomialFormula;
 
 
 /**
@@ -34,7 +36,7 @@ import pl.wojciechantosiewicz.fractals.complex.Formula;
 public class Julia extends DivergentFractal {
     //~ Constructors -------------------------------------------------------------------------------------------------
 
-/**
+	/**
      * Creates a new Julia object.
      */
     public Julia() {
@@ -70,24 +72,20 @@ public class Julia extends DivergentFractal {
 
         Complex.FORMAT.setDefault(format);
 
-        Formula formula = new Formula(-1.5, 1.5, -1.5, 1.5) {
+        PolynomialFormula formula = new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 2) {
                 public final Complex calculate(Complex z) {
-                    re2 = z.getReal() * z.getReal();
-                    im2 = z.getImaginary() * z.getImaginary();
+                    double re2 = z.getReal() * z.getReal();
+                    double im2 = z.getImaginary() * z.getImaginary();
 
                     return Complex.valueOf(
-                        re2 - im2 + cons.getReal(), (z.getReal() * z.getImaginary() * 2) + cons.getImaginary());
+                        re2 - im2 + constant.getReal(), (z.getReal() * z.getImaginary() * 2) + constant.getImaginary());
                 }
 
 
-                public String toString() {
+                @Override
+				public String toString() {
                     return "Z^2 + C";
                 }
-                
-                @Override
-				public int getPolynomialOrder() {
-					return 2;
-				}
             };
 
         Complex[] points = new Complex[] {
@@ -99,30 +97,26 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(-0.25, -0.65), Complex.valueOf(0.17, 0.58), Complex.valueOf(-1.135, -0.213),
                 Complex.valueOf(-1.08, -0.248)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
 
         // ##############################################################################
-        formula = new Formula(-2.0, 1.0, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-2.0, 1.0, -1.5, 1.5), 2) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
-                            re2 - im2 + z.getReal() + cons.getReal(),
-                            (z.getReal() * z.getImaginary() * 2) + z.getImaginary() + cons.getImaginary());
+                            re2 - im2 + z.getReal() + constant.getReal(),
+                            (z.getReal() * z.getImaginary() * 2) + z.getImaginary() + constant.getImaginary());
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^2 + Z + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 2;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-0.3, 0.75), Complex.valueOf(-0.35, 0.84), Complex.valueOf(-0.4, 0.84),
@@ -132,55 +126,47 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(0.03, -0.17), Complex.valueOf(-0.938, 0.35), Complex.valueOf(-0.388, -0.65),
                 Complex.valueOf(-0.476, -0.662)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
 
         // ##############################################################################
-        formula = new Formula(-1.5, 1.5, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 3) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
-                            (z.getReal() * (re2 - (3 * im2))) + cons.getReal(),
-                            (z.getImaginary() * ((3 * re2) - im2)) + cons.getImaginary());
+                            (z.getReal() * (re2 - (3 * im2))) + constant.getReal(),
+                            (z.getImaginary() * ((3 * re2) - im2)) + constant.getImaginary());
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^3 + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 3;
-    				}
                 };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         // ##############################################################################
-        formula = new Formula(-2.0, 1.2, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-2.0, 1.2, -1.5, 1.5), 3) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
-                            ((z.getReal() * (re2 - (3 * im2))) + re2) - im2 + cons.getReal(),
+                            ((z.getReal() * (re2 - (3 * im2))) + re2) - im2 + constant.getReal(),
                             (z.getImaginary() * ((3 * re2) - im2)) + (2 * z.getReal() * z.getImaginary())
-                            + cons.getImaginary());
+                            + constant.getImaginary());
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^3 + Z^2 + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 3;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(0.14, 0.36), Complex.valueOf(-1.039, 0.024), Complex.valueOf(-1.066, 0.416),
@@ -193,30 +179,26 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(0.354, 0.275), Complex.valueOf(0.346, 0.143), Complex.valueOf(0.230, 0.019),
                 Complex.valueOf(0.188, 4.4e-4)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         // ##############################################################################
-        formula = new Formula(-1.6, 1.0, -1.5, 1.6) {
+        formula = new PolynomialFormula(new FormulaProperties(-1.6, 1.0, -1.5, 1.6), 3) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
-                            ((z.getReal() * (re2 - (3 * im2))) + re2) - im2 + z.getReal() + cons.getReal(),
+                            ((z.getReal() * (re2 - (3 * im2))) + re2) - im2 + z.getReal() + constant.getReal(),
                             (z.getImaginary() * ((3 * re2) - im2)) + (2 * z.getReal() * z.getImaginary())
-                            + z.getImaginary() + cons.getImaginary());
+                            + z.getImaginary() + constant.getImaginary());
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^3 + Z^2 + Z + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 3;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-0.14, 0.0), Complex.valueOf(-0.195, 0.01), Complex.valueOf(-0.383, 0.13),
@@ -232,29 +214,25 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(0.106, 0.667), Complex.valueOf(0.105, 0.623), Complex.valueOf(0.135, 0.607),
                 Complex.valueOf(0.169, 0.508), Complex.valueOf(0.219, 0.597), Complex.valueOf(0.032, -0.012)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         // ##############################################################################
-        formula = new Formula(-1.5, 1.5, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 4) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
-                            (re2 * (re2 - (3 * im2))) - (im2 * ((3 * re2) - im2)) + cons.getReal(),
-                            (z.getReal() * z.getImaginary() * ((4 * re2) - (4 * im2))) + cons.getImaginary());
+                            (re2 * (re2 - (3 * im2))) - (im2 * ((3 * re2) - im2)) + constant.getReal(),
+                            (z.getReal() * z.getImaginary() * ((4 * re2) - (4 * im2))) + constant.getImaginary());
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^4 + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 4;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.235, 0.0), Complex.valueOf(-1.129, 0.07), Complex.valueOf(-1.058, 0.066),
@@ -263,30 +241,26 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(0.304, 0.73), Complex.valueOf(0.275, 0.822), Complex.valueOf(0.557, 0.055),
                 Complex.valueOf(0.537, 0.024), Complex.valueOf(0.476, 4.5e-4)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         // ##############################################################################
-        formula = new Formula(-1.8, 1.2, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-1.8, 1.2, -1.5, 1.5), 4) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
-                            ((re2 - (3 * im2)) * (re2 + z.getReal())) - (im2 * ((3 * re2) - im2)) + cons.getReal(),
+                            ((re2 - (3 * im2)) * (re2 + z.getReal())) - (im2 * ((3 * re2) - im2)) + constant.getReal(),
                             (z.getImaginary() * (((4 * z.getReal() * (re2 - im2)) + (3 * re2)) - im2))
-                            + cons.getImaginary());
+                            + constant.getImaginary());
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^4 + Z^3 + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 4;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.52, 0.0), Complex.valueOf(-1.503, 0.031), Complex.valueOf(-1.43, 0.064),
@@ -302,31 +276,27 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(0.451, 0.698), Complex.valueOf(0.472, 0.294), Complex.valueOf(0.320, 0.002),
                 Complex.valueOf(-0.733, 0.344)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         // ##############################################################################
-        formula = new Formula(-1.6, 1.2, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-1.6, 1.2, -1.5, 1.5), 4) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
                             (((re2 - (3 * im2)) * (re2 + z.getReal())) - (im2 * ((3 * re2) - im2)) + re2) - im2
-                            + cons.getReal(),
+                            + constant.getReal(),
                             (z.getImaginary() * (((4 * z.getReal() * (re2 - im2)) + (3 * re2)) - im2))
-                            + (2 * z.getReal() * z.getImaginary()) + cons.getImaginary());
+                            + (2 * z.getReal() * z.getImaginary()) + constant.getImaginary());
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^4 + Z^3 + Z^2 + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 4;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.236, 0.0), Complex.valueOf(-1.103, -0.015), Complex.valueOf(-1.054, 0.081),
@@ -341,31 +311,27 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(0.303, 0.413), Complex.valueOf(0.338, 0.289), Complex.valueOf(0.286, 0.113),
                 Complex.valueOf(0.249, 0.035), Complex.valueOf(0.188, 0.003), Complex.valueOf(-0.81, 0.667)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         // ##############################################################################
-        formula = new Formula(-1.7, 1.0, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-1.7, 1.0, -1.5, 1.5), 4) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
                             (((re2 - (3 * im2)) * (re2 + z.getReal())) - (im2 * ((3 * re2) - im2)) + re2) - im2
-                            + z.getReal() + cons.getReal(),
+                            + z.getReal() + constant.getReal(),
                             (z.getImaginary() * (((4 * z.getReal() * (re2 - im2)) + (3 * re2)) - im2))
-                            + (2 * z.getReal() * z.getImaginary()) + z.getImaginary() + cons.getImaginary());
+                            + (2 * z.getReal() * z.getImaginary()) + z.getImaginary() + constant.getImaginary());
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^4 + Z^3 + Z^2 + Z + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 4;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-0.965, -6.6e-4), Complex.valueOf(-0.878, 0.013), Complex.valueOf(-0.834, 0.009),
@@ -379,31 +345,27 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(0.178, 0.516), Complex.valueOf(0.321, 0.457), Complex.valueOf(0.312, 0.502),
                 Complex.valueOf(0.297, 0.373)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         // ##############################################################################
-        formula = new Formula(-1.5, 1.5, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 5) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
                             (z.getReal() * ((re2 * (re2 - (3 * im2))) - (im2 * ((7 * re2) - (5 * im2)))))
-                            + cons.getReal(),
+                            + constant.getReal(),
                             (z.getImaginary() * ((re2 * ((5 * re2) - (7 * im2))) - (im2 * ((3 * re2) - im2))))
-                            + cons.getImaginary());
+                            + constant.getImaginary());
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^5 + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 5;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(0.001, 0.678), Complex.valueOf(0.062, 0.634), Complex.valueOf(0.115, 0.662),
@@ -414,31 +376,26 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(0.612, 0.895), Complex.valueOf(0.656, 0.793), Complex.valueOf(0.76, 0.762),
                 Complex.valueOf(0.843, 0.746), Complex.valueOf(0.762, 0.204), Complex.valueOf(0.643, 0.083)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         // ##############################################################################
-        formula = new Formula(-1.5, 1.5, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 6) {
                     public final Complex calculate(Complex z) {
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
 
                         return Complex.valueOf(
                             (re2 * ((re2 * (re2 - (3 * im2))) - (im2 * ((7 * re2) - (5 * im2)))))
-                            + (im2 * ((im2 * ((3 * re2) - im2)) - (re2 * ((5 * re2) - (7 * im2))))) + cons.getReal(),
+                            + (im2 * ((im2 * ((3 * re2) - im2)) - (re2 * ((5 * re2) - (7 * im2))))) + constant.getReal(),
                             (z.getReal() * z.getImaginary() * ((re2 * ((6 * re2) - (10 * im2)))
-                            - (im2 * ((10 * re2) - (6 * im2))))) + cons.getImaginary());
+                            - (im2 * ((10 * re2) - (6 * im2))))) + constant.getImaginary());
                     }
 
-
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^6 + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 6;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.139, 9.85e-4), Complex.valueOf(-1.058, 0.031), Complex.valueOf(-1.079, 0.017),
@@ -450,36 +407,31 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(-0.176, 0.796), Complex.valueOf(0.18, 0.555), Complex.valueOf(0.735, 0.071),
                 Complex.valueOf(0.604, 0.006)
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
         // ##############################################################################
-        formula = new Formula(-1.5, 1.5, -1.5, 1.5) {
+        formula = new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 8) {
                     public final Complex calculate(Complex z) {
                         double a;
                         double b;
                         double c;
-                        re2 = z.getReal() * z.getReal();
-                        im2 = z.getImaginary() * z.getImaginary();
+                        double re2 = z.getReal() * z.getReal();
+                        double im2 = z.getImaginary() * z.getImaginary();
                         a = re2 - (3 * im2);
                         b = (3 * re2) - im2;
                         c = re2 - im2;
 
                         return Complex.valueOf(
                             ((re2 * re2 * a * a) + (im2 * im2 * b * b)) - (2 * re2 * im2 * ((8 * c * c) + (a * b)))
-                            + cons.getReal(),
-                            (8 * z.getReal() * z.getImaginary() * c * ((re2 * a) - (im2 * b))) + cons.getImaginary());
+                            + constant.getReal(),
+                            (8 * z.getReal() * z.getImaginary() * c * ((re2 * a) - (im2 * b))) + constant.getImaginary());
                     }
 
-
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return "Z^8 + C";
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 8;
-    				}
                 };
         points = new Complex[] {
                 Complex.valueOf(-1.1, 4.28e-4), Complex.valueOf(-1.062, 0.015), Complex.valueOf(-1.055, 0.04),
@@ -491,11 +443,11 @@ public class Julia extends DivergentFractal {
                 Complex.valueOf(-0.55, 0.813), Complex.valueOf(-0.427, 0.727), Complex.valueOf(0.162, -1.027),
                 Complex.valueOf(0.940, 0.486), Complex.valueOf(0.855, 0.523), Complex.valueOf(0.806, 0.218),
             };
-        formula.setPoints(points);
-        formula.setConstans(points[0]);
+        formula.getProperties().setPoints(points);
+        formula.setConstant(points[0]);
         formulas.add(formula);
 
-        formula = formulas.get(0);
+        this.formula = formulas.get(0);
     }
 
     //~ Methods ------------------------------------------------------------------------------------------------------
@@ -508,8 +460,9 @@ public class Julia extends DivergentFractal {
      *
      * @return DOCUMENT ME!
      */
-    public final int rgbColor(final double u, final double v) {
-        z = Complex.valueOf(u, v);
+    @Override
+	public final int rgbColor(final double u, final double v) {
+        Complex z = Complex.valueOf(u, v);
 
         for (int i = 1; i < palette.getSize(); i++) {
             z = formula.calculate(z);
@@ -520,8 +473,8 @@ public class Julia extends DivergentFractal {
             //                return palette[i];
             //            }
             if (magn > radius) {
-                float position = i - (float)(Math.log10(Math.log10(magn)) / Math.log(formula.getPolynomialOrder()));
-                position /= (float)(palette.getSize() -1);
+                float position = i - (float)(Math.log10(Math.log10(magn)) / Math.log(((IPolynomialFormula)formula).getOrder()));
+                position /= (palette.getSize() -1);
                 
                 return palette.getRGB(position);
             }

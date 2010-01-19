@@ -18,7 +18,8 @@ package pl.wojciechantosiewicz.fractals.complex.divergent;
 
 import org.jscience.mathematics.numbers.Complex;
 
-import pl.wojciechantosiewicz.fractals.complex.Formula;
+import pl.wojciechantosiewicz.fractals.complex.formula.ComplexFormula;
+import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
 
 
 /**
@@ -36,25 +37,22 @@ public class FireShip extends DivergentFractal {
     public FireShip() {
         super("Fire ship", 5.0);
 
-        Formula form = new Formula(-2.5, 2.0, -3.0, 2.5) {
+        ComplexFormula form = new ComplexFormula(new FormulaProperties(-2.5, 2.0, -3.0, 2.5)) {
                 public final Complex calculate(Complex z) {
-                    re2 = z.getReal() * z.getReal();
-                    im2 = z.getImaginary() * z.getImaginary();
+                    double re2 = z.getReal() * z.getReal();
+                    double im2 = z.getImaginary() * z.getImaginary();
 
                     return Complex.valueOf(
-                        re2 - im2 + cons.getReal(),
-                        (Math.abs(z.getReal() * z.getImaginary()) * 2) + cons.getImaginary());
+                        re2 - im2 + constant.getReal(),
+                        (Math.abs(z.getReal() * z.getImaginary()) * 2) + constant.getImaginary());
                 }
 
 
-                public String toString() {
+                @Override
+				public String toString() {
                     return "|Z|^2 + C";
                 }
                 
-                @Override
-				public int getPolynomialOrder() {
-					return 0;
-				}
             };
 
         formulas.add(form);
@@ -71,10 +69,11 @@ public class FireShip extends DivergentFractal {
      *
      * @return DOCUMENT ME!
      */
-    public int rgbColor(double u, double v) {
-        z = Complex.valueOf(u, v);
+    @Override
+	public int rgbColor(double u, double v) {
+        Complex z = Complex.valueOf(u, v);
 
-        formula.setConstant(u, v);
+        formula.setConstant(z);
 
         for (int i = 0; i < palette.getSize(); i++) {
             z = formula.calculate(z);

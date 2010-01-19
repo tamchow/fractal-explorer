@@ -17,7 +17,9 @@ package pl.wojciechantosiewicz.fractals.palette;
 
 import java.awt.Color;
 
-import woj.image.GradientGenerator;
+import pl.wojciechantosiewicz.fractals.palette.FractalPalette.PaletteType;
+import pl.wojciechantosiewicz.image.GradientGenerator;
+
 
 
 /**
@@ -123,7 +125,7 @@ public class Palettes {
             }
         }
 
-        return new FractalPalette(colors, segmentSize, FractalPalette.DIVERGENT_PALETTE);
+        return new FractalPalette(colors, segmentSize, PaletteType.DIVERGENT);
     }
 
 
@@ -164,7 +166,7 @@ public class Palettes {
             }
         }
 
-        return new FractalPalette(colors, segmentSize, FractalPalette.DIVERGENT_PALETTE);
+        return new FractalPalette(colors, segmentSize, PaletteType.DIVERGENT);
     }
 
 
@@ -204,7 +206,7 @@ public class Palettes {
             }
         }
 
-        return new FractalPalette(colors, segmentSize, FractalPalette.DIVERGENT_PALETTE);
+        return new FractalPalette(colors, segmentSize, PaletteType.DIVERGENT);
     }
 
 
@@ -239,7 +241,7 @@ public class Palettes {
             }
         }
 
-        return new FractalPalette(colors, segmentSize, FractalPalette.CONVERGENT_PALETTE);
+        return new FractalPalette(colors, segmentSize, PaletteType.CONVERGENT);
     }
 
 
@@ -275,7 +277,7 @@ public class Palettes {
             }
         }
 
-        return new FractalPalette(colors, segmentSize, FractalPalette.CONVERGENT_PALETTE);
+        return new FractalPalette(colors, segmentSize, PaletteType.CONVERGENT);
     }
 
 
@@ -310,7 +312,7 @@ public class Palettes {
             }
         }
 
-        return new FractalPalette(colors, segmentSize, FractalPalette.CONVERGENT_PALETTE);
+        return new FractalPalette(colors, segmentSize, PaletteType.CONVERGENT);
     }
 
 

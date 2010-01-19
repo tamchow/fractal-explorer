@@ -20,8 +20,10 @@ import org.jscience.mathematics.functions.Polynomial;
 import org.jscience.mathematics.functions.Variable;
 import org.jscience.mathematics.numbers.Complex;
 
-import pl.wojciechantosiewicz.fractals.complex.Formula;
-
+import pl.wojciechantosiewicz.fractals.complex.formula.ComplexFormula;
+import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
+import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
+import pl.wojciechantosiewicz.fractals.complex.formula.PolynomialFormula;
 
 /**
  * DOCUMENT ME!
@@ -31,7 +33,7 @@ import pl.wojciechantosiewicz.fractals.complex.Formula;
 public class NewtonFractal extends ConvergentFractal {
     //~ Constructors -------------------------------------------------------------------------------------------------
 
-/**
+	/**
      * Creates a new NewtonFractal_1 object.
      */
     public NewtonFractal() {
@@ -50,13 +52,14 @@ public class NewtonFractal extends ConvergentFractal {
         formulas.add(createFormula2());
     }
 
-	private Formula createFormula1() {
+	private IComplexFormula createFormula1() {
 		Variable.Local<Complex> varZ = new Variable.Local<Complex>("z");
 		final Polynomial<Complex> function = Polynomial.valueOf(Complex.ONE, varZ).pow(3).plus(
                 Complex.valueOf(-1, 0));
         final Polynomial<Complex> derivative = function.differentiate(function.getVariables().get(0));
 
-        Formula formula = new Formula(-2, 2, -2, 2) {
+        PolynomialFormula complexFormula = 
+        	new PolynomialFormula(new FormulaProperties(-2.0, 2.0, -2.0, 2.0), 3) {
                     public Complex calculate(Complex value) {
                         Complex funcValue = function.evaluate(value);
                         Complex derivValue = derivative.evaluate(value);
@@ -65,31 +68,29 @@ public class NewtonFractal extends ConvergentFractal {
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return function.toString();
                     }
-                    
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 3;
-    				}
                 };
 
-        Complex[] roots = {
+        // roots of this polynomial
+        Complex[] points = {
                 Complex.valueOf(1, 0), Complex.valueOf(-0.5, Math.sqrt(3) / 2),
                 Complex.valueOf(-0.5, -Math.sqrt(3) / 2)
             };
-        formula.setPoints(roots);
-        return formula;
+        complexFormula.getProperties().setPoints(points);
+        return complexFormula;
 	}
 
-	private Formula createFormula2() {
+	private IComplexFormula createFormula2() {
 		Variable.Local<Complex> varZ = new Variable.Local<Complex>("z");
 		final Polynomial<Complex> function = Polynomial.valueOf(Complex.ONE, varZ).pow(4).plus(
                 Complex.valueOf(-1, 0));
         final Polynomial<Complex> derivative = function.differentiate(function.getVariables().get(0));
 
-        Formula formula = new Formula(-2, 2, -2, 2) {
+        PolynomialFormula complexFormula = new PolynomialFormula(
+        		new FormulaProperties(-2.0, 2.0, -2.0, 2.0), 4) {
                     public Complex calculate(Complex value) {
                         Complex funcValue = function.evaluate(value);
                         Complex derivValue = derivative.evaluate(value);
@@ -98,20 +99,17 @@ public class NewtonFractal extends ConvergentFractal {
                     }
 
 
-                    public String toString() {
+                    @Override
+					public String toString() {
                         return function.toString();
                     }
                     
-                    @Override
-    				public int getPolynomialOrder() {
-    					return 4;
-    				}
                 };
 
-        Complex[] roots = {
+        Complex[] points = {
                 Complex.valueOf(1, 0), Complex.valueOf(-1, 0), Complex.valueOf(0, 1), Complex.valueOf(0, -1),
             };
-        formula.setPoints(roots);
-        return formula;
+        complexFormula.getProperties().setPoints(points);
+        return complexFormula;
 	}
 }

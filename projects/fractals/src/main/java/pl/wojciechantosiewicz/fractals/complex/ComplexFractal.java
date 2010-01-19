@@ -21,6 +21,7 @@ package pl.wojciechantosiewicz.fractals.complex;
 
 import java.util.ArrayList;
 
+import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
 
 
@@ -39,13 +40,13 @@ public abstract class ComplexFractal {
     protected String name;
 
     /** TODO: DOCUMENT ME! */
-    protected Formula formula;
+    protected IComplexFormula formula;
 
     /** DOCUMENT ME! */
     protected FractalPalette palette;
 
     /** TODO: DOCUMENT ME! */
-    protected ArrayList<Formula> formulas = new ArrayList<Formula>();
+    protected ArrayList<IComplexFormula> formulas = new ArrayList<IComplexFormula>();
 
     /** DOCUMENT ME! */
     protected Type type = Type.Undefined;
@@ -56,6 +57,7 @@ public abstract class ComplexFractal {
      *  Creates a new ComplexFractal object.
     *
      *  @param name TODO: DOCUMENT ME!
+ * @param type 
     */
     public ComplexFractal(String name, Type type) {
         this.name = name;
@@ -71,7 +73,8 @@ public abstract class ComplexFractal {
      *
      * @todo DOCUMENT ME!
      */
-    public String toString() {
+    @Override
+	public String toString() {
         return name;
     }
 
@@ -97,7 +100,7 @@ public abstract class ComplexFractal {
      *
      * @todo DOCUMENT ME!
      */
-    public Formula getFormula() {
+    public IComplexFormula getFormula() {
         return formula;
     }
 
@@ -109,7 +112,7 @@ public abstract class ComplexFractal {
      *
      * @todo DOCUMENT ME!
      */
-    public void setFormula(Formula f) {
+    public void setFormula(IComplexFormula f) {
         formula = f;
     }
 
@@ -121,106 +124,9 @@ public abstract class ComplexFractal {
      *
      * @todo DOCUMENT ME!
      */
-    public ArrayList<Formula> getFormulas() {
+    public ArrayList<IComplexFormula> getFormulas() {
         return formulas;
     }
-
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @return TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    public double getMaxX() {
-        return formula.getMaxX();
-    }
-
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @param maxX TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    public void setMaxX(double maxX) {
-        formula.setMaxX(maxX);
-    }
-
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @return TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    public double getMaxY() {
-        return formula.getMaxY();
-    }
-
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @param maxY TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    public void setMaxY(double maxY) {
-        formula.setMaxY(maxY);
-    }
-
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @return TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    public double getMinX() {
-        return formula.getMinX();
-    }
-
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @param minX TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    public void setMinX(double minX) {
-        formula.setMinX(minX);
-    }
-
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @return TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    public double getMinY() {
-        return formula.getMinY();
-    }
-
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @param minY TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    public void setMinY(double minY) {
-        formula.setMinY(minY);
-    }
-
 
     /**
      * DOCUMENT ME!
@@ -265,8 +171,23 @@ public abstract class ComplexFractal {
 
     //~ Enumerations -------------------------------------------------------------------------------------------------
 
+    /**
+     * @author wa
+     *
+     */
     public enum Type {//~ Enumeration constant initializers ------------------------------------------------------------------------
 
-        Convergent, Divergent, Undefined;
+        /**
+         * 
+         */
+        Convergent, 
+        /**
+         * 
+         */
+        Divergent, 
+        /**
+         * 
+         */
+        Undefined;
     }
 }

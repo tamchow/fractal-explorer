@@ -19,8 +19,6 @@
  */
 package pl.wojciechantosiewicz.fractals.complex.divergent;
 
-import org.jscience.mathematics.numbers.Complex;
-
 import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
 
 
@@ -33,18 +31,12 @@ import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
  * @todo DOCUMENT ME!
 */
 public abstract class DivergentFractal extends ComplexFractal {
-    //~ Instance fields ----------------------------------------------------------------------------------------------
-
+   
     /** TODO: DOCUMENT ME! */
     protected final double radius;
 
     /** TODO: DOCUMENT ME! */
     protected double epsilon;
-
-    /** TODO: DOCUMENT ME! */
-    protected Complex z = Complex.ZERO;
-
-    //~ Constructors -------------------------------------------------------------------------------------------------
 
 /**
      *  Creates a new DivergentFractal object.
@@ -58,8 +50,6 @@ public abstract class DivergentFractal extends ComplexFractal {
         radius = epsilon * epsilon;
     }
 
-    //~ Methods ------------------------------------------------------------------------------------------------------
-
     /**
      * DOCUMENT ME!
      *
@@ -71,5 +61,4 @@ public abstract class DivergentFractal extends ComplexFractal {
         return palette.getSize();
     }
 
-    //******************************************************************************
 }
