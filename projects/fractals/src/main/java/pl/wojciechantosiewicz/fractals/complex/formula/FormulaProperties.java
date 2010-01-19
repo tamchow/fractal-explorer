@@ -19,114 +19,116 @@ import org.jscience.mathematics.numbers.Complex;
 
 /**
  * @author Wojciech Antosiewicz
- *
  */
 public class FormulaProperties {
 	/** DOCUMENT ME! */
-    protected double minRe;
+	protected double minRe;
 
-    /** DOCUMENT ME! */
-    protected double maxRe;
+	/** DOCUMENT ME! */
+	protected double maxRe;
 
-    /** DOCUMENT ME! */
-    protected double minIm;
+	/** DOCUMENT ME! */
+	protected double minIm;
 
-    /** DOCUMENT ME! */
-    protected double maxIm;
-    
-    /** DOCUMENT ME! */
-    protected Complex[] points;
-    
-    /**
+	/** DOCUMENT ME! */
+	protected double maxIm;
+
+	/** DOCUMENT ME! */
+	protected Complex[] points;
+
+	/**
      * 
      */
-    public FormulaProperties() {
+	public FormulaProperties() {
 		minRe = 0.0;
 		maxRe = 0.0;
 		minIm = 0.0;
 		maxIm = 0.0;
 	}
-    
-    public FormulaProperties(double minRe, double maxRe, double minIm, double maxIm){
-    	this.minRe = minRe;
-    	this.maxRe = maxRe;
-    	this.minIm = minIm;
-    	this.maxIm = maxIm;
-    }
-    
+
+	public FormulaProperties(double minRe, double maxRe, double minIm, double maxIm) {
+		this.minRe = minRe;
+		this.maxRe = maxRe;
+		this.minIm = minIm;
+		this.maxIm = maxIm;
+	}
+
 	/**
 	 * @return the minRe
 	 */
-	public double getMinRe() {
+	public double getMinRe(){
 		return minRe;
 	}
 
 	/**
-	 * @param minRe the minRe to set
+	 * @param minRe
+	 *        the minRe to set
 	 */
-	public void setMinRe(double minRe) {
+	public void setMinRe(double minRe){
 		this.minRe = minRe;
 	}
 
 	/**
 	 * @return the maxRe
 	 */
-	public double getMaxRe() {
+	public double getMaxRe(){
 		return maxRe;
 	}
 
 	/**
-	 * @param maxRe the maxRe to set
+	 * @param maxRe
+	 *        the maxRe to set
 	 */
-	public void setMaxRe(double maxRe) {
+	public void setMaxRe(double maxRe){
 		this.maxRe = maxRe;
 	}
 
 	/**
 	 * @return the minIm
 	 */
-	public double getMinIm() {
+	public double getMinIm(){
 		return minIm;
 	}
 
 	/**
-	 * @param minIm the minIm to set
+	 * @param minIm
+	 *        the minIm to set
 	 */
-	public void setMinIm(double minIm) {
+	public void setMinIm(double minIm){
 		this.minIm = minIm;
 	}
 
 	/**
 	 * @return the maxIm
 	 */
-	public double getMaxIm() {
+	public double getMaxIm(){
 		return maxIm;
 	}
 
 	/**
-	 * @param maxIm the maxIm to set
+	 * @param maxIm
+	 *        the maxIm to set
 	 */
-	public void setMaxIm(double maxIm) {
+	public void setMaxIm(double maxIm){
 		this.maxIm = maxIm;
 	}
 
 	/**
-     * DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
-     */
-    public Complex[] getPoints() {
-        return points;
-    }
+	 * DOCUMENT ME!
+	 * 
+	 * @return DOCUMENT ME!
+	 */
+	public Complex[] getPoints(){
+		return points;
+	}
 
-
-    
-    /**
-     * DOCUMENT ME!
-     *
-     * @param points DOCUMENT ME!
-     */
-    public void setPoints(Complex[] points) {
-        this.points = points;
-    }
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @param points
+	 *        DOCUMENT ME!
+	 */
+	public void setPoints(Complex[] points){
+		this.points = points;
+	}
 }

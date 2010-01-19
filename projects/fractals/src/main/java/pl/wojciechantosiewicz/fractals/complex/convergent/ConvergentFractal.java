@@ -12,7 +12,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id$
  */
 package pl.wojciechantosiewicz.fractals.complex.convergent;
 
@@ -22,139 +21,136 @@ import org.jscience.mathematics.numbers.Complex;
 import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
 import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 
-
 /**
  * DOCUMENT ME!
- *
+ * 
  * @author $Author: author $
  * @version $Rev: 000 $
- *
  * @todo DOCUMENT ME!
-*/
+ */
 public class ConvergentFractal extends ComplexFractal {
-//    /** TODO: DOCUMENT ME! */
-//    protected Polynomial<Complex> function;
-//
-//    /** TODO: DOCUMENT ME! */
-//    protected Polynomial<Complex> derivative;
+	// /** TODO: DOCUMENT ME! */
+	// protected Polynomial<Complex> function;
+	//
+	// /** TODO: DOCUMENT ME! */
+	// protected Polynomial<Complex> derivative;
 
-    /** TODO: DOCUMENT ME! */
-    private double accuracy = 0.001;
+	/** TODO: DOCUMENT ME! */
+	private double accuracy = 0.001;
 
-//    /** DOCUMENT ME! */
-//    protected Complex[] roots;
+	// /** DOCUMENT ME! */
+	// protected Complex[] roots;
 
-    //~ Constructors -------------------------------------------------------------------------------------------------
+	// ~ Constructors -------------------------------------------------------------------------------------------------
 
-/**
-     * Creates a new ConvergentFractal object.
-     *
-     * @param name DOCUMENT ME!
-     */
-    public ConvergentFractal(String name) {
-        super(name, ComplexFractal.Type.Convergent);
-    }
+	/**
+	 * Creates a new ConvergentFractal object.
+	 * 
+	 * @param name
+	 *        DOCUMENT ME!
+	 */
+	public ConvergentFractal(String name) {
+		super(name, ComplexFractal.Type.Convergent);
+	}
 
+	/**
+	 * Creates a new ConvergentFractal object.
+	 * 
+	 * @param name
+	 *        TODO: DOCUMENT ME!
+	 * @param func
+	 */
+	public ConvergentFractal(String name, final Polynomial<Complex> func) {
+		super(name, ComplexFractal.Type.Convergent);
+		// this.function = func;
+	}
 
-/**
-     *  Creates a new ConvergentFractal object.
-    *
-     *  @param name TODO: DOCUMENT ME!
- * @param func 
-    */
-    public ConvergentFractal(String name, final Polynomial<Complex> func) {
-        super(name, ComplexFractal.Type.Convergent);
-//        this.function = func;
-    }
+	/**
+	 * Creates a new ConvergentFractal object.
+	 * 
+	 * @param name
+	 *        DOCUMENT ME!
+	 * @param func
+	 *        DOCUMENT ME!
+	 * @param roots
+	 *        DOCUMENT ME!
+	 */
+	public ConvergentFractal(String name, final Polynomial<Complex> func, Complex[] roots) {
+		super(name, ComplexFractal.Type.Convergent);
+		// this.function = func;
+		// this.roots = roots;
+	}
 
+	// ~ Methods ------------------------------------------------------------------------------------------------------
 
-/**
-     * Creates a new ConvergentFractal object.
-     *
-     * @param name DOCUMENT ME!
-     * @param func DOCUMENT ME!
-     * @param roots DOCUMENT ME!
-     */
-    public ConvergentFractal(String name, final Polynomial<Complex> func, Complex[] roots) {
-        super(name, ComplexFractal.Type.Convergent);
-//        this.function = func;
-//        this.roots = roots;
-    }
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @param u
+	 *        TODO: DOCUMENT ME!
+	 * @param v
+	 *        TODO: DOCUMENT ME!
+	 * @return TODO: DOCUMENT ME!
+	 * @todo DOCUMENT ME!
+	 */
+	@Override
+	public int rgbColor(double u, double v){
+		int i = 0;
+		Complex z = Complex.valueOf(u, v);
+		final int paletteSize = palette.getSize();
 
-    //~ Methods ------------------------------------------------------------------------------------------------------
+		Complex[] roots = formula.getProperties().getPoints();
 
-    /**
-     * DOCUMENT ME!
-     *
-     * @param u TODO: DOCUMENT ME!
-     * @param v TODO: DOCUMENT ME!
-     *
-     * @return TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    @Override
-	public int rgbColor(double u, double v) {
-        int i = 0;
-        Complex z = Complex.valueOf(u, v);
-        final int paletteSize = palette.getSize();
-        
-        Complex[] roots = formula.getProperties().getPoints();
-        
-        while (i < (paletteSize >> 2)) {
-        	// zn+1 = zn - fn[zn]/f'[zn]
-        	z = z.minus(formula.calculate(z));
-        	i++;
+		while(i < (paletteSize >> 2)){
+			// zn+1 = zn - fn[zn]/f'[zn]
+			z = z.minus(formula.calculate(z));
+			i++;
 
-        	
+			for(int k = 0; k < roots.length; k++){
+				int idx = 0;
+				try{
+					if(z.minus(roots[k]).magnitude() < accuracy){
+						idx = ((paletteSize * k) / roots.length) + i - 1;
+						return palette.getRGB(idx);
+					}
+				}catch(ArrayIndexOutOfBoundsException a){
+					System.out.println("palette.length = " + palette.getSize() + ", idx=" + idx);
+				}
+			}
 
-        	for (int k = 0; k < roots.length; k++) {
-        		int idx = 0;
-        		try {
-        			if (z.minus(roots[k]).magnitude() < accuracy) {
-        				idx = ((paletteSize * k) / roots.length) + i-1;
-        				return palette.getRGB(idx);
-        			}
-        		} catch (ArrayIndexOutOfBoundsException a) {
-        			System.out.println("palette.length = "+palette.getSize()+", idx="+idx);
-        		}
-        	}
+		}
 
-        }
+		return 0x000000;
+	}
 
-        return 0x000000;
-    }
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @param f
+	 *        TODO: DOCUMENT ME!
+	 * @todo DOCUMENT ME!
+	 */
+	@Override
+	public void setFormula(IComplexFormula f){
+		this.formula = f;
+	}
 
-
-    /**
-     * DOCUMENT ME!
-     *
-     * @param f TODO: DOCUMENT ME!
-     *
-     * @todo DOCUMENT ME!
-     */
-    @Override
-    public void setFormula(IComplexFormula f) {
-        this.formula = f;
-    }
-
-
-//    /**
-//     * DOCUMENT ME!
-//     *
-//     * @param roots DOCUMENT ME!
-//     */
-//    public void setRoots(Complex[] roots) {
-//        this.roots = roots;
-//    }
-//
-//
-//    /**
-//     * DOCUMENT ME!
-//     *
-//     * @return DOCUMENT ME!
-//     */
-//    public Complex[] gerRoots() {
-//        return roots;
-//    }
+	// /**
+	// * DOCUMENT ME!
+	// *
+	// * @param roots DOCUMENT ME!
+	// */
+	// public void setRoots(Complex[] roots) {
+	// this.roots = roots;
+	// }
+	//
+	//
+	// /**
+	// * DOCUMENT ME!
+	// *
+	// * @return DOCUMENT ME!
+	// */
+	// public Complex[] gerRoots() {
+	// return roots;
+	// }
 }

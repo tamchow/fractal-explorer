@@ -19,47 +19,50 @@ import org.jscience.mathematics.numbers.Complex;
 
 /**
  * @author Wojciech Antosiewicz
- *
  */
 public abstract class ComplexFormula implements IComplexFormula {
 	protected FormulaProperties properties;
-	
-	 /** DOCUMENT ME! */
-    protected Complex constant = Complex.ZERO;
 
-    /**
+	/** DOCUMENT ME! */
+	protected Complex constant = Complex.ZERO;
+
+	/**
      * 
      */
-    public ComplexFormula(){
-    	properties = new FormulaProperties();
-    }
-    
-    /**
-     * @param properties
-     */
-    public ComplexFormula(FormulaProperties properties){
-    	super();
-    	this.properties = properties;
-    }
-    
-	/* (non-Javadoc)
+	public ComplexFormula() {
+		properties = new FormulaProperties();
+	}
+
+	/**
+	 * @param properties
+	 */
+	public ComplexFormula(FormulaProperties properties) {
+		super();
+		this.properties = properties;
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula#getProperties()
 	 */
-	public FormulaProperties getProperties() {
+	public FormulaProperties getProperties(){
 		return properties;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula#setConstant(org.jscience.mathematics.numbers.Complex)
 	 */
-	public void setConstant(Complex point) {
+	public void setConstant(Complex point){
 		constant = point;
 	}
 
-	/* (non-Javadoc)
-	 * @see pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula#setProperties(pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties)
+	/*
+	 * (non-Javadoc)
+	 * @seepl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula#setProperties(pl.wojciechantosiewicz.fractals.complex.formula.
+	 * FormulaProperties)
 	 */
-	public void setProperties(FormulaProperties properties) {
+	public void setProperties(FormulaProperties properties){
 		this.properties = properties;
 	}
 
