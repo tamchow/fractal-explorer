@@ -13,17 +13,30 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
-package pl.wojciechantosiewicz.fractals.complex.formula;
+package pl.wojciechantosiewicz.fractals.complex.formula.definitions;
 
 /**
- * Interface for polynomial formulas
  * @author Wojciech Antosiewicz
+ *
  */
-public interface IPolynomialFormula extends IComplexFormula {
+public class Utils {
 	/**
-	 * Returns order of the polynomial
+	 * Calculates hyperbolic sine
 	 * 
-	 * @return an order of polynomial
+	 * @param x input value of sine
+	 * @return value of hyperbolic sine for specified argument
 	 */
-	int getOrder();
+	public static final double sinh(double x){
+		return 0.5 * (Math.exp(x) - Math.exp(-x));
+	}
+
+	/**
+	 * Calculates hyperbolic cosine
+	 * 
+	 * @param x input value of cosine
+	 * @return value of hyperbolic cosine for specified argument
+	 */
+	public static final double cosh(double x){
+		return 0.5 * (Math.exp(x) + Math.exp(-x));
+	}
 }

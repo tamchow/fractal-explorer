@@ -18,34 +18,46 @@ package pl.wojciechantosiewicz.fractals.complex.formula;
 import org.jscience.mathematics.numbers.Complex;
 
 /**
+ * Properties of complex formulas consist of:
+ * <ul>
+ * 	<li>ranges of values along real and imaginary axes</li>
+ * 	<li>list of specific points for this formula. Meaning of such points depends on the type of formula.</li>
+ * </ul>
+ * 
  * @author Wojciech Antosiewicz
  */
 public class FormulaProperties {
-	/** DOCUMENT ME! */
+	/** Minimum value along real axis */
 	protected double minRe;
 
-	/** DOCUMENT ME! */
+	/** Maximum value along real axis */
 	protected double maxRe;
 
-	/** DOCUMENT ME! */
+	/** Minimum value along imaginary axis */
 	protected double minIm;
 
-	/** DOCUMENT ME! */
+	/** Maximum value along imaginary axis */
 	protected double maxIm;
 
-	/** DOCUMENT ME! */
+	/** Specific points for this formula */
 	protected Complex[] points;
 
 	/**
-     * 
+     * Creates new FormulaProperties with [-1.0, 1.0] range along both axes.
+     * This is equivalent to call <code>new FormulaProperties(-1.0, 1.0, -1.0, 1.0)</code>
      */
 	public FormulaProperties() {
-		minRe = 0.0;
-		maxRe = 0.0;
-		minIm = 0.0;
-		maxIm = 0.0;
+		this(-1.0, 1.0, -1.0, 1.0);
 	}
-
+	
+	/**
+     * Creates new FormulaProperties with ranges [minRe, maxRe] along real axis and
+     * [minIm, maxIm] along imaginary axis.
+	 * @param minRe minimum value along real axis
+	 * @param maxRe maximum value along real axis
+	 * @param minIm minimum value along imaginary axis
+	 * @param maxIm maximum value along imaginary axis
+     */
 	public FormulaProperties(double minRe, double maxRe, double minIm, double maxIm) {
 		this.minRe = minRe;
 		this.maxRe = maxRe;

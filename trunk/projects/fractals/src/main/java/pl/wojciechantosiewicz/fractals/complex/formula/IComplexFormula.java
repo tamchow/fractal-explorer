@@ -18,6 +18,7 @@ package pl.wojciechantosiewicz.fractals.complex.formula;
 import org.jscience.mathematics.numbers.Complex;
 
 /**
+ * Interface for all complex formulas
  * @author Wojciech Antosiewicz
  */
 public interface IComplexFormula {
@@ -26,22 +27,26 @@ public interface IComplexFormula {
 	 * 
 	 * @param param
 	 *        parameter for which value of this formula is calculated
-	 * @return calculated value of this formula for given parameter
+	 * @return result of calculation
 	 */
 	Complex calculate(Complex param);
 
 	/**
-	 * @param point
+	 * Sets constant used by this formula in calculations. This constant is denoted as <code>C</code>
+	 * in all formulas.
+	 * @param point new constant for this formula
 	 */
 	void setConstant(Complex point);
 
 	/**
+	 * Sets the new properties for this formula
 	 * @param properties
 	 */
 	void setProperties(FormulaProperties properties);
 
 	/**
-	 * @return
+	 * Returns properties used by this formula
+	 * @return properties of this formula
 	 */
 	FormulaProperties getProperties();
 }
