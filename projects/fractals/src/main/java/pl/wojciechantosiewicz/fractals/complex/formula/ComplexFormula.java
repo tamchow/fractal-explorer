@@ -18,16 +18,21 @@ package pl.wojciechantosiewicz.fractals.complex.formula;
 import org.jscience.mathematics.numbers.Complex;
 
 /**
+ * Convenience class implementing IComplexFormula interface with the except for calculate method.
+ * 
  * @author Wojciech Antosiewicz
  */
 public abstract class ComplexFormula implements IComplexFormula {
+	/**
+	 * Properties of this formula
+	 */
 	protected FormulaProperties properties;
 
-	/** DOCUMENT ME! */
+	/** Constant value of the formula */
 	protected Complex constant = Complex.ZERO;
 
 	/**
-     * 
+     * Creates new ComplexFormula with default properties
      */
 	public ComplexFormula() {
 		properties = new FormulaProperties();
