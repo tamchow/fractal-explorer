@@ -27,7 +27,10 @@ import pl.wojciechantosiewicz.fractals.gui.ifs.IFSTopLevelPanel;
 import pl.wojciechantosiewicz.fractals.ifs.IFSFractal;
 
 /**
- * @author wa
+ * This class plays the role of mediator object which coordinates actions
+ * between various components(GUI).
+ * 
+ * @author Wojciech Antosiewicz
  */
 public class ExecutionControl {
 	private ComplexTopLevelPanel complexTopLevelPanel;
@@ -44,10 +47,21 @@ public class ExecutionControl {
 		super();
 	}
 
-	public static ExecutionControl getInstance(){
+	/**
+	 * Returns singleton instance of this class
+	 * @return an instance of this class
+	 */
+	public static final ExecutionControl getInstance(){
 		return INSTANCE;
 	}
 
+	/**
+	 * Sets appropriate parameters in drawer object and starts drawing
+	 * of complex fractal
+	 * 
+	 * @param discardZoom flag indicating whether zoom is to be discarded. 
+	 * If set to <code>true</code> original zoom (ranges along both axes) is used
+	 */
 	public void drawComplex(boolean discardZoom){
 		ComplexFractalDrawer drawer = complexTopLevelPanel.getComplexFractalDrawer();
 		ComplexFractal fractal = complexTopLevelPanel.getComplexFractal();
@@ -58,10 +72,14 @@ public class ExecutionControl {
 
 		drawer.setFractal(fractal, true);
 
-		drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
+//		drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
 		drawer.drawFractal(fractal);
 	}
 
+	/**
+	 * Sets appropriate parameters in drawer object and starts drawing
+	 * of iterated fractal.
+	 */
 	public void drawIterated(){
 		IFSFractalDrawer drawer = ifsTopLevelPanel.getIFSFractalDrawer();
 		IFSFractal fractal = ifsTopLevelPanel.getIFSFractal();
@@ -76,11 +94,12 @@ public class ExecutionControl {
 		drawer.drawFractal(fractal, iteratedMethod, numberOfPoints);
 	}
 
-	private void resetProgressBar(int numberOfPoints){
-		progressBar.setValue(0);
-		progressBar.setMaximum(numberOfPoints);
-	}
+	
 
+	/**
+	 * Sets the current value in progress bar
+	 * @param value to set
+	 */
 	public void setProgress(final int value){
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -89,7 +108,6 @@ public class ExecutionControl {
 			}
 
 		});
-
 	}
 
 	/**
@@ -123,6 +141,10 @@ public class ExecutionControl {
 		this.ifsTopLevelPanel = ifsTopLevelPanel;
 	}
 
+	/**
+	 * Sets string to display in status label
+	 * @param text to display
+	 */
 	public void setStatusString(final String text){
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
@@ -132,6 +154,7 @@ public class ExecutionControl {
 	}
 
 	/**
+	 * Sets label object which is used to display status informations
 	 * @param statusLabel
 	 *        the statusLabel to set
 	 */
@@ -139,20 +162,25 @@ public class ExecutionControl {
 		this.statusLabel = statusLabel;
 	}
 
+	/**
+	 * Sets the aspect ratio to 1:1 which means that ranges along both
+	 * axes are set to the same values which the larger one.
+	 */
 	public void complexFixAspectRatio(){
 		ComplexFractalDrawer drawer = complexTopLevelPanel.getComplexFractalDrawer();
 		if(drawer.isRunning()){
 			return;
-		}else{
-			drawer.fixAspectRatio();
-			resetProgressBar();
-
-			drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
-			drawer.repaintFractal(false);
 		}
+		drawer.fixAspectRatio();
+		resetProgressBar();
 
+//		drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
+		drawer.repaintFractal(false);
 	}
 
+	/**
+	 * Repaints complex fractal with the same zoom level.
+	 */
 	public void repaintComplex(){
 		ComplexFractalDrawer drawer = complexTopLevelPanel.getComplexFractalDrawer();
 		ComplexFractal fractal = complexTopLevelPanel.getComplexFractal();
@@ -160,28 +188,40 @@ public class ExecutionControl {
 		resetProgressBar();
 
 		fractal.setPalette(complexTopLevelPanel.getPalette());
-		drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
+//		drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
 		drawer.repaintFractal(false);
 	}
 
+	private void resetProgressBar(int numberOfPoints){
+		progressBar.setValue(0);
+		progressBar.setMaximum(numberOfPoints);
+	}
+	
 	private void resetProgressBar(){
 		ComplexFractalDrawer drawer = complexTopLevelPanel.getComplexFractalDrawer();
 		progressBar.setValue(0);
 		progressBar.setMaximum(drawer.getWidth() * drawer.getHeight());
 	}
 
-	public void setPreviewEnabled(boolean preview){
-		complexTopLevelPanel.setPreviewEnabled(preview);
-	}
 
+	/**
+	 * Returns setting of preview property (preview checkbox is clicked or not).
+	 * @return <code>true</code> if preview checkbox is clicked, <code>false</code> otherwise
+	 */
 	public boolean isPreviewEnabled(){
 		return complexTopLevelPanel.isPreviewEnabled();
 	}
 
+	/**
+	 * Stops ongoing draw operation for complex fractals
+	 */
 	public void stopDrawing(){
 		complexTopLevelPanel.getComplexFractalDrawer().stopDrawing();
 	}
 
+	/**
+	 * Stops ongoing draw operation for iterated fractals
+	 */
 	public void stopIterated(){
 		ifsTopLevelPanel.getIFSFractalDrawer().stopDrawing();
 	}

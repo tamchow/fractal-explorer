@@ -28,7 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 
-import pl.wojciechantosiewicz.fractals.Fraktale;
+import pl.wojciechantosiewicz.fractals.FractalDB;
 
 public class IFSCommonOptionsPanel extends JPanel {
 
@@ -47,7 +47,7 @@ public class IFSCommonOptionsPanel extends JPanel {
 	/** DOCUMENT ME! */
 	protected ButtonGroup drawingMethodButtonGroup = new ButtonGroup();
 	/** DOCUMENT ME! */
-	protected JComboBox ifsFractalComboBox = new JComboBox(Fraktale.ifsFractals);
+	protected JComboBox ifsFractalComboBox = new JComboBox(FractalDB.ifsFractals);
 	/** DOCUMENT ME! */
 	protected GridBagLayout gridBagLayout4 = new GridBagLayout();
 	/** DOCUMENT ME! */

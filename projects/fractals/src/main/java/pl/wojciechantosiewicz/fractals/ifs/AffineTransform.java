@@ -97,7 +97,9 @@ public class AffineTransform {
 	 *        DOCUMENT ME!
 	 */
 	public AffineTransform(AffineTransform affineTransform) {
-		this(affineTransform.a, affineTransform.b, affineTransform.c, affineTransform.d, affineTransform.e, affineTransform.f);
+		this(affineTransform.a, affineTransform.b, 
+			 affineTransform.c, affineTransform.d, 
+			 affineTransform.e, affineTransform.f);
 	}
 
 	public AffineTransform() {

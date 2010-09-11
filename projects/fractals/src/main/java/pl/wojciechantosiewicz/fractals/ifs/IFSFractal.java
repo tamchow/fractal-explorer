@@ -21,14 +21,9 @@ package pl.wojciechantosiewicz.fractals.ifs;
  * @version $Revision: 000 $
  */
 public class IFSFractal {
-	// ~ Instance fields ----------------------------------------------------------------------------------------------
-
 	private String name;
 
-	/** DOCUMENT ME! */
 	private AffineTransform[] transformations;
-
-	// ~ Constructors -------------------------------------------------------------------------------------------------
 
 	/**
 	 * Creates a new FractalIFS object.
@@ -41,7 +36,6 @@ public class IFSFractal {
 		transformations = new AffineTransform[transformCount];
 	}
 
-	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	/**
 	 * Creates a new FractalIFS object.
 	 * 
@@ -55,18 +49,17 @@ public class IFSFractal {
 		this.name = name;
 	}
 
-	// ~ Methods ------------------------------------------------------------------------------------------------------
-
+	
 	/**
 	 * DOCUMENT ME!
 	 * 
 	 * @return DOCUMENT ME!
 	 */
+	@Override
 	public String toString(){
 		return name + " (" + transformations.length + ")";
 	}
 
-	// ******************************************************************************
 	/**
 	 * DOCUMENT ME!
 	 * 

@@ -16,8 +16,10 @@
 package pl.wojciechantosiewicz.fractals.palette;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
-import pl.wojciechantosiewicz.fractals.palette.FractalPalette.PaletteType;
+//import pl.wojciechantosiewicz.fractals.palette.FractalPalette.PaletteType;
 import pl.wojciechantosiewicz.image.GradientGenerator;
 
 /**
@@ -26,22 +28,19 @@ import pl.wojciechantosiewicz.image.GradientGenerator;
  * @version $Revision: 000 $
  */
 public class Palettes {
-	// ~ Static fields/initializers -----------------------------------------------------------------------------------
+	private static List<FractalPalette> palettesDivergent;
+	private static List<FractalPalette> palettesConvergent;
 
-	private static FractalPalette[] palettesDivergent = new FractalPalette[3];
-	private static FractalPalette[] palettesConvergent = new FractalPalette[3];
-
-	static{ // create all palettes
-		palettesConvergent[0] = getPaletteConvergent1();
-		palettesConvergent[1] = getPaletteConvergent2();
-		palettesConvergent[2] = getPaletteConvergent3();
-
-		palettesDivergent[0] = getPaletteDivergent1();
-		palettesDivergent[1] = getPaletteDivergent2();
-		palettesDivergent[2] = getPaletteDivergent3();
-	}
-
-	// ~ Methods ------------------------------------------------------------------------------------------------------
+	/**
+	 * DOCUMENT ME!
+	 * 
+	 * @param index
+	 *        DOCUMENT ME!
+	 * @return DOCUMENT ME!
+//	 */
+//	public static int getPaletteDivergentSize(int index){
+//		return palettesDivergent[index].getSize();
+//	}
 
 	/**
 	 * DOCUMENT ME!
@@ -50,9 +49,9 @@ public class Palettes {
 	 *        DOCUMENT ME!
 	 * @return DOCUMENT ME!
 	 */
-	public static int getPaletteDivergentSize(int index){
-		return palettesDivergent[index].getSize();
-	}
+//	public static int getPaletteConvergentSize(int index){
+//		return palettesConvergent[index].getSize();
+//	}
 
 	/**
 	 * DOCUMENT ME!
@@ -61,9 +60,9 @@ public class Palettes {
 	 *        DOCUMENT ME!
 	 * @return DOCUMENT ME!
 	 */
-	public static int getPaletteConvergentSize(int index){
-		return palettesConvergent[index].getSize();
-	}
+//	public static FractalPalette getPaletteConvergent(int index){
+//		return palettesConvergent[index];
+//	}
 
 	/**
 	 * DOCUMENT ME!
@@ -72,20 +71,9 @@ public class Palettes {
 	 *        DOCUMENT ME!
 	 * @return DOCUMENT ME!
 	 */
-	public static FractalPalette getPaletteConvergent(int index){
-		return palettesConvergent[index];
-	}
-
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @param index
-	 *        DOCUMENT ME!
-	 * @return DOCUMENT ME!
-	 */
-	public static FractalPalette getPaletteDivergent(int index){
-		return palettesDivergent[index];
-	}
+//	public static FractalPalette getPaletteDivergent(int index){
+//		return palettesDivergent[index];
+//	}
 
 	/**
 	 * DOCUMENT ME!
@@ -116,7 +104,7 @@ public class Palettes {
 			}
 		}
 
-		return new FractalPalette(colors, segmentSize, PaletteType.DIVERGENT);
+		return new FractalPalette(colors/*, PaletteType.DIVERGENT*/);
 	}
 
 	/**
@@ -153,7 +141,7 @@ public class Palettes {
 			}
 		}
 
-		return new FractalPalette(colors, segmentSize, PaletteType.DIVERGENT);
+		return new FractalPalette(colors/*, PaletteType.DIVERGENT*/);
 	}
 
 	// ******************************************************************************
@@ -175,10 +163,14 @@ public class Palettes {
 
 		GradientGenerator gr = new GradientGenerator(segmentSize);
 
-		Color[][] rgb = new Color[][] { gr.generateColors(new Color(192, 0, 128), new Color(0, 192, 0)),
-				gr.generateColors(new Color(0, 192, 0), Color.yellow), gr.generateColors(Color.yellow, Color.red),
-				gr.generateColors(Color.red, new Color(0, 255, 204)), gr.generateColors(new Color(0, 255, 204), new Color(128, 0, 192)),
-				gr.generateColors(new Color(128, 0, 192), Color.white), gr.generateColors(Color.white, new Color(255, 153, 0)),
+		Color[][] rgb = new Color[][] { 
+				gr.generateColors(new Color(192, 0, 128), new Color(0, 192, 0)),
+				gr.generateColors(new Color(0, 192, 0), Color.yellow), 
+				gr.generateColors(Color.yellow, Color.red),
+				gr.generateColors(Color.red, new Color(0, 255, 204)), 
+				gr.generateColors(new Color(0, 255, 204), new Color(128, 0, 192)),
+				gr.generateColors(new Color(128, 0, 192), Color.white), 
+				gr.generateColors(Color.white, new Color(255, 153, 0)),
 				gr.generateColors(new Color(255, 153, 0), new Color(102, 255, 102)) };
 
 		for(int j = 0; j < rgb.length; j++){
@@ -187,7 +179,7 @@ public class Palettes {
 			}
 		}
 
-		return new FractalPalette(colors, segmentSize, PaletteType.DIVERGENT);
+		return new FractalPalette(colors/*, PaletteType.DIVERGENT*/);
 	}
 
 	/**
@@ -197,28 +189,19 @@ public class Palettes {
 	 * @todo DOCUMENT ME!
 	 */
 	private static FractalPalette getPaletteConvergent1(){
-		Color[] colors = new Color[192];
-
 		final int segmentSize = 64;
-		int[] offset = new int[colors.length / segmentSize];
-
-		for(int i = 0; i < offset.length; i++){
-			offset[i] = segmentSize * i;
-		}
+		final int segments = 3;
+		Color[] colors = new Color[segmentSize * segments];
 
 		GradientGenerator gr = new GradientGenerator(segmentSize);
 
-		Color[][] rgb = new Color[][] { gr.generateColors(new Color(0, 0, 0), new Color(255, 255, 255)),
-				gr.generateColors(new Color(0, 0, 0), new Color(255, 255, 255)),
-				gr.generateColors(new Color(0, 0, 0), new Color(255, 255, 255)), };
-
-		for(int j = 0; j < rgb.length; j++){
-			for(int i = 0; i < segmentSize; i++){
-				colors[offset[j] + i] = rgb[j][i];
-			}
-		}
-
-		return new FractalPalette(colors, segmentSize, PaletteType.CONVERGENT);
+		Color[] segmentColors = gr.generateColors(Color.black, Color.white);
+		int currSegment = 0;
+		System.arraycopy(segmentColors, 0, colors, segmentSize * currSegment++, segmentColors.length);
+		System.arraycopy(segmentColors, 0, colors, segmentSize * currSegment++, segmentColors.length);
+		System.arraycopy(segmentColors, 0, colors, segmentSize * currSegment++, segmentColors.length);
+		
+		return new FractalPalette(colors, segments);
 	}
 
 	/**
@@ -228,9 +211,11 @@ public class Palettes {
 	 * @todo DOCUMENT ME!
 	 */
 	private static FractalPalette getPaletteConvergent2(){
-		Color[] colors = new Color[128];
-
 		final int segmentSize = 32;
+		final int segments = 4;
+		Color[] colors = new Color[segments * segmentSize];
+
+		
 		int[] offset = new int[colors.length / segmentSize];
 
 		for(int i = 0; i < offset.length; i++){
@@ -239,8 +224,10 @@ public class Palettes {
 
 		GradientGenerator gr = new GradientGenerator(segmentSize);
 
-		Color[][] rgb = new Color[][] { gr.generateColors(new Color(50, 30, 0), new Color(255, 204, 0)),
-				gr.generateColors(new Color(50, 0, 0), new Color(255, 0, 0)), gr.generateColors(new Color(0, 50, 0), new Color(0, 255, 0)),
+		Color[][] rgb = new Color[][] { 
+				gr.generateColors(new Color(50, 30, 0), new Color(255, 204, 0)),
+				gr.generateColors(new Color(50, 0, 0), new Color(255, 0, 0)), 
+				gr.generateColors(new Color(0, 50, 0), new Color(0, 255, 0)),
 				gr.generateColors(new Color(0, 0, 50), new Color(0, 0, 255)), };
 
 		for(int j = 0; j < rgb.length; j++){
@@ -249,7 +236,7 @@ public class Palettes {
 			}
 		}
 
-		return new FractalPalette(colors, segmentSize, PaletteType.CONVERGENT);
+		return new FractalPalette(colors, segments/*, PaletteType.CONVERGENT*/);
 	}
 
 	/**
@@ -259,27 +246,23 @@ public class Palettes {
 	 * @todo DOCUMENT ME!
 	 */
 	private static FractalPalette getPaletteConvergent3(){
-		Color[] colors = new Color[144];
-
 		final int segmentSize = 48;
-		int[] offset = new int[colors.length / segmentSize];
-
-		for(int i = 0; i < offset.length; i++){
-			offset[i] = segmentSize * i;
-		}
+		final int segments = 3;
+		Color[] colors = new Color[segmentSize * segments];
 
 		GradientGenerator gr = new GradientGenerator(segmentSize);
 
-		Color[][] rgb = new Color[][] { gr.generateColors(new Color(255, 0, 0), new Color(0, 0, 0)),
-				gr.generateColors(new Color(0, 255, 0), new Color(0, 0, 0)), gr.generateColors(new Color(0, 0, 255), new Color(0, 0, 0)), };
+		int currSegment = 0;
+		Color[] segmentColors = gr.generateColors(Color.red, Color.black);
+		System.arraycopy(segmentColors, 0, colors, segmentSize * currSegment++, segmentColors.length);
+		
+		segmentColors = gr.generateColors(Color.green, Color.black);
+		System.arraycopy(segmentColors, 0, colors, segmentSize * currSegment++, segmentColors.length);
+		
+		segmentColors = gr.generateColors(Color.blue, Color.black);
+		System.arraycopy(segmentColors, 0, colors, segmentSize * currSegment++, segmentColors.length);
 
-		for(int j = 0; j < offset.length; j++){
-			for(int i = 0; i < segmentSize; i++){
-				colors[offset[j] + i] = rgb[j][i];
-			}
-		}
-
-		return new FractalPalette(colors, segmentSize, PaletteType.CONVERGENT);
+		return new FractalPalette(colors, segments);
 	}
 
 	/**
@@ -287,7 +270,13 @@ public class Palettes {
 	 * 
 	 * @return the palettesConvergent
 	 */
-	public static FractalPalette[] getPalettesConvergent(){
+	public static List<FractalPalette> getPalettesConvergent(){
+		if(palettesConvergent == null){
+			palettesConvergent = new ArrayList<FractalPalette>(3);
+			palettesConvergent.add(getPaletteConvergent1());
+			palettesConvergent.add(getPaletteConvergent2());
+			palettesConvergent.add(getPaletteConvergent3());
+		}
 		return palettesConvergent;
 	}
 
@@ -296,7 +285,13 @@ public class Palettes {
 	 * 
 	 * @return the palettesDivergent
 	 */
-	public static FractalPalette[] getPalettesDivergent(){
+	public static List<FractalPalette> getPalettesDivergent(){
+		if(palettesDivergent == null){
+			palettesDivergent = new ArrayList<FractalPalette>(3);
+			palettesDivergent.add(getPaletteDivergent1());
+			palettesDivergent.add(getPaletteDivergent2());
+			palettesDivergent.add(getPaletteDivergent3());
+		}
 		return palettesDivergent;
 	}
 }

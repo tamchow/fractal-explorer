@@ -19,47 +19,42 @@ import java.awt.Color;
 
 import pl.wojciechantosiewicz.image.Gradient;
 
+
 /**
- * DOCUMENT ME!
+ * Palette of colors arranged in an array with specified segments.
+ * Each palette consist of a number of equally sized segments. Segments are only logical arrangement f colors.
  * 
- * @version $Revision: 000 $
+ * @author Wojciech Antosiewicz
  */
 public class FractalPalette extends Gradient {
-	// ~ Static fields/initializers -----------------------------------------------------------------------------------
+	protected int numberOfSegments;
 
-	public enum PaletteType {
-		CONVERGENT, DIVERGENT
-	}
-
-	// ~ Instance fields ----------------------------------------------------------------------------------------------
-
-	private PaletteType type;
-
-	// ~ Constructors -------------------------------------------------------------------------------------------------
 
 	/**
 	 * Creates a new FractalPalette object.
 	 * 
-	 * @param colors
-	 *        DOCUMENT ME!
-	 * @param segmentSize
-	 * @param type
-	 *        DOCUMENT ME!
+	 * @param colors array of colors
+	 * @param numberOfSegments 
 	 */
-	public FractalPalette(Color[] colors, int segmentSize, PaletteType type) {
-		super(colors, segmentSize);
-		this.type = type;
-
+	public FractalPalette(Color[] colors, int numberOfSegments) {
+		super(colors);
+		this.numberOfSegments = numberOfSegments;
 	}
-
-	// ~ Methods ------------------------------------------------------------------------------------------------------
 
 	/**
-	 * DOCUMENT ME!
+	 * Creates a new FractalPalette object.
 	 * 
-	 * @return the type
+	 * @param colors array of colors
 	 */
-	public PaletteType getType(){
-		return type;
+	public FractalPalette(Color[] colors) {
+		this(colors, 1);
 	}
+	
+	/**
+	 * @return the numberOfSegments
+	 */
+	public int getNumberOfSegments(){
+		return numberOfSegments;
+	}	
+	
 }

@@ -16,6 +16,7 @@
 package pl.wojciechantosiewicz.fractals.complex.divergent;
 
 import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
+import pl.wojciechantosiewicz.fractals.complex.FractalType;
 
 /**
  * DOCUMENT ME!
@@ -41,7 +42,7 @@ public abstract class DivergentFractal extends ComplexFractal {
 	 *        TODO: DOCUMENT ME!
 	 */
 	public DivergentFractal(String name, double epsilon) {
-		super(name, ComplexFractal.Type.Divergent);
+		super(name, FractalType.Divergent);
 		this.epsilon = epsilon;
 		radius = epsilon * epsilon;
 	}

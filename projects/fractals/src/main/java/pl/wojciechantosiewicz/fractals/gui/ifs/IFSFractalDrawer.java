@@ -64,8 +64,12 @@ public class IFSFractalDrawer extends JPanel {
 		super();
 		this.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent e){
-				ct.setScreenDimensions(IFSFractalDrawer.this.getWidth() - 1, IFSFractalDrawer.this.getHeight() - 1);
-				bi = new BufferedImage(IFSFractalDrawer.this.getWidth(), IFSFractalDrawer.this.getHeight(), BufferedImage.TYPE_INT_RGB);
+				int width = IFSFractalDrawer.this.getWidth();
+				int height = IFSFractalDrawer.this.getHeight();
+				if(width > 0 && height > 0){
+					ct.setScreenDimensions(width - 1, height - 1);
+					bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+				}
 			}
 		});
 	}

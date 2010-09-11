@@ -19,7 +19,22 @@ import org.jscience.mathematics.numbers.Complex;
 
 import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
 import pl.wojciechantosiewicz.fractals.complex.formula.IPolynomialFormula;
-import pl.wojciechantosiewicz.fractals.complex.formula.PolynomialFormula;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_2;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_2_pls_Z;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_3;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_3_pls_Z_2;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_3_pls_Z_2_pls_Z;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_4;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_4_pls_Z_3;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_4_pls_Z_3_pls_Z_2;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_4_pls_Z_3_pls_Z_2_pls_Z;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_5;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_5_pls_Z_4;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_5_pls_Z_4_pls_Z_3;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_5_pls_Z_4_pls_Z_3_pls_Z_2;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_5_pls_Z_4_pls_Z_3_pls_Z_2_pls_Z;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_6;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.polynomials.Z_8;
 
 /**
  * DOCUMENT ME!
@@ -75,287 +90,22 @@ public class Mandelbrot extends DivergentFractal {
 	 * DOCUMENT ME!
 	 */
 	private void createFormulas(){
-		formulas.add(new PolynomialFormula(new FormulaProperties(-2.2, 1.0, -1.6, 1.6), 2) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				Complex egh = Complex.valueOf(re2 - im2 + this.constant.getReal(), (z.getReal() * z.getImaginary() * 2)
-						+ constant.getImaginary());
-
-				return egh;
-			}
-
-			@Override
-			public String toString(){
-				return "Z^2 + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-3.0, 0.8, -1.5, 1.5), 2) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf(re2 - im2 + z.getReal() + constant.getReal(), (z.getReal() * z.getImaginary() * 2)
-						+ z.getImaginary() + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^2 + Z + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 3) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf((z.getReal() * (re2 - (3 * im2))) + constant.getReal(), (z.getImaginary() * ((3 * re2) - im2))
-						+ constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^3 + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-2.5, 1.5, -1.5, 1.5), 3) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf(((z.getReal() * (re2 - (3 * im2))) + re2) - im2 + constant.getReal(),
-						(z.getImaginary() * ((3 * re2) - im2)) + (2 * z.getReal() * z.getImaginary()) + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^3 + Z^2 + C";
-			}
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-2.0, 1.5, -1.6, 1.6), 3) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf(((z.getReal() * (re2 - (3 * im2))) + re2) - im2 + z.getReal() + constant.getReal(), (z
-						.getImaginary() * ((3 * re2) - im2))
-						+ (2 * z.getReal() * z.getImaginary()) + z.getImaginary() + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^3 + Z^2 + Z + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.7, 1.2, -1.5, 1.5), 4) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf((re2 * (re2 - (3 * im2))) - (im2 * ((3 * re2) - im2)) + constant.getReal(), (z.getReal()
-						* z.getImaginary() * ((4 * re2) - (4 * im2)))
-						+ constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^4 + C";
-			}
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.8, 1.1, -1.5, 1.5), 4) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf(((re2 - (3 * im2)) * (re2 + z.getReal())) - (im2 * ((3 * re2) - im2)) + constant.getReal(), (z
-						.getImaginary() * (((4 * z.getReal() * (re2 - im2)) + (3 * re2)) - im2))
-						+ constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^4 + Z^3 + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.5, 0.9, -1.5, 1.5), 4) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf((((re2 - (3 * im2)) * (re2 + z.getReal())) - (im2 * ((3 * re2) - im2)) + re2) - im2
-						+ constant.getReal(), (z.getImaginary() * (((4 * z.getReal() * (re2 - im2)) + (3 * re2)) - im2))
-						+ (2 * z.getReal() * z.getImaginary()) + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^4 + Z^3 + Z^2 + C";
-			}
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.7, 0.8, -1.5, 1.5), 4) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf((((re2 - (3 * im2)) * (re2 + z.getReal())) - (im2 * ((3 * re2) - im2)) + re2) - im2 + z.getReal()
-						+ constant.getReal(), (z.getImaginary() * (((4 * z.getReal() * (re2 - im2)) + (3 * re2)) - im2))
-						+ (2 * z.getReal() * z.getImaginary()) + z.getImaginary() + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^4 + Z^3 + Z^2 + Z + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 5) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf((z.getReal() * ((re2 * (re2 - (3 * im2))) - (im2 * ((7 * re2) - (5 * im2))))) + constant.getReal(),
-						(z.getImaginary() * ((re2 * ((5 * re2) - (7 * im2))) - (im2 * ((3 * re2) - im2)))) + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^5 + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.5, 1.0, -1.25, 1.25), 5) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf(
-						((z.getReal() * ((re2 * (re2 - (3 * im2))) - (im2 * ((7 * re2) - (5 * im2))))) + (re2 * (re2 - (3 * im2))))
-								- (im2 * ((3 * re2) - im2)) + constant.getReal(),
-						(z.getImaginary() * ((re2 * ((5 * re2) - (7 * im2))) - (im2 * ((3 * re2) - im2))))
-								+ (z.getReal() * z.getImaginary() * ((4 * re2) - (4 * im2))) + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^5 + Z^4 + C";
-			}
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.5, 1.0, -1.25, 1.25), 5) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf(
-						((z.getReal() * ((re2 * (re2 - (3 * im2))) - (im2 * ((7 * re2) - (5 * im2))))) + (re2 * (re2 - (3 * im2))))
-								- (im2 * ((3 * re2) - im2)) + (z.getReal() * (re2 - (3 * im2))) + constant.getReal(),
-						(z.getImaginary() * ((re2 * ((5 * re2) - (7 * im2))) - (im2 * ((3 * re2) - im2))))
-								+ (z.getReal() * z.getImaginary() * ((4 * re2) - (4 * im2))) + (z.getImaginary() * ((3 * re2) - im2))
-								+ constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^5 + Z^4 + Z^3 + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.5, 1.0, -1.25, 1.25), 5) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf(
-						(((z.getReal() * ((re2 * (re2 - (3 * im2))) - (im2 * ((7 * re2) - (5 * im2))))) + (re2 * (re2 - (3 * im2))))
-								- (im2 * ((3 * re2) - im2)) + (z.getReal() * (re2 - (3 * im2))) + re2)
-								- im2 + constant.getReal(),
-						(z.getImaginary() * ((re2 * ((5 * re2) - (7 * im2))) - (im2 * ((3 * re2) - im2))))
-								+ (z.getReal() * z.getImaginary() * ((4 * re2) - (4 * im2))) + (z.getImaginary() * ((3 * re2) - im2))
-								+ (2 * z.getReal() * z.getImaginary()) + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^5 + Z^4 + Z^3 + Z^2 + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.5, 1.0, -1.25, 1.25), 5) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf(
-						(((z.getReal() * ((re2 * (re2 - (3 * im2))) - (im2 * ((7 * re2) - (5 * im2))))) + (re2 * (re2 - (3 * im2))))
-								- (im2 * ((3 * re2) - im2)) + (z.getReal() * (re2 - (3 * im2))) + re2)
-								- im2 + z.getReal() + constant.getReal(),
-						(z.getImaginary() * ((re2 * ((5 * re2) - (7 * im2))) - (im2 * ((3 * re2) - im2))))
-								+ (z.getReal() * z.getImaginary() * ((4 * re2) - (4 * im2))) + (z.getImaginary() * ((3 * re2) - im2))
-								+ (2 * z.getReal() * z.getImaginary()) + z.getImaginary() + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^5 + Z^4 + Z^3 + Z^2 + Z + C";
-			}
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 6) {
-			public final Complex calculate(Complex z){
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-
-				return Complex.valueOf((re2 * ((re2 * (re2 - (3 * im2))) - (im2 * ((7 * re2) - (5 * im2)))))
-						+ (im2 * ((im2 * ((3 * re2) - im2)) - (re2 * ((5 * re2) - (7 * im2))))) + constant.getReal(), (z.getReal()
-						* z.getImaginary() * ((re2 * ((6 * re2) - (10 * im2))) - (im2 * ((10 * re2) - (6 * im2)))))
-						+ constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^6 + C";
-			}
-
-		});
-		// ##############################################################################
-		formulas.add(new PolynomialFormula(new FormulaProperties(-1.5, 1.5, -1.5, 1.5), 8) {
-			public final Complex calculate(Complex z){
-				double a;
-				double b;
-				double c;
-				double re2 = z.getReal() * z.getReal();
-				double im2 = z.getImaginary() * z.getImaginary();
-				a = re2 - (3 * im2);
-				b = (3 * re2) - im2;
-				c = re2 - im2;
-
-				return Complex.valueOf(((re2 * re2 * a * a) + (im2 * im2 * b * b)) - (2 * re2 * im2 * ((8 * c * c) + (a * b)))
-						+ constant.getReal(), (8 * z.getReal() * z.getImaginary() * c * ((re2 * a) - (im2 * b))) + constant.getImaginary());
-			}
-
-			@Override
-			public String toString(){
-				return "Z^8 + C";
-			}
-		});
+		formulas.add(new Z_2(new FormulaProperties(-2.2, 1.0, -1.6, 1.6)));
+		formulas.add(new Z_2_pls_Z(new FormulaProperties(-3.0, 0.8, -1.5, 1.5)));
+		formulas.add(new Z_3(new FormulaProperties(-1.5, 1.5, -1.5, 1.5)));
+		formulas.add(new Z_3_pls_Z_2(new FormulaProperties(-2.5, 1.5, -1.5, 1.5)));
+		formulas.add(new Z_3_pls_Z_2_pls_Z(new FormulaProperties(-2.0, 1.5, -1.6, 1.6)));
+		formulas.add(new Z_4(new FormulaProperties(-1.7, 1.2, -1.5, 1.5)));
+		formulas.add(new Z_4_pls_Z_3(new FormulaProperties(-1.8, 1.1, -1.5, 1.5)));
+		formulas.add(new Z_4_pls_Z_3_pls_Z_2(new FormulaProperties(-1.5, 0.9, -1.5, 1.5)));
+		formulas.add(new Z_4_pls_Z_3_pls_Z_2_pls_Z(new FormulaProperties(-1.7, 0.8, -1.5, 1.5)));
+		formulas.add(new Z_5(new FormulaProperties(-1.5, 1.5, -1.5, 1.5)));
+		formulas.add(new Z_5_pls_Z_4(new FormulaProperties(-1.5, 1.0, -1.25, 1.25)));
+		formulas.add(new Z_5_pls_Z_4_pls_Z_3(new FormulaProperties(-1.5, 1.0, -1.25, 1.25)));
+		formulas.add(new Z_5_pls_Z_4_pls_Z_3_pls_Z_2(new FormulaProperties(-1.5, 1.0, -1.25, 1.25)));
+		formulas.add(new Z_5_pls_Z_4_pls_Z_3_pls_Z_2_pls_Z(new FormulaProperties(-1.5, 1.0, -1.25, 1.25)));
+		formulas.add(new Z_6(new FormulaProperties(-1.5, 1.5, -1.5, 1.5)));	
+		formulas.add(new Z_8(new FormulaProperties(-1.5, 1.5, -1.5, 1.5)));
 		formula = formulas.get(0);
 	}
 }

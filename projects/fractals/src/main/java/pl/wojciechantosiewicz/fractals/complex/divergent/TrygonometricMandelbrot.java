@@ -17,8 +17,9 @@ package pl.wojciechantosiewicz.fractals.complex.divergent;
 
 import org.jscience.mathematics.numbers.Complex;
 
-import pl.wojciechantosiewicz.fractals.complex.formula.ComplexFormula;
 import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.trigonometric.Cosinus;
+import pl.wojciechantosiewicz.fractals.complex.formula.definitions.trigonometric.Sinus;
 
 /**
  * DOCUMENT ME!
@@ -26,74 +27,20 @@ import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
  * @version $Revision: 000 $
  */
 public class TrygonometricMandelbrot extends DivergentFractal {
-	// ~ Constructors -------------------------------------------------------------------------------------------------
-
+	
 	/**
 	 * Creates a new TrygMandelbrot object.
 	 */
 	public TrygonometricMandelbrot() {
 		super(new String("Trigonometric Mandelbrot"), 10);
 
-		ComplexFormula formula = new ComplexFormula(new FormulaProperties(-1.5 * Math.PI, 1.5 * Math.PI, -1.5 * Math.PI, 1.5 * Math.PI)) {
-			public final Complex calculate(Complex z){
-				double eec = Math.sin(z.getReal()) * cosh(z.getImaginary());
-				double eed = Math.cos(z.getReal()) * sinh(z.getImaginary());
-
-				return Complex.valueOf((constant.getReal() * eec) - (constant.getImaginary() * eed), (constant.getReal() * eed)
-						+ (constant.getImaginary() * eec));
-			}
-
-			@Override
-			public String toString(){
-				return "C * sin(Z)";
-			}
-		};
-
-		formulas.add(formula);
-		// ##############################################################################
-		formula = new ComplexFormula(new FormulaProperties(-2 * Math.PI, 2 * Math.PI, -2 * Math.PI, 2 * Math.PI)) {
-			public final Complex calculate(Complex z){
-				double eec = Math.cos(z.getReal()) * cosh(z.getImaginary());
-				double eed = Math.sin(z.getReal()) * sinh(z.getImaginary());
-
-				return Complex.valueOf((constant.getReal() * eec) - (constant.getImaginary() * eed), (constant.getImaginary() * eed)
-						+ (constant.getImaginary() * eec));
-			}
-
-			@Override
-			public String toString(){
-				return "C * cos(Z)";
-			}
-		};
-		formulas.add(formula);
+		formulas.add(new Sinus(new FormulaProperties(-1.5 * Math.PI, 1.5 * Math.PI, -1.5 * Math.PI, 1.5 * Math.PI)));
+		formulas.add(new Cosinus(new FormulaProperties(-2 * Math.PI, 2 * Math.PI, -2 * Math.PI, 2 * Math.PI)));
+		
 		this.formula = formulas.get(0);
 	}
 
-	// ~ Methods ------------------------------------------------------------------------------------------------------
-
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @param x
-	 *        DOCUMENT ME!
-	 * @return DOCUMENT ME!
-	 */
-	private final double sinh(double x){
-		return 0.5 * (Math.exp(x) - Math.exp(-x));
-	}
-
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @param x
-	 *        DOCUMENT ME!
-	 * @return DOCUMENT ME!
-	 */
-	private final double cosh(double x){
-		return 0.5 * (Math.exp(x) + Math.exp(-x));
-	}
-
-	// ******************************************************************************
+		
 	/**
 	 * DOCUMENT ME!
 	 * 

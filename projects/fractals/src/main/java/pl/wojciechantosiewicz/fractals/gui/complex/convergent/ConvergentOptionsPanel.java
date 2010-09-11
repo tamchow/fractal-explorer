@@ -21,7 +21,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -31,8 +31,8 @@ import javax.swing.border.TitledBorder;
 
 import org.jscience.mathematics.numbers.Complex;
 
-import pl.wojciechantosiewicz.fractals.ExecutionControl;
-import pl.wojciechantosiewicz.fractals.Fraktale;
+import pl.wojciechantosiewicz.fractals.FractalDB;
+import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
 import pl.wojciechantosiewicz.fractals.complex.convergent.ConvergentFractal;
 import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 import pl.wojciechantosiewicz.fractals.complex.formula.PolynomialFormula;
@@ -54,21 +54,19 @@ public class ConvergentOptionsPanel extends ComplexCommonOptionsPanel {
 
 	// ~ Instance fields ----------------------------------------------------------------------------------------------
 
-	private JComboBox convergentFractalComboBox = new JComboBox(Fraktale.convergentFractals);
+	private JComboBox convergentFractalComboBox = new JComboBox(FractalDB.convergentFractals);
 
 	/** DOCUMENT ME! */
 	protected JList rootsList = new JList(pointsListModel);
-	private JComboBox paletteComboBox = new JComboBox(Palettes.getPalettesConvergent());
 
 	// ~ Constructors -------------------------------------------------------------------------------------------------
 
 	/**
 	 * Creates a new ConvergentOptionsPanel object.
 	 * 
-	 * @param executionControl
 	 */
-	public ConvergentOptionsPanel(ExecutionControl executionControl) {
-		super(executionControl);
+	public ConvergentOptionsPanel() {
+		super();
 		titledBorderPointsList = new TitledBorder(BorderFactory.createEtchedBorder(), "Function roots");
 		titledBorderPointsList.setTitleJustification(TitledBorder.CENTER);
 		titledBorderPointsList.setTitleColor(new Color(0, 0, 128));
@@ -77,7 +75,7 @@ public class ConvergentOptionsPanel extends ComplexCommonOptionsPanel {
 		pointListScrollPane.setBorder(titledBorderPointsList);
 		pointListScrollPane.getViewport().add(rootsList, null);
 
-		setupFormulasForSelectedFractal((ConvergentFractal)convergentFractalComboBox.getSelectedItem());
+		
 
 		convergentFractalComboBox.setMinimumSize(new Dimension(150, 24));
 		convergentFractalComboBox.setPreferredSize(new Dimension(160, 24));
@@ -99,6 +97,7 @@ public class ConvergentOptionsPanel extends ComplexCommonOptionsPanel {
 		this.add(convergentFractalComboBox, new GridBagConstraints(0, 1, 2, 1, 0.5, 0.0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, new Insets(3, 3, 0, 3), 0, 0));
 
+		paletteComboBox = new JComboBox(Palettes.getPalettesConvergent().toArray());
 		paletteComboBox.setRenderer(new FractalPaletteRenderer());
 		paletteComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
@@ -110,19 +109,21 @@ public class ConvergentOptionsPanel extends ComplexCommonOptionsPanel {
 				new Insets(0, 5, 0, 5), 0, 0));
 
 		palette = (FractalPalette)paletteComboBox.getSelectedItem();
+		setupFormulasForSelectedFractal((ConvergentFractal)convergentFractalComboBox.getSelectedItem());
 	}
 
 	/**
 	 * @return
 	 */
-	public ConvergentFractal getFractal(){
-		return (ConvergentFractal)convergentFractalComboBox.getSelectedItem();
+	@Override
+	public ComplexFractal getFractal(){
+		return (ComplexFractal)convergentFractalComboBox.getSelectedItem();
 	}
 
 	private void setupFormulasForSelectedFractal(ConvergentFractal f){
 		formulaComboBox.removeAllItems();
 
-		ArrayList<IComplexFormula> formulas = f.getFormulas();
+		List<IComplexFormula> formulas = f.getFormulas();
 
 		for(int i = 0; i < formulas.size(); i++){
 			formulaComboBox.addItem(formulas.get(i));
@@ -136,20 +137,18 @@ public class ConvergentOptionsPanel extends ComplexCommonOptionsPanel {
 	 */
 	@Override
 	protected void setupPalettes(IComplexFormula formula){
-		// TODO Auto-generated method stub
 		super.setupPalettes(formula);
 		// System.out.println("Setting palettes for formula : "+formula);
 		paletteComboBox.removeAllItems();
-		FractalPalette[] convergentPalettes = Palettes.getPalettesConvergent();
+		List<FractalPalette> convergentPalettes = Palettes.getPalettesConvergent();
 		// System.out.println("Available palettes: "+Arrays.toString(convergentPalettes));
 		// System.out.println("Formula order = "+formula.getPolynomialOrder());
-		for(int i = 0; i < convergentPalettes.length; i++){
-			FractalPalette palette1 = convergentPalettes[i];
-			int paletteOrder = palette1.getSize() / palette1.getSegmentSize();
+		for(FractalPalette convPalette : convergentPalettes){
+			int numberOfSegments = convPalette.getNumberOfSegments();
 			// System.out.println("PaletteOrder = "+paletteOrder);
-			if(paletteOrder == ((PolynomialFormula)formula).getOrder()){
+			if(numberOfSegments == ((PolynomialFormula)formula).getOrder()){
 				// System.out.println("Palette and formulas order have matched, adding to paletteComboBox");
-				paletteComboBox.addItem(palette1);
+				paletteComboBox.addItem(convPalette);
 			}else{
 				// System.out.println("Palette not matched");
 			}
