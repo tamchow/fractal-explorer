@@ -37,48 +37,40 @@ import pl.wojciechantosiewicz.fractals.gui.complex.ComplexTopLevelPanel;
 import pl.wojciechantosiewicz.fractals.gui.ifs.IFSTopLevelPanel;
 
 /**
- * DOCUMENT ME!
+ * Top level class which puts all gui elements together.
+ * Main method allows to start it as stand alone program. 
  * 
- * @version $Revision: 000 $
+ * @author Wojciech Antosiewicz
  */
 public class FraktalApplet extends JApplet {
-	// ~ Static fields/initializers -----------------------------------------------------------------------------------
-
 	private static final long serialVersionUID = 7617147846823557416L;
 	static{
 		UIManager.put("swing.boldMetal", Boolean.FALSE);
 	}
-	// ~ Instance fields ----------------------------------------------------------------------------------------------
+	
+	private static boolean isApplet = true;
 
-	/** DOCUMENT ME! */
-	private JPanel topLevelPanel = new JPanel();
-	/** DOCUMENT ME! */
-	private ExecutionControl executionControl = ExecutionControl.getInstance();
-	/** DOCUMENT ME! */
-	private JTabbedPane mainTabbedPane = new JTabbedPane();
-	/** DOCUMENT ME! */
-	private ComplexTopLevelPanel complexTopLevelPanel = new ComplexTopLevelPanel();
-	/** DOCUMENT ME! */
-	private IFSTopLevelPanel iteratedTopLevelPanel = new IFSTopLevelPanel();
-	/** DOCUMENT ME! */
-	private JProgressBar progressBar = new JProgressBar();
-	/** DOCUMENT ME! */
-	private GridBagLayout gridBagLayout1 = new GridBagLayout();
-	/** DOCUMENT ME! */
-	private JPanel statusPanel = new JPanel();
-	/** DOCUMENT ME! */
-	private JLabel statusLabel = new JLabel();
-	/** DOCUMENT ME! */
-	private BorderLayout borderLayout1 = new BorderLayout();
+	private JPanel topLevelPanel;
 
-	/**
-	 * DOCUMENT ME!
-	 */
+	private ExecutionControl executionControl;
+
+	private JTabbedPane mainTabbedPane;
+
+	private ComplexTopLevelPanel complexTopLevelPanel;
+
+	private IFSTopLevelPanel iteratedTopLevelPanel;
+
+	private JProgressBar progressBar;
+
+	private JPanel statusPanel;
+
+	private JLabel statusLabel;
+	
+
+	@Override
 	public void init(){
-		// System.out.println(new File(".").getAbsolutePath());
-		// PropertyConfigurator.configure("../log4j.properties");
-		// palette = Palettes.getPaletteDivergent(0);
-
+		
+		executionControl = ExecutionControl.getInstance();
 		try{
 			componentsInit();
 			executionControl.setComplexTopLevelPanel(complexTopLevelPanel);
@@ -91,19 +83,22 @@ public class FraktalApplet extends JApplet {
 		}
 	}
 
-	// ******************************************************************************
 	/**
-	 * DOCUMENT ME!
+	 * Initializes all GUI components.
 	 * 
-	 * @throws Exception
-	 *         DOCUMENT ME!
+	 * @throws Exception if creation of any component is unsuccessful
 	 */
 	private void componentsInit() throws Exception{
+		mainTabbedPane = new JTabbedPane();
+		complexTopLevelPanel = new ComplexTopLevelPanel();
+		iteratedTopLevelPanel = new IFSTopLevelPanel();
 		mainTabbedPane.addTab("Complex", complexTopLevelPanel);
 		mainTabbedPane.addTab("Iterated", iteratedTopLevelPanel);
 
-		topLevelPanel.setLayout(gridBagLayout1);
-		topLevelPanel.add(mainTabbedPane, new GridBagConstraints(0, 0, 2, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST,
+		topLevelPanel = new JPanel();
+		topLevelPanel.setLayout(new GridBagLayout());
+		topLevelPanel.add(mainTabbedPane, new GridBagConstraints(
+				0, 0, 2, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		this.getContentPane().addComponentListener(new ComponentAdapter() {
@@ -119,72 +114,72 @@ public class FraktalApplet extends JApplet {
 			}
 		});
 
+		progressBar = new JProgressBar();
 		progressBar.setForeground(new Color(51, 51, 153));
 		progressBar.setMinimum(0);
 		progressBar.setStringPainted(true);
 
+		statusPanel = new JPanel();
 		statusPanel.setBorder(BorderFactory.createEtchedBorder());
-		statusPanel.setLayout(borderLayout1);
+		statusPanel.setLayout(new BorderLayout());
+		
+		statusLabel = new JLabel();
 		statusLabel.setForeground(Color.black);
 		statusLabel.setText(" ");
 
 		this.getContentPane().add(topLevelPanel, BorderLayout.CENTER);
 
-		topLevelPanel.add(statusPanel, new GridBagConstraints(0, 1, 1, 1, 0.8, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		topLevelPanel.add(statusPanel, new GridBagConstraints(
+				0, 1, 1, 1, 0.8, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
 				new Insets(3, 5, 3, 5), 0, 0));
 
-		topLevelPanel.add(progressBar, new GridBagConstraints(1, 1, 1, 1, 0.2, 1.0, GridBagConstraints.CENTER,
+		topLevelPanel.add(progressBar, new GridBagConstraints(
+				1, 1, 1, 1, 0.2, 1.0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, new Insets(3, 5, 3, 5), 0, 0));
 		statusPanel.add(statusLabel, BorderLayout.CENTER);
 
 		repaint();
 	}
 
-	// ******************************************************************************
-	/**
-	 * DOCUMENT ME!
-	 */
+	
 	@Override
 	public void start(){
+		super.start();
 		// topLevelPanelComponentResized();
 	}
 
-	// ******************************************************************************
 	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @param key
-	 *        DOCUMENT ME!
-	 * @param def
-	 *        DOCUMENT ME!
-	 * @return DOCUMENT ME!
+	 * Returns applet parameter value with provided key(name)
+	 * @param key name of parameter
+	 * @param def returned value if key is not found
+	 * @return value of parameter with key name or <code>def</code> if such parameter is not found
 	 */
 	public String getParameter(String key, String def){
 		return ((getParameter(key) != null) ? getParameter(key) : def);
 	}
 
-	// ******************************************************************************
-	/**
-	 * DOCUMENT ME!
-	 */
+	
 	private final void topLevelPanelComponentResized(){
-		int w = 0;
-		int h = 0;
-
-		try{
-			w = Integer.parseInt(getParameter("WIDTH"));
-			h = Integer.parseInt(getParameter("HEIGHT"));
-		}catch(NumberFormatException nfe){
-			// @TODO
+		if(isApplet){
+			try{
+				int width = Integer.parseInt(getParameter("WIDTH"));
+				int height = Integer.parseInt(getParameter("HEIGHT"));
+				resize(width, height);
+				topLevelPanel.setSize(width, height);
+			}catch(NumberFormatException nfe){
+				// do something ?
+			}		
+			validate();
+			repaint();
 		}
-
-		resize(w, h);
-		topLevelPanel.setSize(w, h);
-		this.validate();
-		repaint();
 	}
 
+	/**
+	 * Main method for running in stand alone way 
+	 * @param args
+	 */
 	public static void main(String[] args){
+		isApplet = false;
 		FraktalApplet applet = new FraktalApplet();
 		JFrame frame = new JFrame("Fractals");
 		frame.add(applet);

@@ -35,7 +35,10 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import org.jscience.mathematics.numbers.Complex;
+
 import pl.wojciechantosiewicz.fractals.ExecutionControl;
+import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
 import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
 import pl.wojciechantosiewicz.fractals.palette.Palettes;
@@ -45,7 +48,7 @@ import pl.wojciechantosiewicz.fractals.palette.Palettes;
  * 
  * @version $Revision: 000 $
  */
-public class ComplexCommonOptionsPanel extends JPanel {
+public abstract class ComplexCommonOptionsPanel extends JPanel {
 	// ~ Static fields/initializers -----------------------------------------------------------------------------------
 
 	private final String componentInfo = "ComplexOptionsPanel";
@@ -95,6 +98,8 @@ public class ComplexCommonOptionsPanel extends JPanel {
 
 	protected JComboBox formulaComboBox = new JComboBox(formulaComboBoxModel);
 
+	protected JComboBox paletteComboBox;
+	
 	protected ExecutionControl executionControl;
 
 	protected JCheckBox previewCheckBox = new JCheckBox();
@@ -103,17 +108,15 @@ public class ComplexCommonOptionsPanel extends JPanel {
 
 	protected JButton stopButton = new JButton();
 
-	// ~ Constructors -------------------------------------------------------------------------------------------------
-
 	/**
 	 * Creates a new ComplexOptionsPanel object.
 	 */
-	public ComplexCommonOptionsPanel(ExecutionControl executionControl) {
+	public ComplexCommonOptionsPanel() {
 		super();
-		this.executionControl = executionControl;
+		this.executionControl = ExecutionControl.getInstance();
 		this.setToolTipText(componentInfo);
 		this.setBorder(null);
-		palette = Palettes.getPaletteDivergent(0);
+		palette = Palettes.getPalettesConvergent().get(0);
 		setLayout(gridBagLayout);
 
 		fractalLabel.setForeground(new Color(0, 0, 128));
@@ -213,6 +216,8 @@ public class ComplexCommonOptionsPanel extends JPanel {
 
 	// ~ Methods ------------------------------------------------------------------------------------------------------
 
+	public abstract ComplexFractal getFractal();
+	
 	protected void stopButton_actionPerformed(){
 		ExecutionControl.getInstance().stopDrawing();
 
@@ -228,17 +233,26 @@ public class ComplexCommonOptionsPanel extends JPanel {
 		executionControl.repaintComplex();
 	}
 
+	/**
+	 * Action performed after click on the aspect ration button
+	 * @param e generated event
+	 */
 	private void aspectRatioButton_actionPerformed(ActionEvent e){
 		executionControl.complexFixAspectRatio();
 	}
 
 	/**
-	 * @return the palette
+	 * Currently selected palette of colors
+	 * @return selected palette
 	 */
 	public FractalPalette getPalette(){
 		return palette;
 	}
 
+	/**
+	 * Checks whether preview checkbox is selected
+	 * @return <code>true</code> is checkbox is selected, <code>false</code> otherwise 
+	 */
 	public boolean isPreviewEnabled(){
 		return previewCheckBox.isSelected();
 	}
@@ -251,7 +265,8 @@ public class ComplexCommonOptionsPanel extends JPanel {
 	}
 
 	/**
-	 * @return
+	 * Returns formula selected in combobox
+	 * @return currently selected formula
 	 */
 	public IComplexFormula getFormula(){
 		return (IComplexFormula)formulaComboBox.getSelectedItem();
@@ -259,19 +274,23 @@ public class ComplexCommonOptionsPanel extends JPanel {
 
 	protected void setupPointListAndPalettes(IComplexFormula formula){
 		pointsListModel.clear();
-
-		if(formula.getProperties().getPoints() == null){
+		Complex[] points = formula.getProperties().getPoints(); 
+		if(points == null){
 			return;
 		}
 
-		for(int i = 0; i < formula.getProperties().getPoints().length; i++){
-			pointsListModel.addElement(formula.getProperties().getPoints()[i]);
+		for(Complex point : points){
+			pointsListModel.addElement(point);
 		}
-		formula.setConstant(formula.getProperties().getPoints()[0]);
+		formula.setConstant(points[0]);
 		setupPalettes(formula);
 	}
 
+	/**
+	 * Setup palettes for newly selected formula
+	 * @param formula selected formula
+	 */
 	protected void setupPalettes(IComplexFormula formula){
-
+		// default implementation does nothing
 	}
 }

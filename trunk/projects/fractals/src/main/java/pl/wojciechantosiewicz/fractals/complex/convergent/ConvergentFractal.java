@@ -19,6 +19,7 @@ import org.jscience.mathematics.functions.Polynomial;
 import org.jscience.mathematics.numbers.Complex;
 
 import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
+import pl.wojciechantosiewicz.fractals.complex.FractalType;
 import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 
 /**
@@ -50,7 +51,7 @@ public class ConvergentFractal extends ComplexFractal {
 	 *        DOCUMENT ME!
 	 */
 	public ConvergentFractal(String name) {
-		super(name, ComplexFractal.Type.Convergent);
+		super(name, FractalType.Convergent);
 	}
 
 	/**
@@ -61,7 +62,7 @@ public class ConvergentFractal extends ComplexFractal {
 	 * @param func
 	 */
 	public ConvergentFractal(String name, final Polynomial<Complex> func) {
-		super(name, ComplexFractal.Type.Convergent);
+		super(name, FractalType.Convergent);
 		// this.function = func;
 	}
 
@@ -76,7 +77,7 @@ public class ConvergentFractal extends ComplexFractal {
 	 *        DOCUMENT ME!
 	 */
 	public ConvergentFractal(String name, final Polynomial<Complex> func, Complex[] roots) {
-		super(name, ComplexFractal.Type.Convergent);
+		super(name, FractalType.Convergent);
 		// this.function = func;
 		// this.roots = roots;
 	}

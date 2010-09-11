@@ -15,89 +15,48 @@
  */
 package pl.wojciechantosiewicz.fractals.gui.complex;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
 
-/**
- * DOCUMENT ME!
- * 
- * @version $Revision: 000 $
- */
-public class FractalPaletteRenderer extends JLabel implements ListCellRenderer {
-	// ~ Static fields/initializers -----------------------------------------------------------------------------------
 
-	/**  */
+/**
+ * ListCellRenderer for displaying fractal palettes. It draws the palette and size of it.
+ * @author Wojciech Antosiewicz
+ */
+public class FractalPaletteRenderer extends DefaultListCellRenderer {
 	private static final long serialVersionUID = -8829957090955734869L;
 
-	private static final int WIDTH = 120;
-	private static final int HEIGHT = 15;
-
-	private static Color defaultBackground;
-	private static Color focusedBackground;
-	private static Color defaultForeground;
-	private static Color focusedForeground;
-
-	// ~ Methods ------------------------------------------------------------------------------------------------------
-
-	public FractalPaletteRenderer() {
-		super();
-		defaultBackground = this.getBackground();
-		focusedBackground = defaultBackground.darker().darker();
-		defaultForeground = this.getForeground();
-		focusedForeground = defaultForeground.brighter().brighter();
-
-	}
-
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @param list
-	 *        DOCUMENT ME!
-	 * @param value
-	 *        DOCUMENT ME!
-	 * @param index
-	 *        DOCUMENT ME!
-	 * @param isSelected
-	 *        DOCUMENT ME!
-	 * @param cellHasFocus
-	 *        DOCUMENT ME!
-	 * @return DOCUMENT ME!
+	private static final int GRADIENT_WIDTH = 120;
+	private static final int GRADIENT_HEIGHT = 12;
+	
+	/* (non-Javadoc)
+	 * @see javax.swing.ListCellRenderer#getListCellRendererComponent(javax.swing.JList, java.lang.Object, int, boolean, boolean)
 	 */
+	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus){
-
+		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+		
 		FractalPalette palette = (FractalPalette)value;
-		this.setText(" [" + palette.getSize() + "]");
-
-		BufferedImage im = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		String text = " [" + palette.getSize() + "]";
+		this.setText(text);
+				
+		BufferedImage im = new BufferedImage(GRADIENT_WIDTH, GRADIENT_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = im.createGraphics();
 
-		for(int x = 0; x < WIDTH; x++){
-			float position = x / (float)WIDTH;
+		for(int x = 0; x < im.getWidth(); x++){
+			float position = x / (float)im.getWidth();
 			g.setColor(palette.getColor(position));
-			g.drawLine(x, 1, x, HEIGHT - 2);
+			g.drawLine(x, 1, x, im.getHeight() - 2);
 		}
-
-		setIconTextGap(5);
-		setVerticalTextPosition(JLabel.CENTER);
 
 		setIcon(new ImageIcon(im));
-
-		if(cellHasFocus || isSelected){
-			setBackground(focusedBackground);
-			setForeground(focusedForeground);
-		}else{
-			setBackground(defaultBackground);
-			setForeground(defaultForeground);
-		}
 
 		return this;
 	}

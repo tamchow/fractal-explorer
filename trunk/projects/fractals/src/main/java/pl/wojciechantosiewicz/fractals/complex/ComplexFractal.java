@@ -16,162 +16,133 @@
 package pl.wojciechantosiewicz.fractals.complex;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
 
+
 /**
- * DOCUMENT ME!
+ * Convenience class for creation of complex fractals. The only method left for implementation
+ * is rgbColor.
  * 
- * @author $Author: author $
- * @version $Rev: 000 $
- * @todo DOCUMENT ME!
+ * @author Wojciech Antosiewicz
+ *
  */
 public abstract class ComplexFractal {
-	// ~ Instance fields ----------------------------------------------------------------------------------------------
-
-	/** TODO: DOCUMENT ME! */
+	/**
+	 * Name of the fractal
+	 */
 	protected String name;
-
-	/** TODO: DOCUMENT ME! */
+	
+	/**
+	 * Formula currently used to calculate color of the fractal in specified point
+	 */
 	protected IComplexFormula formula;
 
-	/** DOCUMENT ME! */
+	/**
+	 * Color palette currently used by the fractal
+	 */
 	protected FractalPalette palette;
 
-	/** TODO: DOCUMENT ME! */
-	protected ArrayList<IComplexFormula> formulas = new ArrayList<IComplexFormula>();
+	/**
+	 * List of all formulas defined for this fractal
+	 */
+	protected List<IComplexFormula> formulas;
 
-	/** DOCUMENT ME! */
-	protected Type type = Type.Undefined;
-
-	// ~ Constructors -------------------------------------------------------------------------------------------------
+	/**
+	 * Type of this fractal
+	 */
+	protected FractalType type = FractalType.Undefined;
 
 	/**
 	 * Creates a new ComplexFractal object.
 	 * 
-	 * @param name
-	 *        TODO: DOCUMENT ME!
-	 * @param type
+	 * @param name of fractal
+	 * @param type of fractal
+	 * @throws NullPointerException if <code>name<code> is null
 	 */
-	public ComplexFractal(String name, Type type) {
+	public ComplexFractal(String name, FractalType type) {
+		if(name == null){
+			throw new NullPointerException("Argument name is null");
+		}
 		this.name = name;
 		this.type = type;
+		formulas = new ArrayList<IComplexFormula>();
 	}
 
-	// ~ Methods ------------------------------------------------------------------------------------------------------
-
-	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return TODO: DOCUMENT ME!
-	 * @todo DOCUMENT ME!
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString(){
 		return name;
 	}
 
-	// ******************************************************************************
+
 	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @param u
-	 *        TODO: DOCUMENT ME!
-	 * @param v
-	 *        TODO: DOCUMENT ME!
-	 * @return TODO: DOCUMENT ME!
-	 * @todo DOCUMENT ME!
+	 * Returns integer which contains RGB color calculated for this fractal with the use
+	 * of currently selected formula in point u + i*v
+	 * @param u real part of point
+	 * @param v imaginary part of point
+	 * @return integer which contains color in RGB format
 	 */
 	public abstract int rgbColor(double u, double v);
 
+
 	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return TODO: DOCUMENT ME!
-	 * @todo DOCUMENT ME!
+	 * Returns currently selected formula
+	 * @return formula for this fractal
 	 */
 	public IComplexFormula getFormula(){
 		return formula;
 	}
 
 	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @param f
-	 *        TODO: DOCUMENT ME!
-	 * @todo DOCUMENT ME!
+	 * Sets the new formula to use by this fractal
+	 * @param f new formula
 	 */
 	public void setFormula(IComplexFormula f){
 		formula = f;
 	}
 
 	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return TODO: DOCUMENT ME!
-	 * @todo DOCUMENT ME!
+	 * Returns all formulas defined for this fractal
+	 * @return formulas of this fractal
 	 */
-	public ArrayList<IComplexFormula> getFormulas(){
+	public List<IComplexFormula> getFormulas(){
 		return formulas;
 	}
 
 	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return TODO: DOCUMENT ME!
-	 * @todo DOCUMENT ME!
+	 * Returns name of the fractal
+	 * @return name of the fractal
 	 */
 	public String getName(){
 		return name;
 	}
 
 	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
+	 * Returns currently used palette
+	 * @return palette 
 	 */
 	public FractalPalette getPalette(){
 		return palette;
 	}
 
 	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @param palette
-	 *        DOCUMENT ME!
+	 * Sets the new palette for this fractal
+	 * @param palette new palette to use by this fractal
 	 */
 	public void setPalette(FractalPalette palette){
 		this.palette = palette;
 	}
 
 	/**
-	 * DOCUMENT ME!
-	 * 
-	 * @return DOCUMENT ME!
+	 * Returns type of this fractal
+	 * @return type of thw fractal
 	 */
-	public Type getType(){
+	public FractalType getType(){
 		return type;
-	}
-
-	// ~ Enumerations -------------------------------------------------------------------------------------------------
-
-	/**
-	 * @author wa
-	 */
-	public enum Type {// ~ Enumeration constant initializers ------------------------------------------------------------------------
-
-		/**
-         * 
-         */
-		Convergent,
-		/**
-         * 
-         */
-		Divergent,
-		/**
-         * 
-         */
-		Undefined;
 	}
 }
