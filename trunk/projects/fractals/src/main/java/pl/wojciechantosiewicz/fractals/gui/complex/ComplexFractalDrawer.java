@@ -175,12 +175,11 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		thread = new Thread(this);
 		running = true;
 		thread.start();
-		// executionControl.getInstance().drawComplex(discardZoom);
 	}
 
-	public void setFractal(ComplexFractal complexFractal, boolean originalZoom){
+	public void setFractal(ComplexFractal complexFractal, boolean discardZoom){
 		this.complexFractal = complexFractal;
-		if(originalZoom){
+		if(discardZoom){
 			discardZoom();
 		}
 	}

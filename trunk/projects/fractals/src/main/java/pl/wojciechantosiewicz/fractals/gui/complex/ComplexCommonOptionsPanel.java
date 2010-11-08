@@ -116,7 +116,7 @@ public abstract class ComplexCommonOptionsPanel extends JPanel {
 		this.executionControl = ExecutionControl.getInstance();
 		this.setToolTipText(componentInfo);
 		this.setBorder(null);
-		palette = Palettes.getPalettesConvergent().get(0);
+//		palette = Palettes.getPalettesConvergent().get(0);
 		setLayout(gridBagLayout);
 
 		fractalLabel.setForeground(new Color(0, 0, 128));

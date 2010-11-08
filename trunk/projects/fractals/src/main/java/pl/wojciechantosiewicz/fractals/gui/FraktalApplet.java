@@ -30,6 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import pl.wojciechantosiewicz.fractals.ExecutionControl;
@@ -79,7 +80,6 @@ public class FraktalApplet extends JApplet {
 			executionControl.setStatusLabel(statusLabel);
 		}catch(Exception e){
 			e.printStackTrace();
-
 		}
 	}
 
@@ -89,16 +89,18 @@ public class FraktalApplet extends JApplet {
 	 * @throws Exception if creation of any component is unsuccessful
 	 */
 	private void componentsInit() throws Exception{
+		
 		mainTabbedPane = new JTabbedPane();
 		complexTopLevelPanel = new ComplexTopLevelPanel();
 		iteratedTopLevelPanel = new IFSTopLevelPanel();
 		mainTabbedPane.addTab("Complex", complexTopLevelPanel);
 		mainTabbedPane.addTab("Iterated", iteratedTopLevelPanel);
+		mainTabbedPane.setToolTipText("mainTabbedPane");
 
 		topLevelPanel = new JPanel();
 		topLevelPanel.setLayout(new GridBagLayout());
 		topLevelPanel.add(mainTabbedPane, new GridBagConstraints(
-				0, 0, 2, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST,
+				0, 0, 2, 1, 1.0, 2.0, GridBagConstraints.NORTHWEST,
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		this.getContentPane().addComponentListener(new ComponentAdapter() {
@@ -115,8 +117,6 @@ public class FraktalApplet extends JApplet {
 		});
 
 		progressBar = new JProgressBar();
-		progressBar.setForeground(new Color(51, 51, 153));
-		progressBar.setMinimum(0);
 		progressBar.setStringPainted(true);
 
 		statusPanel = new JPanel();
@@ -127,17 +127,18 @@ public class FraktalApplet extends JApplet {
 		statusLabel.setForeground(Color.black);
 		statusLabel.setText(" ");
 
-		this.getContentPane().add(topLevelPanel, BorderLayout.CENTER);
+		
 
 		topLevelPanel.add(statusPanel, new GridBagConstraints(
-				0, 1, 1, 1, 0.8, 1.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
-				new Insets(3, 5, 3, 5), 0, 0));
+				0, 1, 1, 1, 0.8, 0.0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+				new Insets(5, 5, 5, 5), 0, 0));
 
 		topLevelPanel.add(progressBar, new GridBagConstraints(
-				1, 1, 1, 1, 0.2, 1.0, GridBagConstraints.CENTER,
-				GridBagConstraints.HORIZONTAL, new Insets(3, 5, 3, 5), 0, 0));
+				1, 1, 1, 1, 0.2, 0.0, GridBagConstraints.CENTER,
+				GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
 		statusPanel.add(statusLabel, BorderLayout.CENTER);
-
+		
+		getContentPane().add(topLevelPanel, BorderLayout.CENTER);
 		repaint();
 	}
 
@@ -168,14 +169,14 @@ public class FraktalApplet extends JApplet {
 				topLevelPanel.setSize(width, height);
 			}catch(NumberFormatException nfe){
 				// do something ?
-			}		
-			validate();
-			repaint();
+			}
 		}
+		validate();
+		repaint();
 	}
 
 	/**
-	 * Main method for running in stand alone way 
+	 * Main method for running as a stand alone application 
 	 * @param args
 	 */
 	public static void main(String[] args){
