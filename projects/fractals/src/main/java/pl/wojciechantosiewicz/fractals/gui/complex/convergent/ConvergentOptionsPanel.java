@@ -97,7 +97,7 @@ public class ConvergentOptionsPanel extends ComplexCommonOptionsPanel {
 		this.add(convergentFractalComboBox, new GridBagConstraints(0, 1, 2, 1, 0.5, 0.0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, new Insets(3, 3, 0, 3), 0, 0));
 
-		paletteComboBox = new JComboBox(Palettes.getPalettesConvergent().toArray());
+		paletteComboBox = new JComboBox(Palettes.getInstace().getPalettesConvergent().toArray());
 		paletteComboBox.setRenderer(new FractalPaletteRenderer());
 		paletteComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
@@ -140,10 +140,10 @@ public class ConvergentOptionsPanel extends ComplexCommonOptionsPanel {
 		super.setupPalettes(formula);
 		// System.out.println("Setting palettes for formula : "+formula);
 		paletteComboBox.removeAllItems();
-		List<FractalPalette> convergentPalettes = Palettes.getPalettesConvergent();
+
 		// System.out.println("Available palettes: "+Arrays.toString(convergentPalettes));
 		// System.out.println("Formula order = "+formula.getPolynomialOrder());
-		for(FractalPalette convPalette : convergentPalettes){
+		for(FractalPalette convPalette : Palettes.getInstace().getPalettesConvergent()){
 			int numberOfSegments = convPalette.getNumberOfSegments();
 			// System.out.println("PaletteOrder = "+paletteOrder);
 			if(numberOfSegments == ((PolynomialFormula)formula).getOrder()){

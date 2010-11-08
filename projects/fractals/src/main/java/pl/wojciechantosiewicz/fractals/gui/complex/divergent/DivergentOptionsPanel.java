@@ -104,7 +104,7 @@ public class DivergentOptionsPanel extends ComplexCommonOptionsPanel {
 		this.add(divergentFractalComboBox, new GridBagConstraints(0, 1, 2, 1, 0.5, 0.0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, new Insets(3, 3, 0, 3), 0, 0));
 
-		paletteComboBox = new JComboBox(Palettes.getPalettesDivergent().toArray());
+		paletteComboBox = new JComboBox(Palettes.getInstace().getPalettesDivergent().toArray());
 		paletteComboBox.setRenderer(new FractalPaletteRenderer());
 		paletteComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){

@@ -22,7 +22,7 @@ import pl.wojciechantosiewicz.image.Gradient;
 
 /**
  * Palette of colors arranged in an array with specified segments.
- * Each palette consist of a number of equally sized segments. Segments are only logical arrangement f colors.
+ * Each palette consist of a number of equally sized segments. Segments are only logical arrangement of colors.
  * 
  * @author Wojciech Antosiewicz
  */

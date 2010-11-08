@@ -70,9 +70,7 @@ public class ExecutionControl {
 		fractal.setPalette(complexTopLevelPanel.getPalette());
 		fractal.setFormula(complexTopLevelPanel.getFormula());
 
-		drawer.setFractal(fractal, true);
-
-//		drawer.setPreviewEnabled(complexTopLevelPanel.isPreviewEnabled());
+		drawer.setFractal(fractal, discardZoom);
 		drawer.drawFractal(fractal);
 	}
 
