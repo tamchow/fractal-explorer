@@ -78,21 +78,33 @@ public class ComplexTopLevelPanel extends JPanel {
 		return complexFractalDrawer;
 	}
 
+	/**
+	 * @return
+	 */
 	public ComplexFractal getComplexFractal(){
 		return ((ComplexCommonOptionsPanel)
 				complexFractalTypeTabbedPane.getSelectedComponent()).getFractal();
 	}
 
+	/**
+	 * @return
+	 */
 	public FractalPalette getPalette(){
 		return ((ComplexCommonOptionsPanel)
 				complexFractalTypeTabbedPane.getSelectedComponent()).getPalette();
 	}
 
+	/**
+	 * @return
+	 */
 	public boolean isPreviewEnabled(){
 		return ((ComplexCommonOptionsPanel)
 				complexFractalTypeTabbedPane.getSelectedComponent()).isPreviewEnabled();
 	}
 
+	/**
+	 * @return
+	 */
 	public IComplexFormula getFormula(){
 		return ((ComplexCommonOptionsPanel)
 				complexFractalTypeTabbedPane.getSelectedComponent()).getFormula();

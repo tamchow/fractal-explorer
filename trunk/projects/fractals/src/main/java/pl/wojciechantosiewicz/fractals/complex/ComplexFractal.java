@@ -30,6 +30,8 @@ import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
  *
  */
 public abstract class ComplexFractal {
+	protected static final int RGB_BLACK = 0x000000;
+	
 	/**
 	 * Name of the fractal
 	 */

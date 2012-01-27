@@ -63,6 +63,6 @@ public class TrygonometricMandelbrot extends DivergentFractal {
 			}
 		}
 
-		return 0x000000;
+		return RGB_BLACK;
 	}
 }

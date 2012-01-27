@@ -157,6 +157,9 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		fontMetrics = getFontMetrics(this.getFont());
 	}
 	
+	/**
+	 * @param fractal
+	 */
 	public void drawFractal(ComplexFractal fractal){
 		setFractal(fractal, true);
 
@@ -167,6 +170,9 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		thread.start();
 	}
 
+	/**
+	 * @param discardZoom
+	 */
 	public void repaintFractal(boolean discardZoom){
 		if(discardZoom){
 			discardZoom();
@@ -177,6 +183,10 @@ public class ComplexFractalDrawer extends JPanel implements Runnable {
 		thread.start();
 	}
 
+	/**
+	 * @param complexFractal
+	 * @param discardZoom
+	 */
 	public void setFractal(ComplexFractal complexFractal, boolean discardZoom){
 		this.complexFractal = complexFractal;
 		if(discardZoom){

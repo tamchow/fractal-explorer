@@ -26,7 +26,6 @@ import pl.wojciechantosiewicz.fractals.complex.formula.FormulaProperties;
  * @version $Revision: 000 $
  */
 public class FireShip extends DivergentFractal {
-	private static final int RGB_BLACK = 0x000000;
 
 	// ~ Constructors -------------------------------------------------------------------------------------------------
 

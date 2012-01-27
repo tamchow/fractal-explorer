@@ -102,6 +102,9 @@ public class AffineTransform {
 			 affineTransform.e, affineTransform.f);
 	}
 
+	/**
+	 * 
+	 */
 	public AffineTransform() {
 		this(0, 0, 0, 0, 0, 0);
 	}

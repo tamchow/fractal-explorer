@@ -90,7 +90,7 @@ public class FraktalApplet extends JApplet {
 	 */
 	private void componentsInit() throws Exception{
 		
-		mainTabbedPane = new JTabbedPane();
+		mainTabbedPane = new JTabbedPane(SwingConstants.RIGHT);
 		complexTopLevelPanel = new ComplexTopLevelPanel();
 		iteratedTopLevelPanel = new IFSTopLevelPanel();
 		mainTabbedPane.addTab("Complex", complexTopLevelPanel);

@@ -55,7 +55,9 @@ public class NewtonFractal extends ConvergentFractal {
 		final Polynomial<Complex> function = Polynomial.valueOf(Complex.ONE, varZ).pow(3).plus(Complex.valueOf(-1, 0));
 		final Polynomial<Complex> derivative = function.differentiate(function.getVariables().get(0));
 
-		PolynomialFormula complexFormula = new PolynomialFormula(new FormulaProperties(-2.0, 2.0, -2.0, 2.0), 3) {
+		FormulaProperties props = new FormulaProperties(-2.0, 2.0, -2.0, 2.0);
+		
+		PolynomialFormula complexFormula = new PolynomialFormula(props, 3) {
 			public Complex calculate(Complex value){
 				Complex funcValue = function.evaluate(value);
 				Complex derivValue = derivative.evaluate(value);
@@ -70,7 +72,11 @@ public class NewtonFractal extends ConvergentFractal {
 		};
 
 		// roots of this polynomial
-		Complex[] points = { Complex.valueOf(1, 0), Complex.valueOf(-0.5, Math.sqrt(3) / 2), Complex.valueOf(-0.5, -Math.sqrt(3) / 2) };
+		Complex[] points = { 
+				Complex.valueOf(1, 0),
+				Complex.valueOf(-0.5, Math.sqrt(3) / 2),
+				Complex.valueOf(-0.5, -Math.sqrt(3) / 2)
+		};
 		complexFormula.getProperties().setPoints(points);
 		return complexFormula;
 	}
@@ -80,7 +86,9 @@ public class NewtonFractal extends ConvergentFractal {
 		final Polynomial<Complex> function = Polynomial.valueOf(Complex.ONE, varZ).pow(4).plus(Complex.valueOf(-1, 0));
 		final Polynomial<Complex> derivative = function.differentiate(function.getVariables().get(0));
 
-		PolynomialFormula complexFormula = new PolynomialFormula(new FormulaProperties(-2.0, 2.0, -2.0, 2.0), 4) {
+		FormulaProperties props = new FormulaProperties(-2.0, 2.0, -2.0, 2.0);
+		
+		PolynomialFormula complexFormula = new PolynomialFormula(props, 4) {
 			public Complex calculate(Complex value){
 				Complex funcValue = function.evaluate(value);
 				Complex derivValue = derivative.evaluate(value);
@@ -95,7 +103,12 @@ public class NewtonFractal extends ConvergentFractal {
 
 		};
 
-		Complex[] points = { Complex.valueOf(1, 0), Complex.valueOf(-1, 0), Complex.valueOf(0, 1), Complex.valueOf(0, -1), };
+		Complex[] points = {
+				Complex.valueOf(1, 0),
+				Complex.valueOf(-1, 0),
+				Complex.valueOf(0, 1),
+				Complex.valueOf(0, -1)
+		};
 		complexFormula.getProperties().setPoints(points);
 		return complexFormula;
 	}

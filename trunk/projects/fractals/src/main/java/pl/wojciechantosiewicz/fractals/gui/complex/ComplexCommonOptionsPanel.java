@@ -41,7 +41,6 @@ import pl.wojciechantosiewicz.fractals.ExecutionControl;
 import pl.wojciechantosiewicz.fractals.complex.ComplexFractal;
 import pl.wojciechantosiewicz.fractals.complex.formula.IComplexFormula;
 import pl.wojciechantosiewicz.fractals.palette.FractalPalette;
-import pl.wojciechantosiewicz.fractals.palette.Palettes;
 
 /**
  * DOCUMENT ME!
@@ -216,6 +215,9 @@ public abstract class ComplexCommonOptionsPanel extends JPanel {
 
 	// ~ Methods ------------------------------------------------------------------------------------------------------
 
+	/**
+	 * @return current fractal
+	 */
 	public abstract ComplexFractal getFractal();
 	
 	protected void stopButton_actionPerformed(){
