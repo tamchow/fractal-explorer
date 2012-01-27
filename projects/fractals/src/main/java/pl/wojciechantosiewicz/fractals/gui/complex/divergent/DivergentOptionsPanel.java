@@ -141,6 +141,7 @@ public class DivergentOptionsPanel extends ComplexCommonOptionsPanel {
 	 * Returns the currently selected divergent fractal
 	 * @return selected fractal
 	 */
+	@Override
 	public ComplexFractal getFractal(){
 		return (ComplexFractal)divergentFractalComboBox.getSelectedItem();
 	}
